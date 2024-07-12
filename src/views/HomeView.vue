@@ -1,9 +1,9 @@
 <template>
-  <main>
-    <h1>This is Home Tab</h1>
-  </main>
+  <header>
+    <Navbar/>
+  </header>
 </template>
 
 <script setup>
-
+import Navbar from '@/components/NavBar.vue'
 </script>
