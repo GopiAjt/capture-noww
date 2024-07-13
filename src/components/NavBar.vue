@@ -2,7 +2,9 @@
     <div class="card">
         <Toolbar>
             <template #start>
-                <img src="/src/assets/images/CaptureNow.png" alt="CaptureNoww" width="50px">
+                <RouterLink to="/">
+                    <img src="/src/assets/images/CaptureNow.png" alt="CaptureNoww" width="50px">
+                </RouterLink>
             </template>
 
             <template #center>
@@ -14,7 +16,7 @@
                 </IconField>
             </template>
             <template #end>
-                <SignupSignin/>
+                <SignupSignin />
             </template>
         </Toolbar>
     </div>
