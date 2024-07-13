@@ -13,15 +13,15 @@
                     <InputText placeholder="Search" />
                 </IconField>
             </template>
-
             <template #end>
-                
+                <SignupSignin/>
             </template>
         </Toolbar>
     </div>
 </template>
 
 <script setup>
+import SignupSignin from '@/components/SignupSigninPopup.vue'
 import { ref } from 'vue';
 
 // const items = ref([
