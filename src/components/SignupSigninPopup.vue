@@ -15,9 +15,9 @@
                                 <InputText v-model="LoginEmailId" type="text" placeholder="Email Id" fluid />
                             </div><br>
                             <div class="card flex justify-center">
-                                <Password v-model="LoginPassword" placeholder="Re Enter Password" :feedback="false" fluid />
+                                <Password v-model="LoginPassword" placeholder="Password" :feedback="false" fluid />
                             </div><br>
-                            <Button label="Sign Up" @click="handleSignup" />
+                            <Button label="Log In" @click="handleLogin" />
                         </TabPanel>
                         <TabPanel value="1">
                             <div class="card flex flex-col items-center gap-4">
@@ -78,6 +78,25 @@ export default {
         };
     },
     methods: {
+        async handleLogin() {
+            try {
+                const tokenResponse = await Api().get(`/customer/authtoken?email=${this.LoginEmailId}&password=${this.LoginPassword}`);
+                const response = await Api().get(`/customer/signin?email=${this.LoginEmailId}&password=${this.LoginPassword}`);
+
+                if (response.status === 400) {
+                    window.alert('Please verify your account');
+                } else if (response.status === 200) {
+                    
+                    localStorage.setItem('user', JSON.stringify(response.data));
+                    console.log(response.data);
+                } else {
+                    window.alert('Invalid Credentials');
+                }
+            } catch (error) {
+                console.error('Error during login:', error);
+                window.alert('An error occurred. Please try again later.');
+            }
+        },
         async handleSignup() {
             const options = {
                 method: "POST",
@@ -93,24 +112,17 @@ export default {
             };
 
             try {
-                const response = await Api().post(`/customer/signup`, options); // Use Axios.post
+                const response = await Api().post(`/customer/signup`, options);
 
-                if (response.data.status === 'success') { // Assuming response has a status property
-
+                if (response.data.status === 'success') {
                     window.alert("Please Verify your Email!");
-
-                } else if (response.data.status === 'error') { // Assuming response has a status property
-
-                    window.alert(response.data.message); // Assuming response has a message property
+                } else if (response.data.status === 'error') {
+                    window.alert(response.data.message);
                 } else {
-                    // Handle other potential errors (e.g., server errors)
                     console.error("Error signing up:", response);
                 }
-
-                console.log(response);
             } catch (error) {
                 console.error("Error during signup:", error);
-                // Handle errors gracefully (e.g., display error message to user)
             }
         },
     },
