@@ -3,6 +3,6 @@ import { register } from 'module';
 
 export default {
     register (cred){
-        return Api().post('', cred)
+        return Api().get('', cred)
     }
 }
