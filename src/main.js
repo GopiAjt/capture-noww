@@ -7,6 +7,7 @@ import Aura from '@primevue/themes/aura';
 import App from './App.vue'
 import router from './router'
 import 'primeicons/primeicons.css'; // Import PrimeIcons CSS
+import { definePreset } from '@primevue/themes';
 
 import Toolbar from 'primevue/toolbar';
 import Button from 'primevue/button';
@@ -26,11 +27,33 @@ import InputNumber from 'primevue/inputnumber';
 import Password from 'primevue/password';
 
 
+import Ripple from 'primevue/ripple';
+
+
 
 const app = createApp(App)
+// app.use(PrimeVue, { ripple: true });
+app.directive('ripple', Ripple);
+const MyPreset = definePreset(Aura, {
+    semantic: {
+        primary: {
+            50: '{yellow.50}',
+            100: '{yellow.100}',
+            200: '{yellow.200}',
+            300: '{yellow.300}',
+            400: '{yellow.400}',
+            500: '{yellow.500}',
+            600: '{yellow.600}',
+            700: '{yellow.700}',
+            800: '{yellow.800}',
+            900: '{yellow.900}',
+            950: '{yellow.950}'
+        }
+    }
+});
 app.use(PrimeVue, {
     theme: {
-        preset: Aura,
+        preset: MyPreset,
         options: {
             cssLayer: {
                 name: 'primevue',

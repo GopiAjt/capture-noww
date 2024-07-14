@@ -11,29 +11,49 @@
                     </TabList>
                     <TabPanels>
                         <TabPanel value="0">
-
+                            <div class="flex-auto">
+                                <InputText v-model="LoginEmailId" type="text" placeholder="Email Id" fluid />
+                            </div><br>
+                            <div class="card flex justify-center">
+                                <Password v-model="LoginPassword" placeholder="Re Enter Password" :feedback="false" fluid />
+                            </div><br>
+                            <Button label="Sign Up" @click="handleSignup" />
                         </TabPanel>
                         <TabPanel value="1">
                             <div class="card flex flex-col items-center gap-4">
                                 <div class="flex-auto">
-                                    <InputText v-model="value2" type="text" placeholder="Name" fluid />
-                                </div>
+                                    <InputText v-model="name" type="text" placeholder="Name" fluid />
+                                </div><br>
                                 <div class="flex-auto">
-                                    <InputText v-model="value2" type="text" placeholder="Email Id" fluid />
-                                </div>
+                                    <InputText v-model="emailId" type="text" placeholder="Email Id" fluid />
+                                </div><br>
                                 <div class="flex-auto">
-                                    <InputNumber v-model="value2" inputId="withoutgrouping" placeholder="Phone Number"
+                                    <InputNumber v-model="phoneNo" inputId="withoutgrouping" placeholder="Phone Number"
                                         :useGrouping="false" fluid />
-                                </div>
+                                </div><br>
                                 <div class="card flex justify-center">
-                                    <Password v-model="value" toggleMask />
-                                </div>
-                                <div class="flex-auto">
-
-                                </div>
+                                    <Password v-model="password1" placeholder="Enter Password" toggleMask fluid>
+                                        <template #header>
+                                            <div class="font-semibold text-xm mb-4">Pick a password</div>
+                                        </template>
+                                        <template #footer>
+                                            <Divider />
+                                            <ul class="pl-2 ml-2 my-0 leading-normal">
+                                                <li>At least one lowercase</li>
+                                                <li>At least one uppercase</li>
+                                                <li>At least one numeric</li>
+                                                <li>Minimum 8 characters</li>
+                                            </ul>
+                                        </template>
+                                    </Password>
+                                </div><br>
+                                <div class="card flex justify-center">
+                                    <Password v-model="password2" placeholder="Re Enter Password" :feedback="false"
+                                        fluid />
+                                </div><br>
+                                <Button label="Sign Up" @click="handleSignup" />
                             </div>
                         </TabPanel>
-
                     </TabPanels>
                 </Tabs>
             </div>
@@ -41,13 +61,60 @@
     </div>
 </template>
 
-<script setup>
-import { ref } from "vue";
+<script>
+import Api from '@/services/Api';
 
+export default {
+    data() {
+        return {
+            LoginEmailId: null,
+            LoginPassword: null,
+            name: null,
+            emailId: null,
+            phoneNo: null,
+            password1: null,
+            password2: null,
+            visible: false,
+        };
+    },
+    methods: {
+        async handleSignup() {
+            const options = {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                data: {
+                    name: this.name,
+                    email: this.emailId,
+                    phoneNo: this.phoneNo,
+                    password: this.password1,
+                },
+            };
 
-const password = ref(null);
+            try {
+                const response = await Api().post(`/customer/signup`, options); // Use Axios.post
 
-const visible = ref(false);
+                if (response.data.status === 'success') { // Assuming response has a status property
+
+                    window.alert("Please Verify your Email!");
+
+                } else if (response.data.status === 'error') { // Assuming response has a status property
+
+                    window.alert(response.data.message); // Assuming response has a message property
+                } else {
+                    // Handle other potential errors (e.g., server errors)
+                    console.error("Error signing up:", response);
+                }
+
+                console.log(response);
+            } catch (error) {
+                console.error("Error during signup:", error);
+                // Handle errors gracefully (e.g., display error message to user)
+            }
+        },
+    },
+};
 </script>
 
 <style scoped>

@@ -7,7 +7,7 @@
 
             <template #center>
                 <div class=" flex justify-center">
-                    <AutoComplete v-model="value" :suggestions="items" @complete="search" />
+                    <AutoComplete v-model="value" :suggestions="items" @complete="search" fluid/>
                 </div>
             </template>
             <template #end>
@@ -34,6 +34,11 @@ import { ref } from 'vue';
 </script>
 <script>
 export default {
+    data(){
+        return{
+            value: null
+        }
+    },
     methods: {
         navigateTo(route) {
             this.$router.push(route);
