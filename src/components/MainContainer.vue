@@ -100,6 +100,12 @@ img {
     justify-content: center;
     align-items: center;
 }
+
+.p-button {
+  background: yellow;
+  border: 2px solid white;
+}
+
 @media (max-width: 575px) {
     img {
         width: 70vw;
@@ -127,6 +133,7 @@ img {
     justify-content: space-between;
     align-items: center;
 }
+
 @media (max-width: 575px) {
     .p-card-body {
         padding: 5px;

@@ -1,19 +1,41 @@
 <template>
-    <div class=" flex justify-center">
-        <Button icon="pi pi-user" label="Log In" @click="visible = true" severity="contrast"  />
-        <Dialog v-model:visible="visible" modal header="Edit Profile" :style="{ width: '25rem' }">
-            <span class="text-surface-500 dark:text-surface-400 block mb-8">Update your information.</span>
-            <div class="flex items-center gap-4 mb-4">
-                <label for="username" class="font-semibold w-24">Username</label>
-                <InputText id="username" class="flex-auto" autocomplete="off" />
-            </div>
-            <div class="flex items-center gap-4 mb-8">
-                <label for="email" class="font-semibold w-24">Email</label>
-                <InputText id="email" class="flex-auto" autocomplete="off" />
-            </div>
-            <div class="flex justify-end gap-2">
-                <Button type="button" label="Cancel" severity="secondary" @click="visible = false"></Button>
-                <Button type="button" label="Save" @click="visible = false"></Button>
+    <div class="card flex justify-center">
+        <Button label="Log In" @click="visible = true" id="login-btn"
+            :style="{ backgroundColor: 'yellow', borderColor: 'black' }" />
+        <Dialog v-model:visible="visible" header="CaptureNoww" modal :style="{ width: '25rem' }">
+            <div class="card">
+                <Tabs value="0">
+                    <TabList>
+                        <Tab value="0">Log In</Tab>
+                        <Tab value="1">Sign Up</Tab>
+                    </TabList>
+                    <TabPanels>
+                        <TabPanel value="0">
+
+                        </TabPanel>
+                        <TabPanel value="1">
+                            <div class="card flex flex-col items-center gap-4">
+                                <div class="flex-auto">
+                                    <InputText v-model="value2" type="text" placeholder="Name" fluid />
+                                </div>
+                                <div class="flex-auto">
+                                    <InputText v-model="value2" type="text" placeholder="Email Id" fluid />
+                                </div>
+                                <div class="flex-auto">
+                                    <InputNumber v-model="value2" inputId="withoutgrouping" placeholder="Phone Number"
+                                        :useGrouping="false" fluid />
+                                </div>
+                                <div class="card flex justify-center">
+                                    <Password v-model="value" toggleMask />
+                                </div>
+                                <div class="flex-auto">
+
+                                </div>
+                            </div>
+                        </TabPanel>
+
+                    </TabPanels>
+                </Tabs>
             </div>
         </Dialog>
     </div>
@@ -22,8 +44,18 @@
 <script setup>
 import { ref } from "vue";
 
+
+const password = ref(null);
+
 const visible = ref(false);
 </script>
-<style scoped>
 
+<style scoped>
+#login-btn {
+    height: 35px;
+}
+
+.p-tablist-tab-list {
+    justify-content: space-between;
+}
 </style>

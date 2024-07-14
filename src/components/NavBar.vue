@@ -6,12 +6,9 @@
             </template>
 
             <template #center>
-                <IconField>
-                    <InputIcon>
-                        <i class="pi pi-search" />
-                    </InputIcon>
-                    <InputText placeholder="Search" size="small"/>
-                </IconField>
+                <div class=" flex justify-center">
+                    <AutoComplete v-model="value" :suggestions="items" @complete="search" />
+                </div>
             </template>
             <template #end>
                 <SignupSignin />
@@ -51,17 +48,22 @@ export default {
     padding: 5px;
     padding-left: 4vw;
     padding-right: 4vw;
+    position: sticky;
+    width: 100%;
 }
 
 .card {
     padding: 10px;
 }
-.p-button{
+
+.p-button {
     width: 30px;
 }
-.p-iconfield{
+
+.p-iconfield {
     width: 20px;
 }
+
 @media (max-width: 390px) {
     img {
         width: 3vw;
