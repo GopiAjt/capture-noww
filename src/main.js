@@ -25,7 +25,8 @@ import TabPanel from 'primevue/tabpanel';
 import AutoComplete from 'primevue/autocomplete';
 import InputNumber from 'primevue/inputnumber';
 import Password from 'primevue/password';
-
+import ToastService from 'primevue/toastservice';
+import Toast from 'primevue/toast';
 
 import Ripple from 'primevue/ripple';
 
@@ -65,6 +66,7 @@ app.use(PrimeVue, {
 
 app.use(createPinia())
 app.use(router)
+app.use(ToastService);
 app.component('Toolbar', Toolbar);
 app.component('Button', Button);
 app.component('IconField', IconField);
@@ -81,4 +83,5 @@ app.component('TabPanel', TabPanel);
 app.component('AutoComplete', AutoComplete);
 app.component('InputNumber', InputNumber);
 app.component('Password', Password);
+app.component('Toast', Toast);
 app.mount('#app')

@@ -1,6 +1,5 @@
 <template>
     <div v-if="photographers" class="card">
-
         <Card v-for="photographer in photographers">
             <template #header>
                 <div class="header-img">
@@ -27,6 +26,7 @@
             <template #footer>
                 <div class="footer-div">
                     <div class="price-range">Starts with: {{ photographer.startsWith }}</div>
+                    <Toast />
                     <Button label="Book Me" class="p-button-sm p-button-dark" @click="alertLogin" />
                 </div>
             </template>
@@ -53,9 +53,8 @@ export default {
                 // Handle error gracefully (e.g., display error message to user)
             }
         },
-        alertLogin: (event) => {
-            event.preventDefault();
-            window.alert('Please Login to see a photographer');
+        alertLogin() {
+            this.$toast.add({ severity: 'error', summary: 'Please Login!', life: 3000 });
         }
     },
     data() { // Optional: Define initial data state for photographers and error
