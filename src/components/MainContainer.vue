@@ -23,5 +23,5 @@
 </template>
 
 <script setup>
-
+import Api from '@/services/Api';
 </script>
