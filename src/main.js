@@ -16,6 +16,7 @@ import InputIcon from 'primevue/inputicon';
 import InputText from 'primevue/inputtext';
 import SplitButton from 'primevue/splitbutton';
 import Dialog from 'primevue/dialog';
+import Card from 'primevue/card';
 
 
 const app = createApp(App)
@@ -33,4 +34,5 @@ app.component('InputIcon', InputIcon);
 app.component('InputText', InputText);
 app.component('SplitButton', SplitButton);
 app.component('Dialog', Dialog);
+app.component('Card', Card);
 app.mount('#app')

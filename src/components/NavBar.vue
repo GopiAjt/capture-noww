@@ -2,9 +2,7 @@
     <div class="card">
         <Toolbar>
             <template #start>
-                <RouterLink to="/">
-                    <img src="/src/assets/images/CaptureNow.png" alt="CaptureNoww" width="50px">
-                </RouterLink>
+                <img src="/src/assets/images/CaptureNow.png" alt="CaptureNoww" width="50px" @click="navigateTo('/')">
             </template>
 
             <template #center>
@@ -12,7 +10,7 @@
                     <InputIcon>
                         <i class="pi pi-search" />
                     </InputIcon>
-                    <InputText placeholder="Search" />
+                    <InputText placeholder="Search" size="small"/>
                 </IconField>
             </template>
             <template #end>
@@ -37,6 +35,15 @@ import { ref } from 'vue';
 //     }
 // ])
 </script>
+<script>
+export default {
+    methods: {
+        navigateTo(route) {
+            this.$router.push(route);
+        }
+    }
+}
+</script>
 
 <style scoped>
 .p-toolbar {
@@ -48,5 +55,16 @@ import { ref } from 'vue';
 
 .card {
     padding: 10px;
+}
+.p-button{
+    width: 30px;
+}
+.p-iconfield{
+    width: 20px;
+}
+@media (max-width: 390px) {
+    img {
+        width: 3vw;
+    }
 }
 </style>
