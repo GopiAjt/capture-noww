@@ -6,8 +6,9 @@
             </template>
 
             <template #center>
-                <div class=" flex justify-center">
-                    <AutoComplete v-model="value" :suggestions="items" @complete="search" fluid/>
+                <div class="card flex justify-center">
+                    <MultiSelect v-model="selectedCities" :options="cities" optionLabel="name" filter
+                        placeholder="Select Cities" :maxSelectedLabels="3" class="w-full md:w-80" />
                 </div>
             </template>
             <template #end>
@@ -34,8 +35,16 @@ import { ref } from 'vue';
 </script>
 <script>
 export default {
-    data(){
-        return{
+    data() {
+        return {
+            selectedCities: null,
+            cities: [
+                { name: 'New York', code: 'NY' },
+                { name: 'Rome', code: 'RM' },
+                { name: 'London', code: 'LDN' },
+                { name: 'Istanbul', code: 'IST' },
+                { name: 'Paris', code: 'PRS' }
+            ],
             value: null
         }
     },
@@ -50,9 +59,9 @@ export default {
 <style scoped>
 .p-toolbar {
     background-color: yellow;
-    padding: 5px;
-    padding-left: 4vw;
-    padding-right: 4vw;
+    padding: 1px;
+    padding-left: 7vw;
+    padding-right: 7vw;
     position: sticky;
     width: 100%;
 }

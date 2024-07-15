@@ -7,7 +7,9 @@ import Aura from '@primevue/themes/aura';
 import App from './App.vue'
 import router from './router'
 import 'primeicons/primeicons.css'; // Import PrimeIcons CSS
+import store from './stores/store';
 import { definePreset } from '@primevue/themes';
+
 
 import Toolbar from 'primevue/toolbar';
 import Button from 'primevue/button';
@@ -27,9 +29,9 @@ import InputNumber from 'primevue/inputnumber';
 import Password from 'primevue/password';
 import ToastService from 'primevue/toastservice';
 import Toast from 'primevue/toast';
+import MultiSelect from 'primevue/multiselect';
 
 import Ripple from 'primevue/ripple';
-
 
 
 const app = createApp(App)
@@ -64,8 +66,9 @@ app.use(PrimeVue, {
     }
 });
 
-app.use(createPinia())
-app.use(router)
+app.use(store);
+app.use(createPinia());
+app.use(router);
 app.use(ToastService);
 app.component('Toolbar', Toolbar);
 app.component('Button', Button);
@@ -84,4 +87,5 @@ app.component('AutoComplete', AutoComplete);
 app.component('InputNumber', InputNumber);
 app.component('Password', Password);
 app.component('Toast', Toast);
+app.component('MultiSelect', MultiSelect);
 app.mount('#app')

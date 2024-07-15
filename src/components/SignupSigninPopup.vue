@@ -89,6 +89,8 @@ export default {
                     
                     localStorage.setItem('user', JSON.stringify(response.data));
                     console.log(response.data);
+
+                    this.$store.dispatch('setToken', tokenResponse)
                 } else {
                     window.alert('Invalid Credentials');
                 }
