@@ -30,6 +30,8 @@ import Password from 'primevue/password';
 import ToastService from 'primevue/toastservice';
 import Toast from 'primevue/toast';
 import MultiSelect from 'primevue/multiselect';
+import Divider from 'primevue/divider'; 
+import SpeedDial from 'primevue/speeddial';
 
 import Ripple from 'primevue/ripple';
 
@@ -88,4 +90,6 @@ app.component('InputNumber', InputNumber);
 app.component('Password', Password);
 app.component('Toast', Toast);
 app.component('MultiSelect', MultiSelect);
+app.component('Divider', Divider);
+app.component('SpeedDial', SpeedDial);
 app.mount('#app')

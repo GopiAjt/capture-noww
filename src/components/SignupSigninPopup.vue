@@ -51,7 +51,7 @@
                                     <Password v-model="password2" placeholder="Re Enter Password" :feedback="false"
                                         fluid />
                                 </div><br>
-                                <Button label="Sign Up" @click="handleSignup" />
+                                <Button label="Sign Up" @click="handleSignup" class="mt-2" />
                             </div>
                         </TabPanel>
                     </TabPanels>
@@ -90,7 +90,7 @@ export default {
                     localStorage.setItem('user', JSON.stringify(response.data));
                     console.log(response.data);
 
-                    this.$store.dispatch('setToken', tokenResponse)
+                    this.$store.dispatch('login', response.data, tokenResponse)
                 } else {
                     window.alert('Invalid Credentials');
                 }

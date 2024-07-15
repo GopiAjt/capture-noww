@@ -12,7 +12,8 @@
                 </div>
             </template>
             <template #end>
-                <SignupSignin />
+                <SignupSignin v-if="$store.state.isLogedIn"/>
+                <ProfileIcon v-else></ProfileIcon>
             </template>
         </Toolbar>
     </div>
@@ -20,8 +21,7 @@
 
 <script setup>
 import SignupSignin from '@/components/SignupSigninPopup.vue'
-import { ref } from 'vue';
-
+import ProfileIcon from './ProfileIcon.vue';
 // const items = ref([
 //     {
 //         label: 'Update',
@@ -62,7 +62,6 @@ export default {
     padding: 1px;
     padding-left: 7vw;
     padding-right: 7vw;
-    position: sticky;
     width: 100%;
 }
 
