@@ -1,11 +1,22 @@
-
 <template>
     <div class="card">
         <div style="position: absolute; height: 500px">
-            <!-- <SpeedDial :model="items" direction="up" style="position: absolute; left: calc(50% - 2rem); bottom: 0" /> -->
-            <SpeedDial :model="items" direction="down" style="position: absolute; left: calc(50% - 2rem); top: 0" />
-            <!-- <SpeedDial :model="items" direction="left" style="position: absolute; top: calc(50% - 2rem); right: 0" /> -->
-            <!-- <SpeedDial :model="items" direction="right" style="position: absolute; top: calc(50% - 2rem); left: 0" /> -->
+            <SpeedDial :model="items" direction="down" style="position: absolute; left: calc(50% - 2rem); top: -20px">
+                <template #button="{ toggleCallback }">
+                    <Button outlined class="border-2" @click="toggleCallback">
+
+                    </Button>
+                </template>
+                <template #item="{ item, toggleCallback }">
+                    <div class="custom-flex"
+                        @click="toggleCallback">
+                        <span :class="item.icon" />
+                        <span>
+                            {{ item.label }}
+                        </span>
+                    </div>
+                </template>
+            </SpeedDial>
             <Toast />
         </div>
     </div>
@@ -45,10 +56,11 @@ export default {
                     }
                 },
                 {
-                    label: 'Vue Website',
+                    label: 'Log Out',
                     icon: 'pi pi-external-link',
                     command: () => {
-                        window.location.href = 'https://vuejs.org/';
+                        this.$toast.add({ severity: 'success', summary: 'Log Out', detail: 'You have been logged out', life: 3000 });
+                        this.$store.dispatch('logout');
                     }
                 }
             ]
@@ -56,3 +68,24 @@ export default {
     }
 };
 </script>
+<style scoped>
+.custom-flex {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    /* 8px */
+    padding: 0.5rem;
+    /* 8px */
+    border-width: 1px;
+    border-radius: 0.25rem;
+    /* 4px */
+    /* border-color: #e5e7eb; */
+    /* Adjust this color to match your theme */
+    width: 5rem;
+    /* 80px */
+    cursor: pointer;
+    border-color: #374151;
+}
+</style>

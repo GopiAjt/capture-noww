@@ -1,5 +1,5 @@
 <template>
-    <div class="card">
+    <div class="nav-card">
         <Toolbar>
             <template #start>
                 <img src="/src/assets/images/CaptureNow.png" alt="CaptureNoww" width="50px" @click="navigateTo('/')">
@@ -12,7 +12,7 @@
                 </div>
             </template>
             <template #end>
-                <SignupSignin v-if="$store.state.isLogedIn"/>
+                <SignupSignin v-if="!$store.state.isLogedIn"/>
                 <ProfileIcon v-else></ProfileIcon>
             </template>
         </Toolbar>
@@ -65,7 +65,7 @@ export default {
     width: 100%;
 }
 
-.card {
+.nav-card {
     padding: 10px;
 }
 
