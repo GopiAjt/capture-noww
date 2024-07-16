@@ -4,13 +4,12 @@
             <template #header>
                 <div class="header-img">
                     <img :src="photographer.profilePhoto ? `data:image/jpeg;base64,${photographer.profilePhoto}` : 'src/assets/images/default_profile.png'"
-                        class="card-img-top" alt="Photographer Image" @click="photographerProfile" />
+                        class="card-img-top" alt="Photographer Image" @click="photographerProfile" style="cursor: pointer;" />
                 </div>
             </template>
 
             <template #title>
-                <a @click.prevent="photographerProfile" style="text-decoration: none; 
-                    color: white;">
+                <a @click.prevent="photographerProfile" style="text-decoration: none; color: white; cursor: pointer;">
                     {{ photographer.name }}
                 </a>
                 <div class="rating-div">
@@ -27,7 +26,7 @@
                 <div class="footer-div">
                     <div class="price-range">Starts with: {{ photographer.startsWith }}</div>
                     <Toast />
-                    <Button label="Book Me" class="p-button-sm p-button-dark" @click="bookMe" />
+                    <Button label="Book Me" class="p-button-sm p-button-dark" @click="bookMe"  raised outlined/>
                 </div>
             </template>
         </Card>
@@ -55,7 +54,7 @@ export default {
         },
         photographerProfile() {
             if(!this.$store.isLogedIn){
-                alert('heloo')
+                this.$router.push('/photorapherProfile');
             }else{
                 this.$toast.add({ severity: 'error', summary: 'Please Login!', life: 3000 });
             }
@@ -106,11 +105,6 @@ img {
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.p-button {
-  background: yellow;
-  border: 2px solid white;
 }
 
 @media (max-width: 575px) {
