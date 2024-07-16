@@ -4,12 +4,12 @@
             <template #header>
                 <div class="header-img">
                     <img :src="photographer.profilePhoto ? `data:image/jpeg;base64,${photographer.profilePhoto}` : 'src/assets/images/default_profile.png'"
-                        class="card-img-top" alt="Photographer Image" @click="alertLogin" />
+                        class="card-img-top" alt="Photographer Image" @click="photographerProfile" />
                 </div>
             </template>
 
             <template #title>
-                <a @click.prevent="alertLogin" style="text-decoration: none; 
+                <a @click.prevent="photographerProfile" style="text-decoration: none; 
                     color: white;">
                     {{ photographer.name }}
                 </a>
@@ -27,7 +27,7 @@
                 <div class="footer-div">
                     <div class="price-range">Starts with: {{ photographer.startsWith }}</div>
                     <Toast />
-                    <Button label="Book Me" class="p-button-sm p-button-dark" @click="alertLogin" />
+                    <Button label="Book Me" class="p-button-sm p-button-dark" @click="bookMe" />
                 </div>
             </template>
         </Card>
@@ -53,9 +53,17 @@ export default {
                 // Handle error gracefully (e.g., display error message to user)
             }
         },
-        alertLogin() {
-            this.$toast.add({ severity: 'error', summary: 'Please Login!', life: 3000 });
-        }
+        photographerProfile() {
+            if(!this.$store.isLogedIn){
+                alert('heloo')
+            }else{
+                this.$toast.add({ severity: 'error', summary: 'Please Login!', life: 3000 });
+            }
+        },
+        bookMe(){
+
+        },
+        
     },
     data() { // Optional: Define initial data state for photographers and error
         return {
