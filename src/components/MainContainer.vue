@@ -53,7 +53,7 @@ export default {
             }
         },
         photographerProfile(id) {
-            if(!this.$store.isLogedIn){
+            if(this.$store.state.isLogedIn){
                 this.$router.push(`/photorapherProfile/${id}`);
             }else{
                 this.$toast.add({ severity: 'error', summary: 'Please Login!', life: 3000 });

@@ -82,15 +82,17 @@ export default {
             try {
                 const tokenResponse = await Api().get(`/customer/authtoken?email=${this.LoginEmailId}&password=${this.LoginPassword}`);
                 const response = await Api().get(`/customer/signin?email=${this.LoginEmailId}&password=${this.LoginPassword}`);
-
+        
                 if (response.status === 400) {
                     window.alert('Please verify your account');
                 } else if (response.status === 200) {
+                    const user = response.data;
+                    const token = response.data.authToken;
                     
                     localStorage.setItem('user', JSON.stringify(response.data));
                     console.log(response.data);
 
-                    this.$store.dispatch('login', response.data, tokenResponse)
+                    this.$store.dispatch('login', { user, token })
                 } else {
                     window.alert('Invalid Credentials');
                 }

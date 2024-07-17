@@ -2,8 +2,8 @@ import { createStore } from 'vuex';
 
 const store = createStore({
     state: {
-        token: null,
-        user: null,
+        token: '',
+        user: '',
         isLogedIn: false
     },
     mutations: {

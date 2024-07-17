@@ -2,14 +2,29 @@
     <header>
         <Navbar />
     </header>
+
+    
+
     <div class="card">
         <Tabs value="0">
             <TabList>
-                <Tab v-for="tab in tabs" :key="tab.title" :value="tab.value">{{ tab.title }}</Tab>
+                <Tab value="0">Albums</Tab>
+                <Tab value="1">Packages</Tab>
+                <Tab value="2">Equipments</Tab>
+                <Tab value="3">Reviews</Tab>
             </TabList>
             <TabPanels>
-                <TabPanel v-for="tab in tabs" :key="tab.content" :value="tab.value">
-                    <p class="m-0">{{ tab.content }}</p>
+                <TabPanel value="0">
+                    
+                </TabPanel>
+                <TabPanel value="1">
+                    
+                </TabPanel>
+                <TabPanel value="2">
+                    
+                </TabPanel>
+                <TabPanel value="3">
+                    
                 </TabPanel>
             </TabPanels>
         </Tabs>
@@ -18,23 +33,34 @@
 
 <script setup>
 import Navbar from '@/components/NavBar.vue'
-
+import Api from '@/services/Api';
 </script>
 <script>
 export default {
     data() {
         return {
-            id: null,
-            tabs: [
-                { title: 'Tab 1', content: 'Tab 1 Content', value: '0' },
-                { title: 'Tab 2', content: 'Tab 2 Content', value: '1' },
-                { title: 'Tab 3', content: 'Tab 3 Content', value: '2' }
-            ]
+            
         };
     },
-    mounted(){
-        this.id = this.$route.params.id;
-        console.log(this.id);
+    mounted() {
+        const id = this.$route.params.id;
+        const token = this.$store.state.token;
+        this.fetchPhotographerDetails(id, token);
+    },
+    methods: {
+        async fetchPhotographerDetails(id, token) {
+            try {
+                const response = await Api().get(`/customer/getPhotographerByEmail?email=${id}`, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+                console.log(response.data);
+            } catch (error) {
+                console.error('Error fetching photographer:', error);
+            }
+        }
     }
 };
 </script>
