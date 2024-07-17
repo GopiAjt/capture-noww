@@ -11,7 +11,7 @@ const router = createRouter({
       component: HomeView
     },
     {
-      path: '/photorapherProfile',
+      path: '/photorapherProfile/:id',
       name: 'photorapherProfile',
       component: PhotorapherProfile
     },

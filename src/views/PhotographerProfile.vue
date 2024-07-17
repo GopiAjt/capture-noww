@@ -1,4 +1,7 @@
 <template>
+    <header>
+        <Navbar />
+    </header>
     <div class="card">
         <Tabs value="0">
             <TabList>
@@ -13,16 +16,25 @@
     </div>
 </template>
 
+<script setup>
+import Navbar from '@/components/NavBar.vue'
+
+</script>
 <script>
 export default {
     data() {
         return {
+            id: null,
             tabs: [
                 { title: 'Tab 1', content: 'Tab 1 Content', value: '0' },
                 { title: 'Tab 2', content: 'Tab 2 Content', value: '1' },
                 { title: 'Tab 3', content: 'Tab 3 Content', value: '2' }
             ]
         };
+    },
+    mounted(){
+        this.id = this.$route.params.id;
+        console.log(this.id);
     }
 };
 </script>

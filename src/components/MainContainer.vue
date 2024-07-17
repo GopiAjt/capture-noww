@@ -4,12 +4,12 @@
             <template #header>
                 <div class="header-img">
                     <img :src="photographer.profilePhoto ? `data:image/jpeg;base64,${photographer.profilePhoto}` : 'src/assets/images/default_profile.png'"
-                        class="card-img-top" alt="Photographer Image" @click="photographerProfile" style="cursor: pointer;" />
+                        class="card-img-top" alt="Photographer Image" @click="photographerProfile(photographer.email)" style="cursor: pointer;" />
                 </div>
             </template>
 
             <template #title>
-                <a @click.prevent="photographerProfile" style="text-decoration: none; color: white; cursor: pointer;">
+                <a @click.prevent="photographerProfile(photographer.email)" style="text-decoration: none; color: white; cursor: pointer;">
                     {{ photographer.name }}
                 </a>
                 <div class="rating-div">
@@ -52,9 +52,9 @@ export default {
                 // Handle error gracefully (e.g., display error message to user)
             }
         },
-        photographerProfile() {
+        photographerProfile(id) {
             if(!this.$store.isLogedIn){
-                this.$router.push('/photorapherProfile');
+                this.$router.push(`/photorapherProfile/${id}`);
             }else{
                 this.$toast.add({ severity: 'error', summary: 'Please Login!', life: 3000 });
             }
