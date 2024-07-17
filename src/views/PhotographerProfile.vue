@@ -3,7 +3,39 @@
         <Navbar />
     </header>
 
-    
+    <div class="card-container">
+        <Card style="width: 25rem; overflow: hidden">
+            <template #header>
+                <img :src="photographer.profilePhoto ? `data:image/jpeg;base64,${photographer.profilePhoto}` : '../src/assets/images/default_profile.png'"
+                    class="card-img-top" alt="Photographer Image" />
+            </template>
+            <template #title>{{ photographer.name }}</template>
+            <template #subtitle>{{ photographer.serviceLocation }}</template>
+            <template #content>
+                <p class="m-0">
+                    {{ photographer.aboutMe }}
+                </p>
+                <p class="m-0">
+                    <strong>Email:</strong> {{ photographer.email }}
+                </p>
+                <p class="m-0">
+                    <strong>Experience:</strong> {{ photographer.experience }} year(s)
+                </p>
+                <p class="m-0">
+                    <strong>Languages:</strong> {{ photographer.languages }}
+                </p>
+                <p class="m-0">
+                    <strong>Services:</strong> {{ photographer.services }}
+                </p>
+                <p class="m-0">
+                    <strong>Rating:</strong> {{ photographer.avgRating }}
+                </p>
+            </template>
+            <template #footer>
+                
+            </template>
+        </Card>
+    </div>
 
     <div class="card">
         <Tabs value="0">
@@ -15,16 +47,16 @@
             </TabList>
             <TabPanels>
                 <TabPanel value="0">
-                    
+
                 </TabPanel>
                 <TabPanel value="1">
-                    
+
                 </TabPanel>
                 <TabPanel value="2">
-                    
+
                 </TabPanel>
                 <TabPanel value="3">
-                    
+
                 </TabPanel>
             </TabPanels>
         </Tabs>
@@ -39,7 +71,7 @@ import Api from '@/services/Api';
 export default {
     data() {
         return {
-            
+            photographer: {}
         };
     },
     mounted() {
@@ -56,6 +88,7 @@ export default {
                         'Authorization': `Bearer ${token}`
                     }
                 });
+                this.photographer = response.data;
                 console.log(response.data);
             } catch (error) {
                 console.error('Error fetching photographer:', error);
@@ -64,3 +97,9 @@ export default {
     }
 };
 </script>
+
+<style scoped>
+img {
+    width: 20vw;
+}
+</style>

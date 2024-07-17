@@ -2,7 +2,8 @@
     <div class="nav-card">
         <Toolbar>
             <template #start>
-                <img src="/src/assets/images/CaptureNow.png" alt="CaptureNoww" width="50px" @click="navigateTo('/')">
+                <img src="/src/assets/images/CaptureNow.png" alt="CaptureNoww" width="45px" @click="navigateTo('/')"
+                    style="cursor: pointer;">
             </template>
 
             <template #center>
@@ -12,7 +13,7 @@
                 </div>
             </template>
             <template #end>
-                <SignupSignin v-if="!$store.state.isLogedIn"/>
+                <SignupSignin v-if="!$store.state.isLogedIn" />
                 <ProfileIcon v-else></ProfileIcon>
             </template>
         </Toolbar>
@@ -59,9 +60,9 @@ export default {
 <style scoped>
 .p-toolbar {
     background-color: yellow;
-    padding: 1px;
-    padding-left: 7vw;
-    padding-right: 7vw;
+    padding: 5px;
+    padding-left: 10vw;
+    padding-right: 10vw;
     width: 100%;
 }
 
@@ -77,9 +78,13 @@ export default {
     width: 20px;
 }
 
-@media (max-width: 390px) {
-    img {
-        width: 3vw;
+@media (max-width: 575px) {
+    .p-toolbar {
+        background-color: yellow;
+        padding: 5px;
+        padding-left: 2vw;
+        padding-right: 2vw;
+        width: 100%;
     }
 }
 </style>

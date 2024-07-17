@@ -15,7 +15,7 @@
                     </div>
                 </template>
             </SpeedDial>
-            <Toast />
+            <Toast position="bottom-center" />
         </div>
     </div>
 </template>
