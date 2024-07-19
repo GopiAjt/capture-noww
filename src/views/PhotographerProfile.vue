@@ -49,22 +49,22 @@
     <div class="card">
         <Tabs value="0">
             <TabList>
-                <Tab value="0">Albums</Tab>
-                <Tab value="1">Packages</Tab>
-                <Tab value="2">Equipments</Tab>
-                <Tab value="3">Reviews</Tab>
+                <Tab value="Albums">Albums</Tab>
+                <Tab value="Packages">Packages</Tab>
+                <Tab value="Equipments">Equipments</Tab>
+                <Tab value="Reviews">Reviews</Tab>
             </TabList>
             <TabPanels>
-                <TabPanel value="0">
+                <TabPanel value="Albums">
 
                 </TabPanel>
-                <TabPanel value="1">
+                <TabPanel value="Packages">
+                    <PackageDetails :packageDetails="package" />
+                </TabPanel>
+                <TabPanel value="Equipments">
 
                 </TabPanel>
-                <TabPanel value="2">
-
-                </TabPanel>
-                <TabPanel value="3">
+                <TabPanel value="Reviews">
 
                 </TabPanel>
             </TabPanels>
@@ -75,12 +75,17 @@
 <script setup>
 import Navbar from '@/components/NavBar.vue'
 import Api from '@/services/Api';
+import PackageDetails from '@/components/PackageDetails.vue'
 </script>
 <script>
 export default {
+    components: {
+        PackageDetails
+    },
     data() {
         return {
-            photographer: {}
+            photographer: {},
+            package: {}
         };
     },
     mounted() {
@@ -98,6 +103,7 @@ export default {
                     }
                 });
                 this.photographer = response.data;
+                this.package = response.data.packages;
                 console.log(response.data);
             } catch (error) {
                 console.error('Error fetching photographer:', error);
@@ -146,6 +152,6 @@ img {
         width: 100%;
     }
 
-   
+
 }
 </style>
