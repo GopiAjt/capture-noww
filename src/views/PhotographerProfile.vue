@@ -4,10 +4,12 @@
     </header>
 
     <div class="card-container">
-        <Card style="width: 25rem; overflow: hidden">
-            <template #header>
+        <Card style="width: 100%; overflow: hidden">
+            <template #header class="profile-img">
+
                 <img :src="photographer.profilePhoto ? `data:image/jpeg;base64,${photographer.profilePhoto}` : '../src/assets/images/default_profile.png'"
                     class="card-img-top" alt="Photographer Image" />
+
             </template>
             <template #title>{{ photographer.name }}</template>
             <template #subtitle>{{ photographer.serviceLocation }}</template>
@@ -32,7 +34,7 @@
                 </p>
             </template>
             <template #footer>
-                
+
             </template>
         </Card>
     </div>
@@ -100,6 +102,38 @@ export default {
 
 <style scoped>
 img {
-    width: 20vw;
+    width: 25vw;
+}
+
+.p-card {
+    flex-direction: row;
+}
+
+.card-container {
+    padding-left: 5vw;
+    padding-right: 5vw;
+}
+
+@media (max-width: 575px) {
+    img {
+        width: 15rem;
+        border-radius: 100%;
+    }
+
+    .p-card {
+        flex-direction: column;
+    }
+
+    .card-container {
+        padding-left: 3vw;
+        padding-right: 3vw;
+    }
+}
+</style>
+<style>
+.p-card-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 </style>
