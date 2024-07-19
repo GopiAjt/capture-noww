@@ -11,12 +11,19 @@
                     class="card-img-top" alt="Photographer Image" />
 
             </template>
-            <template #title>{{ photographer.name }}</template>
+            <template #title>
+                <div>
+                    {{ photographer.name }}
+                </div>
+                <div>
+                    <div class="rating-div">
+                        <i class="pi pi-star-fill" style="font-size: 1.5rem; color: yellow; margin-right: 5px;"></i>{{
+                            photographer.avgRating }}
+                    </div>
+                </div>
+            </template>
             <template #subtitle>{{ photographer.serviceLocation }}</template>
             <template #content>
-                <p class="m-0">
-                    {{ photographer.aboutMe }}
-                </p>
                 <p class="m-0">
                     <strong>Email:</strong> {{ photographer.email }}
                 </p>
@@ -30,7 +37,7 @@
                     <strong>Services:</strong> {{ photographer.services }}
                 </p>
                 <p class="m-0">
-                    <strong>Rating:</strong> {{ photographer.avgRating }}
+                    {{ photographer.aboutMe }}
                 </p>
             </template>
             <template #footer>
@@ -102,7 +109,7 @@ export default {
 
 <style scoped>
 img {
-    width: 25vw;
+    width: 20vw;
 }
 
 .p-card {
@@ -112,6 +119,11 @@ img {
 .card-container {
     padding-left: 5vw;
     padding-right: 5vw;
+    padding-top: 3vw;
+}
+
+.card {
+    margin: 3%;
 }
 
 @media (max-width: 575px) {
@@ -127,13 +139,13 @@ img {
     .card-container {
         padding-left: 3vw;
         padding-right: 3vw;
+        padding-top: 3vw;
     }
-}
-</style>
-<style>
-.p-card-header {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+
+    .p-card-body {
+        width: 100%;
+    }
+
+   
 }
 </style>

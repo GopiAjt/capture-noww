@@ -101,11 +101,6 @@ export default {
 img {
     width: 15vw;
 }
-.rating-div{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
 
 @media (max-width: 575px) {
     img {
@@ -123,22 +118,5 @@ img {
     }
 
 
-}
-</style>
-<style>
-.p-card-body {
-    width: 80vw;
-}
-.p-card-title{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-@media (max-width: 575px) {
-    .p-card-body {
-        padding: 5px;
-        width: 80vw;
-    }
 }
 </style>
