@@ -32,13 +32,17 @@ import Toast from 'primevue/toast';
 import MultiSelect from 'primevue/multiselect';
 import Divider from 'primevue/divider'; 
 import SpeedDial from 'primevue/speeddial';
+import Rating from 'primevue/rating';
+import Textarea from 'primevue/textarea';
+
 
 import Ripple from 'primevue/ripple';
 
 
+
 const app = createApp(App)
-// app.use(PrimeVue, { ripple: true });
 app.directive('ripple', Ripple);
+// app.use(PrimeVue, { ripple: true });
 const MyPreset = definePreset(Aura, {
     semantic: {
         primary: {
@@ -92,4 +96,6 @@ app.component('Toast', Toast);
 app.component('MultiSelect', MultiSelect);
 app.component('Divider', Divider);
 app.component('SpeedDial', SpeedDial);
+app.component('Rating', Rating);
+app.component('Textarea', Textarea);
 app.mount('#app')

@@ -65,7 +65,7 @@
 
                 </TabPanel>
                 <TabPanel value="Reviews">
-
+                    <ReviewForm/>
                 </TabPanel>
             </TabPanels>
         </Tabs>
@@ -76,6 +76,7 @@
 import Navbar from '@/components/NavBar.vue'
 import Api from '@/services/Api';
 import PackageDetails from '@/components/PackageDetails.vue'
+import ReviewForm from '@/components/ReviewForm.vue'
 </script>
 <script>
 export default {
@@ -129,7 +130,9 @@ img {
 }
 
 .card {
-    margin: 3%;
+    margin-top: 15px;
+    margin-left: 10vw;
+    margin-right: 10vw;
 }
 
 @media (max-width: 575px) {

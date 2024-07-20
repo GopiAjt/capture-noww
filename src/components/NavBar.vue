@@ -2,7 +2,7 @@
     <div class="nav-card">
         <Toolbar>
             <template #start>
-                <img src="/public/CaptureNow.svg" alt="CaptureNoww" width="45px" @click="navigateTo('/')"
+                <img src="/public/CaptureNowLogo.svg" alt="CaptureNoww" width="45px" @click="navigateTo('/')"
                     style="cursor: pointer;">
             </template>
 
@@ -23,16 +23,6 @@
 <script setup>
 import SignupSignin from '@/components/SignupSigninPopup.vue'
 import ProfileIcon from './ProfileIcon.vue';
-// const items = ref([
-//     {
-//         label: 'Update',
-//         icon: 'pi pi-refresh'
-//     },
-//     {
-//         label: 'Delete',
-//         icon: 'pi pi-times'
-//     }
-// ])
 </script>
 <script>
 export default {
