@@ -2,7 +2,7 @@
     <div class="nav-card">
         <Toolbar>
             <template #start>
-                <img src="/src/assets/images/CaptureNow.png" alt="CaptureNoww" width="45px" @click="navigateTo('/')"
+                <img src="/public/CaptureNow.svg" alt="CaptureNoww" width="45px" @click="navigateTo('/')"
                     style="cursor: pointer;">
             </template>
 
