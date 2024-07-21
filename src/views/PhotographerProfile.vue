@@ -65,7 +65,7 @@
 
                 </TabPanel>
                 <TabPanel value="Reviews">
-                    <ReviewForm/>
+                    <ReviewForm :p_id="photographer.email"/>
                 </TabPanel>
             </TabPanels>
         </Tabs>
