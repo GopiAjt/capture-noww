@@ -1,36 +1,45 @@
 <template>
-    <div v-if="photographers" class="card">
-        <Card v-for="photographer in photographers">
-            <template #header>
-                <div class="header-img">
-                    <img :src="photographer.profilePhoto ? `data:image/jpeg;base64,${photographer.profilePhoto}` : 'src/assets/images/default_profile.png'"
-                        class="card-img-top" alt="Photographer Image" @click="photographerProfile(photographer.email)" style="cursor: pointer;" />
-                </div>
-            </template>
+    <div>
+        <div v-if="photographers" class="card">
+            <Card v-for="photographer in photographers" :key="photographer.email">
+                <template #header>
+                    <div class="header-img">
+                        <img :src="photographer.profilePhoto ? `data:image/jpeg;base64,${photographer.profilePhoto}` : 'src/assets/images/default_profile.png'"
+                            class="card-img-top" alt="Photographer Image"
+                            @click="photographerProfile(photographer.email)" style="cursor: pointer;" />
+                    </div>
+                </template>
 
-            <template #title>
-                <a @click.prevent="photographerProfile(photographer.email)" style="text-decoration: none; color: white; cursor: pointer;">
-                    {{ photographer.name }}
-                </a>
-                <div class="rating-div">
-                    <i class="pi pi-star-fill" style="font-size: 1.5rem; color: yellow; margin-right: 5px;"></i>{{ photographer.avgRating }}
-                </div>
-            </template>
-            <template #subtitle>{{ photographer.experience }}</template>
-            <template #content>
-                <div class="card-info-style">{{ photographer.serviceLocation }}</div>
-                <div class="card-info-style">{{ photographer.services }}</div>
-                <div class="card-info-style">{{ photographer.languages }}</div>
-            </template>
-            <template #footer>
-                <div class="footer-div">
-                    <div class="price-range">Starts with: {{ photographer.startsWith }}</div>
-                    <Toast position="bottom-center" />
-                    <Button label="Book Me" class="p-button-sm p-button-dark" @click="bookMe"  raised outlined/>
-                </div>
-            </template>
-        </Card>
-
+                <template #title>
+                    <a @click.prevent="photographerProfile(photographer.email)"
+                        style="text-decoration: none; color: white; cursor: pointer;">
+                        {{ photographer.name }}
+                    </a>
+                    <div class="rating-div">
+                        <i class="pi pi-star-fill" style="font-size: 1.5rem; color: yellow; margin-right: 5px;"></i>{{
+                            photographer.avgRating }}
+                    </div>
+                </template>
+                <template #subtitle>{{ photographer.experience }}</template>
+                <template #content>
+                    <div class="card-info-style">{{ photographer.serviceLocation }}</div>
+                    <div class="card-info-style">{{ photographer.services }}</div>
+                    <div class="card-info-style">{{ photographer.languages }}</div>
+                </template>
+                <template #footer>
+                    <div class="footer-div">
+                        <div class="price-range">Starts with: {{ photographer.startsWith }}</div>
+                        <Toast position="bottom-center" />
+                        <Button label="Book Me" class="p-button-sm p-button-dark" @click="bookMe" raised outlined />
+                    </div>
+                </template>
+            </Card>
+        </div>
+        <div class="card">
+            <Paginator :rows="pageSize" :totalRecords="totalPhotographers" :rowsPerPageOptions="[10, 20, 30]"
+                @page="onPageChange">
+            </Paginator>
+        </div>
     </div>
 </template>
 
@@ -38,40 +47,49 @@
 import Api from '@/services/Api';
 
 export default {
+    data() {
+        return {
+            photographers: null,
+            totalPhotographers: 0,
+            error: null,
+            page: 0,
+            pageSize: 10,
+        };
+    },
     mounted() {
-        this.fetchPhotographers(0, 10); // Call the fetchPhotographers method on mounted
+        this.fetchPhotographers(this.page, this.pageSize);
     },
     methods: {
-        async fetchPhotographers(offset, pageSize) {
+        async fetchPhotographers(page, pageSize) {
             try {
+                const offset = page * pageSize;
                 const response = await Api().get(`/customer/getPhotographersIndex/${offset}/${pageSize}`);
-                console.log(response.data.content);
-                this.photographers = response.data.content; // Update the data property
+                this.photographers = response.data.content;
+                this.totalPhotographers = response.data.totalElements;
             } catch (error) {
                 console.error('Error fetching photographers:', error);
-                // Handle error gracefully (e.g., display error message to user)
+                this.error = 'Failed to load photographers';
             }
         },
         photographerProfile(id) {
-            if(this.$store.state.isLogedIn){
+            if (this.$store.state.isLogedIn) {
                 this.$router.push(`/photorapherProfile/${id}`);
-            }else{
+            } else {
                 this.$toast.add({ severity: 'error', summary: 'Please Login!', life: 3000 });
             }
         },
-        bookMe(){
-
+        bookMe() {
+            // Implement the booking logic
         },
-        
-    },
-    data() { // Optional: Define initial data state for photographers and error
-        return {
-            photographers: null,
-            error: null,
-        };
-    },
+        onPageChange(event) {
+            this.page = event.page;
+            this.pageSize = event.rows;
+            this.fetchPhotographers(this.page, this.pageSize);
+        },
+    }
 };
 </script>
+
 <style scoped>
 .card {
     padding-top: 5%;
@@ -116,7 +134,5 @@ img {
         margin-bottom: 20px;
         align-items: center;
     }
-
-
 }
 </style>

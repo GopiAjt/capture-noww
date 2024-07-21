@@ -36,6 +36,8 @@ import Rating from 'primevue/rating';
 import Textarea from 'primevue/textarea';
 import Panel from 'primevue/panel';
 import Avatar from 'primevue/avatar';
+import Paginator from 'primevue/paginator';
+
 
 import Ripple from 'primevue/ripple';
 
@@ -101,4 +103,5 @@ app.component('Rating', Rating);
 app.component('Textarea', Textarea);
 app.component('Panel', Panel);
 app.component('Avatar', Avatar);
+app.component('Paginator', Paginator);
 app.mount('#app')
