@@ -13,6 +13,7 @@
         </div>
         <Button label="Submit" text raised @click="addReview" />
     </div>
+    <Toast position="bottom-center" />
 </template>
 
 <script>
@@ -35,10 +36,13 @@ export default {
         async addReview() {
             const response = await AuthService.addReview(this.$store.state.user.email, this.p_id, this.rating, this.comment, this.$store.state.token);
             console.log(response);
+            if (response.status == 201) {
+                this.$toast.add({ severity: 'success', summary: 'Review Added!',detail: '', life: 3000 });
+            }
         }
     },
     mounted() {
-        
+
     }
 };
 </script>
