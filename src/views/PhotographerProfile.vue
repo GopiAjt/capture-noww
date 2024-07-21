@@ -20,10 +20,12 @@
                     </div>
                 </div>
             </template>
-            <template #subtitle><i class="pi pi-map-marker" style="font-size: 1rem"></i> {{ photographer.serviceLocation }}</template>
+            <template #subtitle><i class="pi pi-map-marker" style="font-size: 1rem"></i> {{ photographer.serviceLocation
+                }}</template>
             <template #content>
                 <p class="m-0">
-                    <strong><i class="pi pi-face-smile" style="font-size: 1rem"></i></strong> {{ photographer.experience }} year(s)
+                    <strong><i class="pi pi-face-smile" style="font-size: 1rem"></i></strong> {{ photographer.experience
+                    }} year(s)
                 </p>
                 <p class="m-0">
                     <strong><i class="pi pi-language" style="font-size: 1rem"></i></strong> {{ photographer.languages }}
@@ -60,7 +62,8 @@
 
                 </TabPanel>
                 <TabPanel value="Reviews">
-                    <ReviewForm :p_id="photographer.email"/>
+                    <ReviewForm :photographer_id="photographer.email" />
+                    <AllReviews :photographer_id="photographer.email" />
                 </TabPanel>
             </TabPanels>
         </Tabs>
@@ -72,6 +75,7 @@ import Navbar from '@/components/NavBar.vue'
 import Api from '@/services/Api';
 import PackageDetails from '@/components/PackageDetails.vue'
 import ReviewForm from '@/components/ReviewForm.vue'
+import AllReviews from '@/components/AllReviews.vue'
 </script>
 <script>
 export default {
@@ -81,7 +85,8 @@ export default {
     data() {
         return {
             photographer: {},
-            package: {}
+            package: {},
+            
         };
     },
     mounted() {
@@ -144,6 +149,12 @@ img {
         padding-left: 3vw;
         padding-right: 3vw;
         padding-top: 3vw;
+    }
+
+    .card {
+        margin-top: 15px;
+        margin-left: 3vw;
+        margin-right: 3vw;
     }
 
     .p-card-body {

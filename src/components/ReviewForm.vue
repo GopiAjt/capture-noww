@@ -9,7 +9,7 @@
             <Rating v-model="rating" />
         </div>
         <div class="card flex justify-center">
-            <Textarea v-model="comment" autoResize rows="5" cols="80" />
+            <Textarea v-model="comment" autoResize rows="5" cols="40" />
         </div>
         <Button label="Submit" text raised @click="addReview" />
     </div>
@@ -21,7 +21,7 @@ import AuthService from '@/services/AuthService';
 
 export default {
     props: {
-        p_id: {
+        photographer_id: {
             type: String,
             required: true
         }
@@ -34,7 +34,7 @@ export default {
     },
     methods: {
         async addReview() {
-            const response = await AuthService.addReview(this.$store.state.user.email, this.p_id, this.rating, this.comment, this.$store.state.token);
+            const response = await AuthService.addReview(this.$store.state.user.email, this.photographer_id, this.rating, this.comment, this.$store.state.token);
             console.log(response);
             if (response.status == 201) {
                 this.$toast.add({ severity: 'success', summary: 'Review Added!',detail: '', life: 3000 });

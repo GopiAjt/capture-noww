@@ -16,5 +16,13 @@ export default {
                 'Authorization': `Bearer ${token}`
             }
         });
+    },
+    loadReviews(p_id, token){
+        return Api().get(`/customer/getReviews?email=${p_id}`,{
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        })
     }
 };

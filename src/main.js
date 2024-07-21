@@ -34,7 +34,8 @@ import Divider from 'primevue/divider';
 import SpeedDial from 'primevue/speeddial';
 import Rating from 'primevue/rating';
 import Textarea from 'primevue/textarea';
-
+import Panel from 'primevue/panel';
+import Avatar from 'primevue/avatar';
 
 import Ripple from 'primevue/ripple';
 
@@ -98,4 +99,6 @@ app.component('Divider', Divider);
 app.component('SpeedDial', SpeedDial);
 app.component('Rating', Rating);
 app.component('Textarea', Textarea);
+app.component('Panel', Panel);
+app.component('Avatar', Avatar);
 app.mount('#app')
