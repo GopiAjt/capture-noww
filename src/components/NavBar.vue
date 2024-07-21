@@ -7,9 +7,9 @@
             </template>
 
             <template #center>
-                <div class="card flex justify-center">
-                    <MultiSelect v-model="selectedCities" :options="cities" optionLabel="name" filter
-                        placeholder="Select Cities" :maxSelectedLabels="3" class="w-full md:w-80" />
+                <div class="search-bar">
+                    <AutoComplete v-model="selectedCountry" optionLabel="name" :suggestions="filteredCountries"
+                        @complete="search" />
                 </div>
             </template>
             <template #end>
@@ -23,26 +23,38 @@
 <script setup>
 import SignupSignin from '@/components/SignupSigninPopup.vue'
 import ProfileIcon from './ProfileIcon.vue';
+import { CategoryService } from "@/services/CategoryService";
+
 </script>
 <script>
 export default {
     data() {
         return {
-            selectedCities: null,
-            cities: [
-                { name: 'New York', code: 'NY' },
-                { name: 'Rome', code: 'RM' },
-                { name: 'London', code: 'LDN' },
-                { name: 'Istanbul', code: 'IST' },
-                { name: 'Paris', code: 'PRS' }
-            ],
-            value: null
-        }
+            categories: [], // Initialize as an empty array
+            selectedCountry: null,
+            filteredCountries: null
+        };
     },
     methods: {
         navigateTo(route) {
             this.$router.push(route);
-        }
+        },
+        search(event) {
+            setTimeout(() => {
+                if (!event.query.trim().length) {
+                    this.filteredCountries = [...this.categories];
+                } else if (this.categories && this.categories.length) {
+                    this.filteredCountries = this.categories.filter((country) => {
+                        return country.name.toLowerCase().startsWith(event.query.toLowerCase());
+                    });
+                } else {
+                    this.filteredCountries = [];
+                }
+            }, 250);
+        },
+        mounted() {
+            CategoryService.getCategories().then((data) => (this.categories = data));
+        },
     }
 }
 </script>
@@ -66,6 +78,11 @@ export default {
 
 .p-iconfield {
     width: 20px;
+}
+
+.search-bar {
+    display: flex;
+    justify-content: center;
 }
 
 @media (max-width: 575px) {
