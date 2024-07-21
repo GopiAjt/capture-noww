@@ -1,18 +1,42 @@
 <template>
-    <Card v-for="packages in packageDetails" :key="packages.id">
-        <template #title>{{ packages.packageName }}</template>
-        <template #content>
-            <p>{{ packages.description }}</p>
-            <ul>
-                <li>Category: {{ packages.category }}</li>
-                <li>Event Rate: {{ packages.eventRate }}</li>
-                <li>One Day Rate: {{ packages.oneDayRate }}</li>
-                <li>One Hour Rate: {{ packages.oneHourRate }}</li>
-                <li>Video Rate: {{ packages.videoRate }}</li>
-            </ul>
-            <p>Contact us for more information!</p>
-        </template>
-    </Card>
+    <div v-if="packageDetails.length == 0" style="display: flex; justify-content: center;">
+        <p>No Packages Found</p>
+    </div>
+    <div class="card" v-for="packages in packageDetails" :key="id">
+        <Panel>
+            <template #header>
+                <strong style="font-weight: bold;">{{ packages.packageName }}</strong>
+            </template>
+
+            <p class="m-0">
+                <strong style="font-weight: 500;">Description:</strong><br>{{ packages.description }}
+            </p>
+            <br>
+            <div class="p-footer">
+                <p>
+                    <strong>Event Price:</strong> {{ packages.eventRate }}
+                </p>
+                <p>
+                    <strong>One Day Price:</strong> {{ packages.oneDayRate }}
+                </p>
+                <p>
+                    <strong>One Hour Price:</strong> {{ packages.oneHourRate }}
+                </p>
+                <p>
+                    <strong>Video Price:</strong> {{ packages.videoRate }}
+                </p>
+
+            </div>
+            <template #footer>
+                <div class="p-footer">
+                    <p>
+                        <strong>Total Price:</strong> {{ packages.eventRate + 100 }}
+                    </p>
+                    <Button label="Book" class="p-button-sm p-button-dark" @click="book" raised outlined />
+                </div>
+            </template>
+        </Panel>
+    </div>
 </template>
 
 <script>
@@ -29,4 +53,18 @@ export default {
 
 <style scoped>
 /* Add your styles here */
+.p-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+@media (max-width: 575px) {
+    .p-footer {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        align-items: center;
+    }
+}
 </style>
