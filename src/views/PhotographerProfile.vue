@@ -6,14 +6,12 @@
     <div class="card-container">
         <Card style="width: 100%; overflow: hidden">
             <template #header class="profile-img">
-
                 <img :src="photographer.profilePhoto ? `data:image/jpeg;base64,${photographer.profilePhoto}` : '../src/assets/images/default_profile.png'"
                     class="card-img-top" alt="Photographer Image" />
-
             </template>
             <template #title>
-                <div>
-                    {{ photographer.name }}
+                <div class="">
+                    <i class="pi pi-user" style="font-size: 1rem"></i> {{ photographer.name }}
                 </div>
                 <div>
                     <div class="rating-div">
@@ -22,22 +20,19 @@
                     </div>
                 </div>
             </template>
-            <template #subtitle>{{ photographer.serviceLocation }}</template>
+            <template #subtitle><i class="pi pi-map-marker" style="font-size: 1rem"></i> {{ photographer.serviceLocation }}</template>
             <template #content>
                 <p class="m-0">
-                    <strong>Email:</strong> {{ photographer.email }}
+                    <strong><i class="pi pi-face-smile" style="font-size: 1rem"></i></strong> {{ photographer.experience }} year(s)
                 </p>
                 <p class="m-0">
-                    <strong>Experience:</strong> {{ photographer.experience }} year(s)
+                    <strong><i class="pi pi-language" style="font-size: 1rem"></i></strong> {{ photographer.languages }}
                 </p>
                 <p class="m-0">
-                    <strong>Languages:</strong> {{ photographer.languages }}
+                    <strong><i class="pi pi-camera" style="font-size: 1rem"></i></strong> {{ photographer.services }}
                 </p>
                 <p class="m-0">
-                    <strong>Services:</strong> {{ photographer.services }}
-                </p>
-                <p class="m-0">
-                    {{ photographer.aboutMe }}
+                    <i class="pi pi-info-circle" style="font-size: 1rem"></i> {{ photographer.aboutMe }}
                 </p>
             </template>
             <template #footer>
