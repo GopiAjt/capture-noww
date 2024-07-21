@@ -51,6 +51,7 @@ import { RouterLink, RouterView } from 'vue-router'
 
   .p-tablist-tab-list {
     justify-content: space-between;
+    width: 100%;
   }
 }
 </style>

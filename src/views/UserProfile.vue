@@ -1,14 +1,14 @@
 <template>
     <header>
-    <Navbar/>
-  </header>
+        <Navbar />
+    </header>
     <div class="card">
         <Tabs value="0">
             <TabList>
                 <Tab value="Account"><i class="pi pi-user" style="font-size: 1rem"></i>Account</Tab>
-                <Tab value="Bookings">Bookings</Tab>
-                <Tab value="Favorites">Favorites</Tab>
-                <Tab value="Password">Password</Tab>
+                <Tab value="Bookings"><i class="pi pi-book" style="font-size: 1rem"></i>Bookings</Tab>
+                <Tab value="Favorites"><i class="pi pi-heart" style="font-size: 1rem"></i>Favorites</Tab>
+                <Tab value="Password"><i class="pi pi-cog" style="font-size: 1rem"></i>Password</Tab>
             </TabList>
             <TabPanels>
                 <TabPanel value="Account">
@@ -59,3 +59,20 @@
 <script setup>
 import Navbar from '@/components/NavBar.vue'
 </script>
+
+<style scoped>
+.p-tab {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+@media (max-width: 575px) {
+    .p-tab {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        flex-direction: column;
+    }
+}
+</style>
