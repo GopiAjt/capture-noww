@@ -29,7 +29,7 @@ export default {
                     label: 'Profile',
                     icon: 'pi pi-user',
                     command: () => {
-                        this.$toast.add({ severity: 'info', summary: 'Add', detail: 'Data Added', life: 3000 });
+                        this.$router.push('/userProfile');
                     }
                 },
                 {

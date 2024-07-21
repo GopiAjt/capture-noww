@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import PhotorapherProfile from '../views/PhotographerProfile.vue'
+import UserProfile from '../views/UserProfile.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -14,6 +15,11 @@ const router = createRouter({
       path: '/photorapherProfile/:id',
       name: 'photorapherProfile',
       component: PhotorapherProfile
+    },
+    {
+      path: '/userProfile',
+      name: 'profileDashboard',
+      component: UserProfile
     },
     {
       path: '/about',

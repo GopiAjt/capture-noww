@@ -1,13 +1,17 @@
 <template>
+    <header>
+    <Navbar/>
+  </header>
     <div class="card">
         <Tabs value="0">
             <TabList>
-                <Tab value="0">Header I</Tab>
-                <Tab value="1">Header II</Tab>
-                <Tab value="2">Header III</Tab>
+                <Tab value="Account"><i class="pi pi-user" style="font-size: 1rem"></i>Account</Tab>
+                <Tab value="Bookings">Bookings</Tab>
+                <Tab value="Favorites">Favorites</Tab>
+                <Tab value="Password">Password</Tab>
             </TabList>
             <TabPanels>
-                <TabPanel value="0">
+                <TabPanel value="Account">
                     <p class="m-0">
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
                         labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
@@ -17,7 +21,7 @@
                         deserunt mollit anim id est laborum.
                     </p>
                 </TabPanel>
-                <TabPanel value="1">
+                <TabPanel value="Bookings">
                     <p class="m-0">
                         Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
                         laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto
@@ -27,7 +31,17 @@
                         numquam eius modi.
                     </p>
                 </TabPanel>
-                <TabPanel value="2">
+                <TabPanel value="Favorites">
+                    <p class="m-0">
+                        At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum
+                        deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non
+                        provident, similique sunt in culpa
+                        qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum
+                        facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio
+                        cumque nihil impedit quo minus.
+                    </p>
+                </TabPanel>
+                <TabPanel value="Password">
                     <p class="m-0">
                         At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum
                         deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non
@@ -42,5 +56,6 @@
     </div>
 </template>
 
-<script>
+<script setup>
+import Navbar from '@/components/NavBar.vue'
 </script>
