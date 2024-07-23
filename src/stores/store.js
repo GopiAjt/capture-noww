@@ -23,7 +23,7 @@ const store = createStore({
         },
         setIsLogedIn(state, status) {
             state.isLogedIn = status;
-        }
+        },
     },
     actions: {
         login({ commit }, { user, token }) {
@@ -35,7 +35,7 @@ const store = createStore({
             commit('clearUser');
             commit('clearToken');
             commit('setIsLogedIn', false); // Update isLogedIn state when logout action is called
-        }
+        },
     },
     getters: {
         isAuthenticated: state => !!state.user,

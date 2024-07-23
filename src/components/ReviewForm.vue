@@ -1,14 +1,12 @@
 <template>
     <div class="review-container">
-        <center>
-            <label for="exampleFormControlTextarea1" class="form-label" style="font-weight: 500;">Add
-                Review
-            </label>
-        </center>
+        <label for="exampleFormControlTextarea1" class="form-label" style="font-weight: 500;">Add
+            Review
+        </label>
         <div class="card flex justify-center">
             <Rating v-model="rating" />
         </div>
-        <div class="card flex justify-center">
+        <div class="card">
             <Textarea v-model="comment" autoResize rows="5" cols="40" />
         </div>
         <Button label="Submit" text raised @click="addReview" />
@@ -37,7 +35,7 @@ export default {
             const response = await AuthService.addReview(this.$store.state.user.email, this.photographer_id, this.rating, this.comment, this.$store.state.token);
             console.log(response);
             if (response.status == 201) {
-                this.$toast.add({ severity: 'success', summary: 'Review Added!',detail: '', life: 3000 });
+                this.$toast.add({ severity: 'success', summary: 'Review Added!', detail: '', life: 3000 });
             }
         }
     },

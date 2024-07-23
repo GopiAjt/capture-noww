@@ -62,8 +62,8 @@
 
                 </TabPanel>
                 <TabPanel value="Reviews">
-                    <ReviewForm :photographer_id="photographer.email" />
-                    <AllReviews :photographer_id="photographer.email" />
+                    <ReviewForm :photographer_id="this.photographerId" />
+                    <AllReviews :p_id="this.photographerId"/>
                 </TabPanel>
             </TabPanels>
         </Tabs>
@@ -76,6 +76,7 @@ import Api from '@/services/Api';
 import PackageDetails from '@/components/PackageDetails.vue'
 import ReviewForm from '@/components/ReviewForm.vue'
 import AllReviews from '@/components/AllReviews.vue'
+
 </script>
 <script>
 export default {
@@ -86,7 +87,7 @@ export default {
         return {
             photographer: {},
             package: {},
-            
+            photographerId: null
         };
     },
     mounted() {
@@ -96,6 +97,7 @@ export default {
     },
     methods: {
         async fetchPhotographerDetails(id, token) {
+            
             try {
                 const response = await Api().get(`/customer/getPhotographerByEmail?email=${id}`, {
                     headers: {
@@ -104,6 +106,7 @@ export default {
                     }
                 });
                 this.photographer = response.data;
+                this.photographerId = response.data.email;
                 this.package = response.data.packages;
                 console.log(response.data);
             } catch (error) {
