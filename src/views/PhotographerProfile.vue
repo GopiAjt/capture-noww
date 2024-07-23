@@ -53,7 +53,7 @@
             </TabList>
             <TabPanels>
                 <TabPanel value="Albums">
-
+                    <PhotographerAlbums :photographer_id="photographer.email"/>
                 </TabPanel>
                 <TabPanel value="Packages">
                     <PackageDetails :packageDetails="package" />
@@ -62,8 +62,8 @@
 
                 </TabPanel>
                 <TabPanel value="Reviews">
-                    <ReviewForm :photographer_id="this.photographerId" />
-                    <AllReviews :p_id="this.photographerId"/>
+                    <ReviewForm :photographer_id="photographer.email" />
+                    <AllReviews :p_id="photographer.email"/>
                 </TabPanel>
             </TabPanels>
         </Tabs>
@@ -76,6 +76,7 @@ import Api from '@/services/Api';
 import PackageDetails from '@/components/PackageDetails.vue'
 import ReviewForm from '@/components/ReviewForm.vue'
 import AllReviews from '@/components/AllReviews.vue'
+import PhotographerAlbums from '@/components/PhotographerAlbums.vue'
 
 </script>
 <script>

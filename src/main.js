@@ -37,6 +37,7 @@ import Textarea from 'primevue/textarea';
 import Panel from 'primevue/panel';
 import Avatar from 'primevue/avatar';
 import Paginator from 'primevue/paginator';
+import Galleria from 'primevue/galleria';
 
 
 import Ripple from 'primevue/ripple';
@@ -104,4 +105,5 @@ app.component('Textarea', Textarea);
 app.component('Panel', Panel);
 app.component('Avatar', Avatar);
 app.component('Paginator', Paginator);
+app.component('Galleria', Galleria);
 app.mount('#app')

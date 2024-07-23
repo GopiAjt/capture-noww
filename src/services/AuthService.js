@@ -17,8 +17,16 @@ export default {
             }
         });
     },
-    loadReviews(p_id, token){
-        return Api().get(`/customer/getReviews?email=${p_id}`,{
+    loadReviews(p_id, token) {
+        return Api().get(`/customer/getReviews?email=${p_id}`, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        })
+    },
+    loadAlbums(p_id, token) {
+        return Api().get(`/customer/getAlbumsByEmail?email=${p_id}`, {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
