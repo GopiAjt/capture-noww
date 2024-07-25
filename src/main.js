@@ -38,6 +38,7 @@ import Panel from 'primevue/panel';
 import Avatar from 'primevue/avatar';
 import Paginator from 'primevue/paginator';
 import Galleria from 'primevue/galleria';
+import ProgressSpinner from 'primevue/progressspinner';
 
 
 import Ripple from 'primevue/ripple';
@@ -106,4 +107,5 @@ app.component('Panel', Panel);
 app.component('Avatar', Avatar);
 app.component('Paginator', Paginator);
 app.component('Galleria', Galleria);
+app.component('ProgressSpinner', ProgressSpinner);
 app.mount('#app')

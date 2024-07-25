@@ -68,6 +68,7 @@
             </TabPanels>
         </Tabs>
     </div>
+    <Toast position="bottom-center" />
 </template>
 
 <script setup>

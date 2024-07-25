@@ -1,6 +1,6 @@
 <template>
     <div v-if="packageDetails.length == 0" style="display: flex; justify-content: center;">
-        <p>No Packages Found</p>
+        <h3>No Packages Found!</h3>
     </div>
     <div class="card" v-for="packages in packageDetails" :key="id">
         <Panel>
@@ -25,7 +25,6 @@
                 <p>
                     <strong>Video Price:</strong> {{ packages.videoRate }}
                 </p>
-
             </div>
             <template #footer>
                 <div class="p-footer">

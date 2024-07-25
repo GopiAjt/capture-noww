@@ -20,6 +20,15 @@
             </div>
         </div>
     </div>
+    <div v-if="images" style="text-align: center;">
+        <h3 v-if="images.length === 0">No Albums to Display!</h3>
+        <!-- <ProgressSpinner v-if="isLoading"/> -->
+    </div>
+    <div class="card">
+        <Paginator :rows="pageSize" :totalRecords="totalPhotographers" :rowsPerPageOptions="[10, 20, 30]"
+            @page="onPageChange">
+        </Paginator>
+    </div>
 </template>
 
 <script>
@@ -36,21 +45,24 @@ export default {
     },
     setup(props) {
         const store = useStore(); // Access Vuex store
-        const images = ref(null);
+        const images = ref([]);
         const activeIndex = ref(0);
         const displayCustom = ref(false);
+        const page = ref(0);
+        const pageSize = ref(10);
+        const totalPhotographers = ref(0);
         const responsiveOptions = [
             { breakpoint: '1024px', numVisible: 5 },
             { breakpoint: '768px', numVisible: 3 },
             { breakpoint: '560px', numVisible: 1 }
         ];
-
+        
         const loadAlbums = async () => {
-            console.log(props.photographer_id);
             try {
-                const response = await AuthService.loadAlbums(props.photographer_id, store.state.token);
-                images.value = response.data; // Assuming response.data contains the image array
-                console.log(response.data);
+                const offset = page.value * pageSize.value;
+                const response = await AuthService.loadAlbums(props.photographer_id, store.state.token, offset, pageSize.value);
+                images.value = response.data.content; // Assuming response.data contains the image array
+                totalPhotographers.value = response.data.totalElements;
             } catch (error) {
                 console.error('Error loading albums:', error);
             }
@@ -61,23 +73,31 @@ export default {
             displayCustom.value = true;
         };
 
+        const onPageChange = (event) => {
+            page.value = event.page;
+            pageSize.value = event.rows;
+            loadAlbums();
+        };
+
         watch(() => props.photographer_id, loadAlbums, { immediate: true });
+        watch([page, pageSize], loadAlbums);
 
         return {
             images,
             activeIndex,
             displayCustom,
             responsiveOptions,
-            imageClick
+            page,
+            pageSize,
+            totalPhotographers,
+            imageClick,
+            onPageChange
         };
     }
 };
 </script>
 
 <style scoped>
-/* .p-panel-header {
-    justify-content: flex-start;
-} */
 .album-card {
     display: flex;
     justify-content: center;

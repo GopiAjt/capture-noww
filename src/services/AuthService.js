@@ -25,8 +25,8 @@ export default {
             }
         })
     },
-    loadAlbums(p_id, token) {
-        return Api().get(`/customer/getAlbumsByEmail?email=${p_id}`, {
+    loadAlbums(p_id, token, offset, pageSize) {
+        return Api().get(`/customer/getAlbumsByEmail?email=${p_id}&offset=${offset}&pageSize=${pageSize}`, {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
