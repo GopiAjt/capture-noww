@@ -46,14 +46,14 @@
     <div class="card">
         <Tabs value="0">
             <TabList>
-                <Tab value="Albums">Albums</Tab>
-                <Tab value="Packages">Packages</Tab>
-                <Tab value="Equipments">Equipments</Tab>
-                <Tab value="Reviews">Reviews</Tab>
+                <Tab value="Albums"><i class="pi pi-images" style="font-size: 1rem"></i><p style="font-weight: bold;">Albums</p></Tab>
+                <Tab value="Packages"><i class="pi pi-list-check" style="font-size: 1rem"></i><p style="font-weight: bold;">Packages</p></Tab>
+                <Tab value="Equipments"><i class="pi pi-briefcase" style="font-size: 1rem"></i><p style="font-weight: bold;">Equipments</p></Tab>
+                <Tab value="Reviews"><i class="pi pi-star" style="font-size: 1rem"></i><p style="font-weight: bold;">Reviews</p></Tab>
             </TabList>
             <TabPanels>
                 <TabPanel value="Albums">
-                    <PhotographerAlbums :photographer_id="photographer.email"/>
+                    <PhotographerAlbums :photographer_id="photographer.email" />
                 </TabPanel>
                 <TabPanel value="Packages">
                     <PackageDetails :packageDetails="package" />
@@ -63,7 +63,7 @@
                 </TabPanel>
                 <TabPanel value="Reviews">
                     <ReviewForm :photographer_id="photographer.email" />
-                    <AllReviews :p_id="photographer.email"/>
+                    <AllReviews :p_id="photographer.email" />
                 </TabPanel>
             </TabPanels>
         </Tabs>
@@ -99,7 +99,7 @@ export default {
     },
     methods: {
         async fetchPhotographerDetails(id, token) {
-            
+
             try {
                 const response = await Api().get(`/customer/getPhotographerByEmail?email=${id}`, {
                     headers: {
@@ -140,6 +140,14 @@ img {
     margin-right: 10vw;
 }
 
+.p-tab {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: small;
+    font-weight: bold;
+}
+
 @media (max-width: 575px) {
     img {
         width: 15rem;
@@ -165,7 +173,12 @@ img {
     .p-card-body {
         width: 100%;
     }
-
+    .p-tab {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        flex-direction: column;
+    }
 
 }
 </style>
