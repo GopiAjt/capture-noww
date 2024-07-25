@@ -145,7 +145,6 @@ img {
     align-items: center;
     gap: 5px;
     font-size: small;
-    font-weight: bold;
 }
 
 @media (max-width: 575px) {
