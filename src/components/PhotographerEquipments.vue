@@ -21,7 +21,7 @@
         </div>
     </div>
     <div v-if="images" style="text-align: center;">
-        <h3 v-if="images.length === 0">No Albums to Display!</h3>
+        <h3 v-if="images.length === 0">No Equipments to Display!</h3>
         <!-- <ProgressSpinner v-if="isLoading"/> -->
     </div>
     <div class="card">
@@ -120,14 +120,5 @@ export default {
     .images {
         width: 350px;
     }
-}
-</style>
-<style>
-.p-galleria-close-button {
-    background-color: black;
-}
-
-.p-galleria-nav-button {
-    background-color: black;
 }
 </style>

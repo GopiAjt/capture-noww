@@ -69,6 +69,7 @@
         </Tabs>
     </div>
     <Toast position="bottom-center" />
+    <Footer></Footer>
 </template>
 
 <script setup>
@@ -79,6 +80,7 @@ import ReviewForm from '@/components/ReviewForm.vue'
 import AllReviews from '@/components/AllReviews.vue'
 import PhotographerAlbums from '@/components/PhotographerAlbums.vue'
 import PhotographerEquipments from '@/components/PhotographerEquipments.vue'
+import Footer from '@/components/Footer.vue'
 
 </script>
 <script>
