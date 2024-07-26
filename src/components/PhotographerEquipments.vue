@@ -56,7 +56,7 @@ export default {
             { breakpoint: '768px', numVisible: 3 },
             { breakpoint: '560px', numVisible: 1 }
         ];
-        
+
         const loadAlbums = async () => {
             try {
                 const offset = page.value * pageSize.value;
@@ -120,5 +120,14 @@ export default {
     .images {
         width: 350px;
     }
+}
+</style>
+<style>
+.p-galleria-close-button {
+    background-color: black;
+}
+
+.p-galleria-nav-button {
+    background-color: black;
 }
 </style>

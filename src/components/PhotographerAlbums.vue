@@ -121,3 +121,11 @@ export default {
     }
 }
 </style>
+<style>
+.p-galleria-close-button{
+    background-color: black;
+}
+.p-galleria-nav-button{
+    background-color: black;
+}
+</style>
