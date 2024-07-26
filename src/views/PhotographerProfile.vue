@@ -59,7 +59,7 @@
                     <PackageDetails :packageDetails="package" />
                 </TabPanel>
                 <TabPanel value="Equipments">
-
+                    <PhotographerEquipments :photographer_id="photographer.email"/>
                 </TabPanel>
                 <TabPanel value="Reviews">
                     <ReviewForm :photographer_id="photographer.email" />
@@ -78,6 +78,7 @@ import PackageDetails from '@/components/PackageDetails.vue'
 import ReviewForm from '@/components/ReviewForm.vue'
 import AllReviews from '@/components/AllReviews.vue'
 import PhotographerAlbums from '@/components/PhotographerAlbums.vue'
+import PhotographerEquipments from '@/components/PhotographerEquipments.vue'
 
 </script>
 <script>

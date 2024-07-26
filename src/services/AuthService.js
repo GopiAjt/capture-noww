@@ -32,5 +32,13 @@ export default {
                 'Authorization': `Bearer ${token}`
             }
         })
+    },
+    loadEquipments(p_id, token, offset, pageSize) {
+        return Api().get(`/customer/getEquipmentsByEmail?email=${p_id}&offset=${offset}&pageSize=${pageSize}`, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        })
     }
 };
