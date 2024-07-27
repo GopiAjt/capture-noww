@@ -1,6 +1,7 @@
 <template>
     <footer class="footer">
-        <img src="/public/CaptureNowLogo.svg" alt="CaptureNoww" srcset="" width="80px" style="padding: 1rem;">
+        <img src="/public/CaptureNowLogo.svg" alt="CaptureNoww" srcset="" width="50px" style="">
+        <p>Every Movements Mater</p>
         <div class="f-links">
             <div class="p-col-12 p-md-4">
                 <ul class="footer-links">
@@ -37,6 +38,7 @@ export default {
     color: #ffffff;
     text-align: center;
     font-size: smaller;
+    margin-top: 5rem;
 }
 
 .footer h3,
