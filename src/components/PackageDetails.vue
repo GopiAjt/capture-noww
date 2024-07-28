@@ -73,6 +73,7 @@ export default {
             this.visible = true;
             this.selectedPackage = packageId;
             console.log(this.selectedPackage);
+            console.log(this.packageDetails.id);
         }
     }
 };

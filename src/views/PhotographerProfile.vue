@@ -53,17 +53,17 @@
             </TabList>
             <TabPanels>
                 <TabPanel value="Albums">
-                    <PhotographerAlbums :photographer_id="photographer.email" />
+                    <PhotographerAlbums :photographer_id="photographer.pid" />
                 </TabPanel>
                 <TabPanel value="Packages">
                     <PackageDetails :packageDetails="package" />
                 </TabPanel>
                 <TabPanel value="Equipments">
-                    <PhotographerEquipments :photographer_id="photographer.email"/>
+                    <PhotographerEquipments :photographer_id="photographer.pid"/>
                 </TabPanel>
                 <TabPanel value="Reviews">
-                    <ReviewForm :photographer_id="photographer.email" />
-                    <AllReviews :p_id="photographer.email" />
+                    <ReviewForm :photographer_id="photographer.pid" />
+                    <AllReviews :p_id="photographer.pid" />
                 </TabPanel>
             </TabPanels>
         </Tabs>
@@ -107,14 +107,14 @@ export default {
         async fetchPhotographerDetails(id, token) {
 
             try {
-                const response = await Api().get(`/customer/getPhotographerByEmail?email=${id}`, {
+                const response = await Api().get(`/customer/getPhotographerById?id=${id}`, {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${token}`
                     }
                 });
                 this.photographer = response.data;
-                this.photographerId = response.data.email;
+                this.photographerId = response.data.id;
                 this.package = response.data.packages;
                 console.log(response.data);
             } catch (error) {

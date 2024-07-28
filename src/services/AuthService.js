@@ -18,7 +18,7 @@ export default {
         });
     },
     loadReviews(p_id, token) {
-        return Api().get(`/customer/getReviews?email=${p_id}`, {
+        return Api().get(`/customer/getReviewsById?id=${p_id}`, {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
@@ -26,7 +26,7 @@ export default {
         })
     },
     loadAlbums(p_id, token, offset, pageSize) {
-        return Api().get(`/customer/getAlbumsByEmail?email=${p_id}&offset=${offset}&pageSize=${pageSize}`, {
+        return Api().get(`/customer/getAlbumsById?id=${p_id}&offset=${offset}&pageSize=${pageSize}`, {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
@@ -34,7 +34,7 @@ export default {
         })
     },
     loadEquipments(p_id, token, offset, pageSize) {
-        return Api().get(`/customer/getEquipmentsByEmail?email=${p_id}&offset=${offset}&pageSize=${pageSize}`, {
+        return Api().get(`/customer/getEquipmentsById?id=${p_id}&offset=${offset}&pageSize=${pageSize}`, {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`

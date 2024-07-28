@@ -41,6 +41,7 @@ import Galleria from 'primevue/galleria';
 import ProgressSpinner from 'primevue/progressspinner';
 import DatePicker from 'primevue/datepicker';
 import Drawer from 'primevue/drawer';
+import InputMask from 'primevue/inputmask';
 
 
 import Ripple from 'primevue/ripple';
@@ -112,5 +113,6 @@ app.component('Galleria', Galleria);
 app.component('ProgressSpinner', ProgressSpinner);
 app.component('DatePicker', DatePicker);
 app.component('Drawer', Drawer);
+app.component('InputMask', InputMask);
 
 app.mount('#app')

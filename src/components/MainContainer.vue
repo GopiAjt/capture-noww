@@ -6,12 +6,12 @@
                     <div class="header-img">
                         <img :src="photographer.profilePhoto ? `data:image/jpeg;base64,${photographer.profilePhoto}` : 'src/assets/images/default_profile.png'"
                             class="card-img-top" alt="Photographer Image"
-                            @click="photographerProfile(photographer.email)" style="cursor: pointer;" />
+                            @click="photographerProfile(photographer.id)" style="cursor: pointer;" />
                     </div>
                 </template>
 
                 <template #title>
-                    <a @click.prevent="photographerProfile(photographer.email)"
+                    <a @click.prevent="photographerProfile(photographer.id)"
                         style="text-decoration: none; color: white; cursor: pointer;">
                         {{ photographer.name }}
                     </a>
@@ -65,6 +65,7 @@ export default {
                 const offset = page * pageSize;
                 const response = await Api().get(`/customer/getPhotographersIndex/${offset}/${pageSize}`);
                 this.photographers = response.data.content;
+                console.log(response.data.content);
                 this.totalPhotographers = response.data.totalElements;
             } catch (error) {
                 console.error('Error fetching photographers:', error);
@@ -73,6 +74,7 @@ export default {
         },
         photographerProfile(id) {
             if (this.$store.state.isLogedIn) {
+                console.log(id);
                 this.$router.push(`/photorapherProfile/${id}`);
             } else {
                 this.$toast.add({ severity: 'error', summary: 'Please Login!', life: 3000 });
