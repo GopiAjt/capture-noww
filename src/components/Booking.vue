@@ -19,20 +19,25 @@ export default {
         package: {
             type: String,
             required: true
+        },
+        photographer_id: {
+            type: String,
+            required: true
         }
     },
     data() {
         return {
-            formDate: null,
+            fromDate: null,
             tillDate: null
         };
     },
 
     methods: {
         async book() {
-            console.log(this.formDate);
+            console.log(this.fromDate);
             console.log(this.tillDate);
             console.log(this.package);
+            console.log(this.photographer_id);
             console.log("booked");
         }
     }

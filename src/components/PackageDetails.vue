@@ -43,7 +43,7 @@
             <template #header>
                 <h3>Book Package</h3>
             </template>
-            <Booking :package="selectedPackage" />
+            <Booking :package="selectedPackage" :photographer_id="photographer_id" />
         </Drawer>
     </div>
 </template>
@@ -56,6 +56,10 @@ export default {
     props: {
         packageDetails: {
             type: Array,
+            required: true
+        },
+        photographer_id: {
+            type: String,
             required: true
         }
     },

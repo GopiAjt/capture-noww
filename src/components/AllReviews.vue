@@ -6,7 +6,7 @@
                     <Avatar image="/CaptureNowLogo.svg" size="large" shape="circle" />
                     <div style="display: flex; flex-direction: column;">
                         <span class="font-bold">{{ review.customerName }}</span>
-                        <p style="font-size: smaller;">{{ formatDate(review.ratingDate) }}</p>
+                        <p>{{ formatDate(review.ratingDate) }}</p>
                     </div>
                 </div>
                 <div class="rating-div">

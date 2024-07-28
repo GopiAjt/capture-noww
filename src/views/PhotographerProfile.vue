@@ -56,7 +56,7 @@
                     <PhotographerAlbums :photographer_id="photographer.pid" />
                 </TabPanel>
                 <TabPanel value="Packages">
-                    <PackageDetails :packageDetails="package" />
+                    <PackageDetails :packageDetails="package" :photographer_id="photographer.pid"  />
                 </TabPanel>
                 <TabPanel value="Equipments">
                     <PhotographerEquipments :photographer_id="photographer.pid"/>
