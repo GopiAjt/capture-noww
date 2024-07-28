@@ -1,15 +1,21 @@
 <template>
     <div class="card" v-for="(review, index) in reviews" :key="index">
         <Panel>
-            <template #header>
-                <Avatar image="/CaptureNowLogo.svg" size="large" shape="circle" />
-                <span class="font-bold">{{ review.customerName }}</span>
-            </template>
+            <div  style="display: flex; justify-content: space-between;" >
+                <div style="display: flex;">
+                    <Avatar image="/CaptureNowLogo.svg" size="large" shape="circle" />
+                    <div style="display: flex; flex-direction: column;">
+                        <span class="font-bold">{{ review.customerName }}</span>
+                        <p style="font-size: smaller;">{{ formatDate(review.ratingDate) }}</p>
+                    </div>
+                </div>
+                <div class="rating-div">
+                    <i class="pi pi-star-fill" style="font-size: 1.5rem; color: yellow; margin-right: 5px;"></i> {{ review.rating }}<br>
+                </div>
+            </div>
 
             <p class="m-0">
-                <strong>Rating:</strong> {{ review.rating }}<br>
-                <strong>Comment:</strong> {{ review.comment || 'No comment provided' }}<br>
-                <strong>Date:</strong> {{ formatDate(review.ratingDate) }}
+                <strong> </strong> {{ review.comment || 'No comment provided' }}<br>
             </p>
         </Panel>
     </div>
@@ -58,8 +64,8 @@ export default {
 };
 </script>
 
-<style scoped>
+<style >
 .p-panel-header {
-    justify-content: flex-start;
+    padding: 1%;
 }
 </style>

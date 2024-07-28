@@ -4,7 +4,7 @@
             Review
         </label>
         <div class="card flex justify-center">
-            <Rating v-model="rating" />
+            <Rating v-model="rating" style="font-size: 1.5rem;"/>
         </div>
         <div class="card">
             <Textarea v-model="comment" autoResize rows="5" cols="40" />
@@ -52,4 +52,5 @@ export default {
     align-items: center;
     gap: 1rem;
 }
+
 </style>
