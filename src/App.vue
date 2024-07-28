@@ -6,17 +6,14 @@ import { RouterLink, RouterView } from 'vue-router'
   <RouterView />
 </template>
 
-<style scoped>
-.p-button {
-  color: black;
-}
-
-.p-button-outlined {
-  color: black;
-
-}
-</style>
 <style>
+header {
+  top: 0%;
+  position: sticky;
+}
+.p-button{
+  position: initial;
+}
 .rating-div {
   display: flex;
   justify-content: center;
@@ -50,7 +47,10 @@ import { RouterLink, RouterView } from 'vue-router'
 .p-panel {
   margin: 3% 1%;
 }
-
+.p-tablist{
+  top: 9%;
+  position: sticky;
+}
 @media (max-width: 575px) {
   .p-card-body {
     padding: 5px;

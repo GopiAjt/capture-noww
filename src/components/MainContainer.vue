@@ -5,18 +5,16 @@
                 <template #header>
                     <div class="header-img">
                         <img :src="photographer.profilePhoto ? `data:image/jpeg;base64,${photographer.profilePhoto}` : 'src/assets/images/default_profile.png'"
-                            class="card-img-top" alt="Photographer Image"
-                            @click="photographerProfile(photographer.id)" style="cursor: pointer;" />
+                            class="card-img-top" alt="Photographer Image" @click="photographerProfile(photographer.id)"
+                            style="cursor: pointer;" />
                     </div>
                 </template>
 
                 <template #title>
-                    <a @click.prevent="photographerProfile(photographer.id)"
-                        style="text-decoration: none; color: white; cursor: pointer;">
-                        {{ photographer.name }}
-                    </a>
+                    <h3 @click.prevent="photographerProfile(photographer.id)" style="cursor: pointer; font-weight: bold;">{{ photographer.name }}</h3>
                     <div class="rating-div">
-                        <i class="pi pi-star-fill" style="font-size: 1.5rem; color: yellow; margin-right: 5px;"></i>{{photographer.avgRating }}
+                        <i class="pi pi-star-fill"
+                            style="font-size: 1.5rem; color: yellow; margin-right: 5px;"></i>{{ photographer.avgRating }}
                     </div>
                 </template>
                 <template #subtitle>{{ photographer.experience }}</template>
@@ -34,7 +32,7 @@
                 </template>
             </Card>
         </div>
-        <div >
+        <div>
             <Paginator :rows="pageSize" :totalRecords="totalPhotographers" :rowsPerPageOptions="[10, 20, 30]"
                 @page="onPageChange">
             </Paginator>
