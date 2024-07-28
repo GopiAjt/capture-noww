@@ -42,6 +42,9 @@ import { RouterLink, RouterView } from 'vue-router'
 .p-tablist-tab-list {
   justify-content: space-evenly;
 }
+.p-tabpanels{
+  padding: 4% 0%;
+}
 
 @media (max-width: 575px) {
   .p-card-body {

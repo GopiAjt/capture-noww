@@ -35,7 +35,7 @@
                 </template>
             </Card>
         </div>
-        <div class="card">
+        <div >
             <Paginator :rows="pageSize" :totalRecords="totalPhotographers" :rowsPerPageOptions="[10, 20, 30]"
                 @page="onPageChange">
             </Paginator>

@@ -39,6 +39,8 @@ import Avatar from 'primevue/avatar';
 import Paginator from 'primevue/paginator';
 import Galleria from 'primevue/galleria';
 import ProgressSpinner from 'primevue/progressspinner';
+import DatePicker from 'primevue/datepicker';
+import Drawer from 'primevue/drawer';
 
 
 import Ripple from 'primevue/ripple';
@@ -108,4 +110,7 @@ app.component('Avatar', Avatar);
 app.component('Paginator', Paginator);
 app.component('Galleria', Galleria);
 app.component('ProgressSpinner', ProgressSpinner);
+app.component('DatePicker', DatePicker);
+app.component('Drawer', Drawer);
+
 app.mount('#app')

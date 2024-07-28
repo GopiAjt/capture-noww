@@ -44,7 +44,7 @@
     </div>
 
     <div class="card">
-        <Tabs value="0">
+        <Tabs v-model:value="activeTab">
             <TabList>
                 <Tab value="Albums"><i class="pi pi-images" style="font-size: 1rem"></i><span style="font-weight: bold;">Albums</span></Tab>
                 <Tab value="Packages"><i class="pi pi-list-check" style="font-size: 1rem"></i><span style="font-weight: bold;">Packages</span></Tab>
@@ -73,6 +73,7 @@
 </template>
 
 <script setup>
+import { ref } from 'vue';
 import Navbar from '@/components/NavBar.vue'
 import Api from '@/services/Api';
 import PackageDetails from '@/components/PackageDetails.vue'
@@ -81,6 +82,8 @@ import AllReviews from '@/components/AllReviews.vue'
 import PhotographerAlbums from '@/components/PhotographerAlbums.vue'
 import PhotographerEquipments from '@/components/PhotographerEquipments.vue'
 import Footer from '@/components/Footer.vue'
+
+const activeTab = ref('Albums'); // Set the default active tab
 
 </script>
 <script>
