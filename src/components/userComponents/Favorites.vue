@@ -1,0 +1,57 @@
+<template>
+    <div v-if="!favoritesData">
+        <h3>No Favorite Photographers Found!</h3>
+    </div>
+    <div class="card" v-for="fav in favoritesData">
+        <Panel>
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <img :src="fav.profilePhoto ? `data:image/jpeg;base64,${fav.profilePhoto}` : 'src/assets/images/default_profile.png'" alt="" width="50px" >
+                <h2>{{fav.name}}</h2>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-top: 10px;">
+                <h3>starts with: {{ fav.startsWith }}</h3>
+                <div class="rating-div">
+                    <i class="pi pi-star-fill" style="font-size: 1.5rem; color: yellow; margin-right: 5px;"></i>
+                    <p>{{ fav.avgRating }}</p>
+                </div>
+            </div>
+        </Panel>
+    </div>
+</template>
+
+<script>
+import AuthService from '@/services/AuthService';
+
+export default {
+    props:{
+        user: {
+            type: String,
+            required: true
+        }
+    },
+    data(){
+        return{
+            favoritesData: null
+        }
+    },
+    methods: {
+        async getFevorites(u_id, token){
+            try {
+                const response = AuthService.getFevorites(u_id, token);
+                console.log((await response).data);
+                this.favoritesData = (await response).data;
+                console.log(this.favoritesData);
+            } catch (error) {
+                console.log(error);
+            }
+
+        }
+    },
+    mounted(){
+        console.log(this.$store.state.token);
+        console.log(this.user);
+        this.getFevorites(this.user, this.$store.state.token);
+    }
+}
+
+</script>

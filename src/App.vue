@@ -48,7 +48,7 @@ import { RouterLink, RouterView } from 'vue-router'
 }
 
 .p-panel {
-  margin: 3% 0%;
+  margin: 3% 1%;
 }
 
 @media (max-width: 575px) {

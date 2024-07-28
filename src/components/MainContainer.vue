@@ -16,8 +16,7 @@
                         {{ photographer.name }}
                     </a>
                     <div class="rating-div">
-                        <i class="pi pi-star-fill" style="font-size: 1.5rem; color: yellow; margin-right: 5px;"></i>{{
-                            photographer.avgRating }}
+                        <i class="pi pi-star-fill" style="font-size: 1.5rem; color: yellow; margin-right: 5px;"></i>{{photographer.avgRating }}
                     </div>
                 </template>
                 <template #subtitle>{{ photographer.experience }}</template>

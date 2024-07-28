@@ -40,5 +40,13 @@ export default {
                 'Authorization': `Bearer ${token}`
             }
         })
+    },
+    getFevorites(u_id, token){
+        return Api().get(`/customer/getAllFavorites?email=${u_id}`,{
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        })
     }
 };
