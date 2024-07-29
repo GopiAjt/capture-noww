@@ -10,10 +10,28 @@ import { RouterLink, RouterView } from 'vue-router'
 header {
   top: 0%;
   position: sticky;
+  z-index: 1;
 }
-.p-button{
+
+header::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.266);
+  filter: blur(10px);
+  /* blur the background image */
+  z-index: -1;
+  /* move pseudo-element behind content */
+}
+
+
+.p-button {
   position: initial;
 }
+
 .rating-div {
   display: flex;
   justify-content: center;
@@ -47,10 +65,12 @@ header {
 .p-panel {
   margin: 3% 1%;
 }
-.p-tablist{
+
+.p-tablist {
   top: 9%;
   position: sticky;
 }
+
 @media (max-width: 575px) {
   .p-card-body {
     padding: 5px;
