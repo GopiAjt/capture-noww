@@ -32,6 +32,9 @@
                 </template>
             </Card>
         </div>
+        <div style="display: flex; justify-content: center;">
+            <ProgressSpinner v-if="isLoading"/>
+        </div>
         <div>
             <Paginator :rows="pageSize" :totalRecords="totalPhotographers" :rowsPerPageOptions="[10, 20, 30]"
                 @page="onPageChange">
@@ -51,6 +54,7 @@ export default {
             error: null,
             page: 0,
             pageSize: 10,
+            isLoading: false
         };
     },
     mounted() {
@@ -59,14 +63,17 @@ export default {
     methods: {
         async fetchPhotographers(page, pageSize) {
             try {
+                this.isLoading = true;
                 const offset = page * pageSize;
                 const response = await Api().get(`/customer/getPhotographersIndex/${offset}/${pageSize}`);
                 this.photographers = response.data.content;
                 console.log(response.data.content);
                 this.totalPhotographers = response.data.totalElements;
+                this.isLoading = false;
             } catch (error) {
                 console.error('Error fetching photographers:', error);
                 this.error = 'Failed to load photographers';
+                this.isLoading = false;
             }
         },
         photographerProfile(id) {

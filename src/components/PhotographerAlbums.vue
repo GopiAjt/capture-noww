@@ -21,11 +21,17 @@
         </div>
     </div>
     <div v-if="images" style="text-align: center;">
+        <ProgressSpinner v-if="isLoading" style="width: 50px; height: 50px" 
+            strokeWidth="8" fill="transparent"
+            animationDuration=".5s" 
+            aria-label="Loading.." />
         <h3 v-if="images.length === 0">No Albums to Display!</h3>
-        <!-- <ProgressSpinner v-if="isLoading"/> -->
     </div>
     <div class="card">
-        <Paginator :rows="pageSize" :totalRecords="totalPhotographers" :rowsPerPageOptions="[10, 20, 30]"
+        <Paginator 
+            :rows="pageSize" 
+            :totalRecords="totalPhotographers" 
+            :rowsPerPageOptions="[10, 20, 30]"
             @page="onPageChange">
         </Paginator>
     </div>
@@ -51,20 +57,25 @@ export default {
         const page = ref(0);
         const pageSize = ref(10);
         const totalPhotographers = ref(0);
+        const isLoading = ref(false);
         const responsiveOptions = [
             { breakpoint: '1024px', numVisible: 5 },
             { breakpoint: '768px', numVisible: 3 },
             { breakpoint: '560px', numVisible: 1 }
         ];
-        
+
+
         const loadAlbums = async () => {
+            isLoading.value = true;
             try {
                 const offset = page.value * pageSize.value;
                 const response = await AuthService.loadAlbums(props.photographer_id, store.state.token, offset, pageSize.value);
                 images.value = response.data.content; // Assuming response.data contains the image array
                 totalPhotographers.value = response.data.totalElements;
+                isLoading.value = false;
             } catch (error) {
                 console.error('Error loading albums:', error);
+                isLoading.value = false;
             }
         };
 
@@ -90,6 +101,7 @@ export default {
             page,
             pageSize,
             totalPhotographers,
+            isLoading,
             imageClick,
             onPageChange
         };
@@ -122,10 +134,11 @@ export default {
 }
 </style>
 <style>
-.p-galleria-close-button{
+.p-galleria-close-button {
     background-color: black;
 }
-.p-galleria-nav-button{
+
+.p-galleria-nav-button {
     background-color: black;
 }
 </style>
