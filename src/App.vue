@@ -67,7 +67,7 @@ header::before {
 }
 
 .p-tablist {
-  top: 9%;
+  /* top: 9%; */
   position: sticky;
 }
 

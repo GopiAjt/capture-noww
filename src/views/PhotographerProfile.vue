@@ -183,6 +183,7 @@ img {
         align-items: center;
         gap: 5px;
         flex-direction: column;
+        padding: 1rem;
     }
 
 }

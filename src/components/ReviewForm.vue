@@ -4,10 +4,10 @@
             Review
         </label>
         <div class="card flex justify-center">
-            <Rating v-model="rating" style="font-size: 1.5rem;"/>
+            <Rating v-model="rating" style="font-size: 1.5rem;" />
         </div>
         <div class="card">
-            <Textarea v-model="comment" autoResize rows="5" cols="40" />
+            <Textarea v-model="comment" autoResize rows="5" cols="40" class="responsive-textarea" />
         </div>
         <Button label="Submit" text raised @click="addReview" />
     </div>
@@ -53,4 +53,9 @@ export default {
     gap: 1rem;
 }
 
+.responsive-textarea {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
 </style>
