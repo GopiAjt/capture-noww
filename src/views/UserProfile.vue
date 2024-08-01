@@ -24,14 +24,7 @@
             </TabList>
             <TabPanels>
                 <TabPanel value="Account">
-                    <p class="m-0">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                        laboris nisi ut aliquip ex ea commodo
-                        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                        fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-                        deserunt mollit anim id est laborum.
-                    </p>
+                    <Account></Account>
                 </TabPanel>
                 <TabPanel value="Bookings">
                     <p class="m-0">
@@ -66,6 +59,8 @@
 import Navbar from '@/components/NavBar.vue'
 import Footer from '@/components/Footer.vue'
 import Favorites from '@/components/userComponents/Favorites.vue'
+import Account from '@/components/userComponents/Account.vue'
+
 </script>
 <script>
 export default {
