@@ -141,4 +141,8 @@ export default {
 .p-tablist-tab-list {
     justify-content: space-between;
 }
+.p-tabpanels{
+    padding-left: 4%;
+    padding-right: 4%;
+}
 </style>
