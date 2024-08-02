@@ -71,6 +71,16 @@ header::before {
   position: sticky;
 }
 
+.p-password-toggle-mask-icon {
+  right: var(--p-form-field-padding-x);
+  color: var(--p-password-icon-color);
+  position: absolute;
+  top: 50%;
+  margin-top: calc(-1 * var(--p-icon-size) / 2);
+  width: var(--p-icon-size);
+  height: var(--p-icon-size);
+}
+
 @media (max-width: 575px) {
   .p-card-body {
     padding: 5px;

@@ -44,6 +44,11 @@ import Drawer from 'primevue/drawer';
 import InputMask from 'primevue/inputmask';
 import Fieldset from 'primevue/fieldset';
 import InputOtp from 'primevue/inputotp';
+import Tag from 'primevue/tag';
+import Accordion from 'primevue/accordion';
+import AccordionPanel from 'primevue/accordionpanel';
+import AccordionHeader from 'primevue/accordionheader';
+import AccordionContent from 'primevue/accordioncontent';
 
 
 import Ripple from 'primevue/ripple';
@@ -118,5 +123,9 @@ app.component('Drawer', Drawer);
 app.component('InputMask', InputMask);
 app.component('Fieldset', Fieldset);
 app.component('InputOtp', InputOtp);
-
+app.component('Tag', Tag);
+app.component('Accordion', Accordion);
+app.component('AccordionPanel', AccordionPanel);
+app.component('AccordionHeader', AccordionHeader);
+app.component('AccordionContent', AccordionContent);
 app.mount('#app')

@@ -1,21 +1,25 @@
 <template>
-    <div class="card">
+    <div class="card" v-for="b in bookings">
         <Fieldset>
             <template #legend>
                 <div style="display: flex; align-items: center; gap: 5px">
                     <Avatar image="/CaptureNow.svg" shape="circle" />
-                    <span style="font-weight: bold;">Amy Elsner</span>
+                    <span style="font-weight: bold;">{{ b.photographerName }}</span>
                 </div>
             </template>
-            <p class="m-0">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                dolore magna
-                aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                consequat.
-                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                Excepteur
-                sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </p>
+            <div class="b-header">
+                <p style="font-weight: bold;">{{ b.bookedPackage.category }}</p>
+                <p>{{ b.bookedDateTime }}</p>
+            </div>
+            <Accordion value="0">
+                <AccordionPanel value="0">
+                    <AccordionHeader>package details</AccordionHeader>
+                    <AccordionContent>
+                        <p class="m-0">{{ b.bookedPackage.description }}</p>
+                    </AccordionContent>
+                </AccordionPanel>
+            </Accordion>
+            <Tag value="created" rounded></Tag>
         </Fieldset>
     </div>
 </template>
@@ -37,10 +41,11 @@ export default {
         }
     },
     methods: {
-        
-        async getBookingData(store){
+
+        async getBookingData(store) {
             const response = await AuthService.getBookings(this.user, store.state.token);
             console.log(response.data);
+            this.bookings = response.data;
         }
     },
     mounted() {
@@ -49,3 +54,11 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+.b-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+</style>
