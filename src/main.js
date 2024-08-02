@@ -43,6 +43,7 @@ import DatePicker from 'primevue/datepicker';
 import Drawer from 'primevue/drawer';
 import InputMask from 'primevue/inputmask';
 import Fieldset from 'primevue/fieldset';
+import InputOtp from 'primevue/inputotp';
 
 
 import Ripple from 'primevue/ripple';
@@ -116,5 +117,6 @@ app.component('DatePicker', DatePicker);
 app.component('Drawer', Drawer);
 app.component('InputMask', InputMask);
 app.component('Fieldset', Fieldset);
+app.component('InputOtp', InputOtp);
 
 app.mount('#app')
