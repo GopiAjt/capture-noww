@@ -41,8 +41,16 @@ export default {
             }
         })
     },
-    getFevorites(u_id, token){
-        return Api().get(`/customer/getAllFavorites?email=${u_id}`,{
+    getFevorites(u_id, token) {
+        return Api().get(`/customer/getAllFavorites?email=${u_id}`, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        })
+    },
+    getBookings(id, token) {
+        return Api().get(`/customer/getBookingStatus?emailId=${id}`, {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`

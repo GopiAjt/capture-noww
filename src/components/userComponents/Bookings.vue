@@ -2,9 +2,9 @@
     <div class="card">
         <Fieldset>
             <template #legend>
-                <div class="flex items-center pl-2">
+                <div style="display: flex; align-items: center; gap: 5px">
                     <Avatar image="/CaptureNow.svg" shape="circle" />
-                    <span class="font-bold p-2">Amy Elsner</span>
+                    <span style="font-weight: bold;">Amy Elsner</span>
                 </div>
             </template>
             <p class="m-0">
@@ -21,4 +21,31 @@
 </template>
 
 <script>
+import AuthService from '@/services/AuthService';
+import { useStore } from 'vuex';
+
+export default {
+    props: {
+        user: {
+            type: String,
+            required: true
+        }
+    },
+    data() {
+        return {
+            bookings: null
+        }
+    },
+    methods: {
+        
+        async getBookingData(store){
+            const response = await AuthService.getBookings(this.user, store.state.token);
+            console.log(response.data);
+        }
+    },
+    mounted() {
+        const store = useStore();
+        this.getBookingData(store);
+    }
+}
 </script>

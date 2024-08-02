@@ -24,7 +24,7 @@
             </TabList>
             <TabPanels>
                 <TabPanel value="Bookings">
-                    <Booking></Booking>
+                    <Booking :user="userData.email"></Booking>
                 </TabPanel>
                 <TabPanel value="Favorites">
                     <Favorites :user="userData.email"></Favorites>
