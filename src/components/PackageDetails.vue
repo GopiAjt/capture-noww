@@ -10,7 +10,7 @@
                 </template>
 
                 <p class="m-0">
-                    <strong style="font-weight: 500;">Description:</strong><br>{{ packages.description }}
+                    <strong style="font-weight: 500;">Description:</strong><br>{{ HelperService.addLineBreaks(packages.description) }}
                 </p>
                 <br>
                 <div class="p-footer">
@@ -51,6 +51,7 @@
 <script>
 import Booking from '@/components/Booking.vue';
 import { ref } from 'vue';
+import HelperService from '@/services/HelperService';
 
 export default {
     props: {
@@ -66,7 +67,8 @@ export default {
     data() {
         return {
             visible: false,
-            selectedPackage: null
+            selectedPackage: null,
+            HelperService
         }
     },
     components: {

@@ -15,7 +15,7 @@
             </div>
 
             <p class="m-0">
-                <strong> </strong> {{ review.comment || 'No comment provided' }}<br>
+                <strong> </strong> {{ HelperService.addLineBreaks(review.comment) || 'No comment provided' }}<br>
             </p>
         </Panel>
     </div>
@@ -25,12 +25,18 @@
 import AuthService from '@/services/AuthService';
 import { watch, ref } from 'vue';
 import { useStore } from 'vuex';
+import HelperService from '@/services/HelperService';
 
 export default {
     props: {
         p_id: {
             type: String,
             required: true
+        }
+    },
+    data() {
+        return{
+            HelperService
         }
     },
     setup(props) {
