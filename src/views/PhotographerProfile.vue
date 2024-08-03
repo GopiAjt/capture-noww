@@ -46,10 +46,10 @@
     <div class="card">
         <Tabs v-model:value="activeTab">
             <TabList>
-                <Tab value="Albums"><i class="pi pi-images" style="font-size: 1rem"></i><span style="font-weight: bold;">Albums</span></Tab>
-                <Tab value="Packages"><i class="pi pi-list-check" style="font-size: 1rem"></i><span style="font-weight: bold;">Packages</span></Tab>
-                <Tab value="Equipments"><i class="pi pi-briefcase" style="font-size: 1rem"></i><span style="font-weight: bold;">Equipments</span></Tab>
-                <Tab value="Reviews"><i class="pi pi-star" style="font-size: 1rem"></i><span style="font-weight: bold;">Reviews</span></Tab>
+                <Tab value="Albums"><i class="pi pi-images" style="font-size: 1rem"></i><span style="font-weight: bold; font-size: smaller;">Albums</span></Tab>
+                <Tab value="Packages"><i class="pi pi-list-check" style="font-size: 1rem"></i><span style="font-weight: bold; font-size: smaller;">Packages</span></Tab>
+                <Tab value="Equipments"><i class="pi pi-briefcase" style="font-size: 1rem"></i><span style="font-weight: bold; font-size: smaller;">Equipments</span></Tab>
+                <Tab value="Reviews"><i class="pi pi-star" style="font-size: 1rem"></i><span style="font-weight: bold; font-size: smaller;">Reviews</span></Tab>
             </TabList>
             <TabPanels>
                 <TabPanel value="Albums">

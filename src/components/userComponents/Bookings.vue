@@ -9,17 +9,32 @@
             </template>
             <div class="b-header">
                 <p style="font-weight: bold;">{{ b.bookedPackage.category }}</p>
-                <p>{{ b.bookedDateTime }}</p>
+                <h5>{{ b.bookedDateTime }}</h5>
+                <Tag value="created" rounded></Tag>
             </div>
             <Accordion value="0">
                 <AccordionPanel value="0">
                     <AccordionHeader>package details</AccordionHeader>
                     <AccordionContent>
                         <p class="m-0">{{ b.bookedPackage.description }}</p>
+                        <br>
+                        <div style="display: flex; justify-content: space-between;">
+                            <p>Event Price: {{ b.bookedPackage.eventRate }}</p>
+                            <p>Video Price: {{ b.bookedPackage.videoRate }}</p>
+                        </div>
                     </AccordionContent>
                 </AccordionPanel>
             </Accordion>
-            <Tag value="created" rounded></Tag>
+            <div style="display: flex; justify-content: space-between;">
+                <h5>From: {{ b.startDate }}</h5>
+                <h5>Till: {{ b.endDate }}</h5>
+            </div>
+            <br>
+            <div style="display: flex; gap: 2rem;">
+                <Button label="Pay" fluid outlined></Button>
+                <Button label="cancel" text raised ></Button>
+            </div>
+
         </Fieldset>
     </div>
 </template>
