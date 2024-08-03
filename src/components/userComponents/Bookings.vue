@@ -9,7 +9,7 @@
             </template>
             <div class="b-header">
                 <p style="font-weight: bold;">{{ b.bookedPackage.category }}</p>
-                <h5>{{ b.bookedDateTime }}</h5>
+                <h5>{{ HelperService.formatDateTime(b.bookedDateTime) }}</h5>
                 <Tag value="created" rounded></Tag>
             </div>
             <Accordion value="0">
@@ -26,8 +26,8 @@
                 </AccordionPanel>
             </Accordion>
             <div style="display: flex; justify-content: space-between;">
-                <h5>From: {{ b.startDate }}</h5>
-                <h5>Till: {{ b.endDate }}</h5>
+                <h5>From: {{ HelperService.formatDateTime(b.startDate) }}</h5>
+                <h5>Till: {{ HelperService.formatDateTime(b.endDate) }}</h5>
             </div>
             <br>
             <div style="display: flex; gap: 2rem;">
@@ -42,6 +42,7 @@
 <script>
 import AuthService from '@/services/AuthService';
 import { useStore } from 'vuex';
+import HelperService from '@/services/HelperService';
 
 export default {
     props: {
@@ -52,12 +53,14 @@ export default {
     },
     data() {
         return {
-            bookings: null
+            bookings: [],
+            HelperService
         }
     },
     methods: {
 
         async getBookingData(store) {
+            console.log(HelperService, HelperService.formatDateTime);
             const response = await AuthService.getBookings(this.user, store.state.token);
             console.log(response.data);
             this.bookings = response.data;
