@@ -56,5 +56,24 @@ export default {
                 'Authorization': `Bearer ${token}`
             }
         })
+    },
+    bookPackage(from, till, packageId, u_id, p_id, token) {
+        
+        const bookingRequestDto = {
+            startDate: from,
+            endDate: till,
+            packageId: packageId, // package ID
+            customerId: u_id, // customer ID
+            photographerId: p_id, // photographer ID
+            bookedDateTime: new Date().toISOString()
+        };
+        console.log(bookingRequestDto);
+        
+        return Api().post('/customer/createBooking', bookingRequestDto, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+        })
     }
 };

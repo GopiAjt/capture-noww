@@ -11,9 +11,12 @@
         </div>
     </div>
     <Button @click="book" label="Book" outlined fluid></Button>
+    <Toast position="bottom-center" />
 </template>
 
 <script>
+import AuthService from '@/services/AuthService';
+
 export default {
     props: {
         package: {
@@ -38,6 +41,23 @@ export default {
             console.log(this.tillDate);
             console.log(this.package);
             console.log(this.photographer_id);
+            console.log(this.$store.state.token);
+
+            try {
+                const response = await AuthService.bookPackage(this.fromDate, 
+                                                                this.tillDate, 
+                                                                this.package,
+                                                                this.$store.state.user.email, 
+                                                                this.photographer_id, 
+                                                                this.$store.state.token);
+
+                this.$toast.add({ severity: 'success', summary: 'Booked successfully!', life: 3000 });
+                console.log(response);
+            } catch (error) {
+                this.$toast.add({ severity: 'error', summary: 'Error! please try again later', life: 3000 });
+                console.log(error);
+            }
+
             console.log("booked");
         }
     }
