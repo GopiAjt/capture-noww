@@ -1,6 +1,6 @@
 <template>
     <div class="nav-card">
-        <Toolbar>
+        <Toolbar id="blurred-toolbar">
             <template #start>
                 <img src="/public/CaptureNowLogo.svg" alt="CaptureNoww" width="45px" @click="navigateTo('/')"
                     style="cursor: pointer;">
@@ -60,12 +60,14 @@ export default {
 </script>
 
 <style scoped>
-.p-toolbar {
-    background-color: yellow;
+#blurred-toolbar {
+    background-color: rgba(255, 255, 0, 0.316);
     padding: 5px;
     padding-left: 10vw;
     padding-right: 10vw;
     width: 100%;
+    backdrop-filter: blur(5px);
+    position: relative;
 }
 
 .nav-card {
