@@ -33,7 +33,7 @@
             <br>
             <div style="display: flex; gap: 2rem;">
                 <Button label="Pay" fluid outlined></Button>
-                <Button label="cancel" text raised></Button>
+                <Button label="cancel" @click="cancelBooking" text raised></Button>
             </div>
 
         </Fieldset>
@@ -59,12 +59,15 @@ export default {
         }
     },
     methods: {
-
         async getBookingData(store) {
             console.log(HelperService, HelperService.formatDateTime);
             const response = await AuthService.getBookings(this.user, store.state.token);
             console.log(response.data);
             this.bookings = response.data;
+        },
+        async cancelBooking(){
+            console.log("canceled");
+            
         }
     },
     mounted() {

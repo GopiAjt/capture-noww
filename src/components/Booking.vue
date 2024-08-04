@@ -57,7 +57,6 @@ export default {
                 this.$toast.add({ severity: 'error', summary: 'Error! please try again later', life: 3000 });
                 console.log(error);
             }
-
             console.log("booked");
         }
     }
