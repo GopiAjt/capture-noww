@@ -1,5 +1,8 @@
 <template>
-    <div class="card" v-for="b in bookings">
+    <div v-if="bookings" style="text-align: center;">
+        <h3>You Don't Have Any Bookings Found!</h3>
+    </div>
+    <div class="card" v-for="b in bookings" :key="b.bookingId">
         <Fieldset>
             <template #legend>
                 <div style="display: flex; align-items: center; gap: 5px">
@@ -33,7 +36,7 @@
             <br>
             <div style="display: flex; gap: 2rem;">
                 <Button label="Pay" fluid outlined></Button>
-                <Button label="cancel" @click="cancelBooking" text raised></Button>
+                <Button label="cancel" @click="cancelBooking(b.bookingId)" text raised></Button>
             </div>
 
         </Fieldset>
@@ -44,6 +47,7 @@
 import AuthService from '@/services/AuthService';
 import { useStore } from 'vuex';
 import HelperService from '@/services/HelperService';
+import store from '@/stores/store';
 
 export default {
     props: {
@@ -65,9 +69,11 @@ export default {
             console.log(response.data);
             this.bookings = response.data;
         },
-        async cancelBooking(){
+        async cancelBooking(bookingId) {
             console.log("canceled");
-            
+            const respose = await AuthService.cancelBooking(bookingId, this.$store.state.token);
+            console.log(respose);
+            this.getBookingData(store);
         }
     },
     mounted() {

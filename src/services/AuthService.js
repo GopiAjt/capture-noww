@@ -75,5 +75,13 @@ export default {
                 'Authorization': `Bearer ${token}`
             },
         })
+    },
+    cancelBooking(bookingId, authToken) {
+        return Api().delete(`/customer/cancelBooking?bookingId=${bookingId}`, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${authToken}`
+            }
+        })
     }
 };
