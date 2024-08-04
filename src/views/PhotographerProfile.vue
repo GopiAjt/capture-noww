@@ -95,7 +95,6 @@ export default {
         return {
             photographer: {},
             package: {},
-            photographerId: null
         };
     },
     mounted() {
@@ -114,7 +113,6 @@ export default {
                     }
                 });
                 this.photographer = response.data;
-                this.photographerId = response.data.id;
                 this.package = response.data.packages;
                 console.log(response.data);
             } catch (error) {

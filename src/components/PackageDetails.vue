@@ -10,8 +10,10 @@
                 </template>
 
                 <p class="m-0">
-                    <strong style="font-weight: 500;">Description:</strong><br>{{ HelperService.addLineBreaks(packages.description) }}
+                    <strong style="font-weight: 500;">Description:</strong><br>
+                    <span v-html="HelperService.addLineBreaks(packages.description)"></span>
                 </p>
+
                 <br>
                 <div class="p-footer">
                     <p>
@@ -32,7 +34,8 @@
                         <p>
                             <strong>Total Price:</strong> {{ packages.eventRate + 100 }}
                         </p>
-                        <Button label="Book" class="p-button-sm p-button-dark" @click="bookDrawer(packages.id)" raised outlined />
+                        <Button label="Book" class="p-button-sm p-button-dark" @click="bookDrawer(packages.id)" raised
+                            outlined />
                     </div>
                 </template>
             </Panel>

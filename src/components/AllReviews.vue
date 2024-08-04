@@ -15,7 +15,7 @@
             </div>
 
             <p class="m-0">
-                <strong> </strong> {{ HelperService.addLineBreaks(review.comment) || 'No comment provided' }}<br>
+                <strong  v-html="HelperService.addLineBreaks(review.comment) || 'No comment provided'"> </strong> <br>
             </p>
         </Panel>
     </div>
@@ -45,6 +45,8 @@ export default {
 
         const loadReview = async () => {
             if (props.p_id) {
+                console.log(props.p_id);
+                
                 try {
                     const response = await AuthService.loadReviews(props.p_id, store.state.token); // Use store.state.token
                     reviews.value = response.data;

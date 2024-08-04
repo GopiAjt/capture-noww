@@ -13,10 +13,11 @@
                 <Tag value="created" rounded></Tag>
             </div>
             <Accordion value="0">
-                <AccordionPanel value="0">
+                <AccordionPanel >
                     <AccordionHeader>package details</AccordionHeader>
                     <AccordionContent>
-                        <p class="m-0">{{ b.bookedPackage.description }}</p>
+                        <p class="m-0" v-html="HelperService.addLineBreaks(b.bookedPackage.description)"></p>
+
                         <br>
                         <div style="display: flex; justify-content: space-between;">
                             <p>Event Price: {{ b.bookedPackage.eventRate }}</p>
@@ -32,7 +33,7 @@
             <br>
             <div style="display: flex; gap: 2rem;">
                 <Button label="Pay" fluid outlined></Button>
-                <Button label="cancel" text raised ></Button>
+                <Button label="cancel" text raised></Button>
             </div>
 
         </Fieldset>
