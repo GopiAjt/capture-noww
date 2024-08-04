@@ -6,16 +6,14 @@
                     style="cursor: pointer;">
             </template>
 
-            <template #center>
-                <div class="search-bar">
-                    <AutoComplete v-model="selectedCountry" optionLabel="name" :suggestions="filteredCountries"
-                        @complete="search" />
-                </div>
-            </template>
+
             <template #end>
+                <AutoComplete v-model="selectedCountry" optionLabel="name" :suggestions="filteredCountries"
+                    @complete="search" fluid />
                 <SignupSignin v-if="!$store.state.isLogedIn" />
                 <ProfileIcon v-else></ProfileIcon>
             </template>
+
         </Toolbar>
     </div>
 </template>
@@ -82,18 +80,22 @@ export default {
     width: 20px;
 }
 
-.search-bar {
-    display: flex;
-    justify-content: center;
-}
-
 @media (max-width: 575px) {
-    .p-toolbar {
-        background-color: yellow;
+    #blurred-toolbar {
+        background-color: rgba(255, 255, 0, 0.316);
         padding: 5px;
         padding-left: 2vw;
         padding-right: 2vw;
         width: 100%;
+        backdrop-filter: blur(5px);
     }
+}
+</style>
+<style>
+.p-inputtext {
+    font-size: 10px;
+}
+.p-toolbar-end{
+    gap: 20px;
 }
 </style>

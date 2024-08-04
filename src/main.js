@@ -49,6 +49,7 @@ import Accordion from 'primevue/accordion';
 import AccordionPanel from 'primevue/accordionpanel';
 import AccordionHeader from 'primevue/accordionheader';
 import AccordionContent from 'primevue/accordioncontent';
+import Menu from 'primevue/menu';
 
 
 import Ripple from 'primevue/ripple';
@@ -128,4 +129,5 @@ app.component('Accordion', Accordion);
 app.component('AccordionPanel', AccordionPanel);
 app.component('AccordionHeader', AccordionHeader);
 app.component('AccordionContent', AccordionContent);
+app.component('Menu', Menu);
 app.mount('#app')

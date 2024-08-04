@@ -36,6 +36,7 @@ export default {
             console.log(response);
             if (response.status == 201) {
                 this.$toast.add({ severity: 'success', summary: 'Review Added!', detail: '', life: 3000 });
+                this.$emit('reloadReviews'); // Emit event to parent
             }
         }
     },

@@ -1,23 +1,10 @@
 <template>
-    <div class="card">
-        <div style="position: absolute; height: 500px">
-            <SpeedDial :model="items" direction="down" style="position: absolute; left: calc(50% - 3.5rem); top: -20px; cursor: pointer;">
-                <template #button="{ toggleCallback }">
-                    <img src="/src/assets/images/default_profile.png" alt="profile" outlined class="border-2"
-                        @click="toggleCallback" width="40px">
-                </template>
-                <template #item="{ item, toggleCallback }">
-                    <div class="custom-flex" @click="toggleCallback">
-                        <span :class="item.icon" />
-                        <span>
-                            {{ item.label }}
-                        </span>
-                    </div>
-                </template>
-            </SpeedDial>
-            <Toast position="bottom-center" />
-        </div>
+    <div style="display: flex; justify-self: center;" class="card" >
+        <img src="/src/assets/images/default_profile.png" dth="25" height="35" alt="" 
+        @click="toggle" aria-controls="overlay_menu" style="cursor: pointer;">
+        <Menu ref="menu" id="overlay_menu" :model="items" :popup="true" />
     </div>
+    <Toast position="bottom-center" />
 </template>
 
 <script>
@@ -41,24 +28,17 @@ export default {
                     }
                 }
             ]
+        };
+    },
+    methods: {
+        toggle(event) {
+            this.$refs.menu.toggle(event);
         }
     }
 };
 </script>
-<style scoped>
-.custom-flex {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0.5rem;
-    padding: 0.5rem;
-    border-width: 1px;
-    border-radius: 0.25rem;
-    border-color: #e5e7eb;
-    width: 4rem;
-    cursor: pointer;
-    background-color: black;
-    font-size: small;
+<style>
+.p-menu-item-link{
+    padding: 5%;
 }
 </style>

@@ -68,7 +68,12 @@ export default {
             reviews,
             formatDate
         };
+    },
+    methods: {
+    reloadReviews() {
+      this.loadReview();
     }
+  },
 };
 </script>
 
