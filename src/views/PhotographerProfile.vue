@@ -3,7 +3,7 @@
         <Navbar />
     </header>
 
-    <div class="card-container">
+    <div class="card-container" v-if="photographer">
         <Card style="width: 100%; overflow: hidden">
             <template #header class="profile-img">
                 <img :src="photographer.profilePhoto ? `data:image/jpeg;base64,${photographer.profilePhoto}` : '../src/assets/images/default_profile.png'"
@@ -43,7 +43,7 @@
         </Card>
     </div>
 
-    <div class="card">
+    <div class="card" v-if="photographer">
         <Tabs v-model:value="activeTab">
             <TabList>
                 <Tab value="Albums"><i class="pi pi-images" style="font-size: 1rem"></i><span style="font-weight: bold; font-size: smaller;">Albums</span></Tab>
@@ -112,8 +112,10 @@ export default {
                         'Authorization': `Bearer ${token}`
                     }
                 });
-                this.photographer = response.data;
-                this.package = response.data.packages;
+                if (response.status == 200) {
+                    this.photographer = response.data;
+                    this.package = response.data.packages;
+                }
                 console.log(response.data);
             } catch (error) {
                 console.error('Error fetching photographer:', error);
