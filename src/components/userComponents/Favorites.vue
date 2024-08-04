@@ -2,7 +2,7 @@
     <div v-if="!favoritesData">
         <h3>No Favorite Photographers Found!</h3>
     </div>
-    <div class="card" v-for="fav in favoritesData">
+    <div class="card" v-for="fav in favoritesData" :key="fav.pid">
         <Panel>
             <div style="display: flex; align-items: center; gap: 15px;">
                 <img :src="fav.profilePhoto ? `data:image/jpeg;base64,${fav.profilePhoto}` : 'src/assets/images/default_profile.png'"

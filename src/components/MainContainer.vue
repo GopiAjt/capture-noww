@@ -1,7 +1,7 @@
 <template>
     <div>
         <div v-if="photographers" class="card">
-            <Card v-for="photographer in photographers" :key="photographer.email">
+            <Card v-for="photographer in photographers" :key="photographer.id">
                 <template #header>
                     <div class="header-img">
                         <img :src="photographer.profilePhoto ? `data:image/jpeg;base64,${photographer.profilePhoto}` : 'src/assets/images/default_profile.png'"
