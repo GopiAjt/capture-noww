@@ -10,8 +10,8 @@
                     class="card-img-top" alt="Photographer Image" />
             </template>
             <template #title>
-                <div class="">
-                    <i class="pi pi-user" style="font-size: 1rem"></i> {{ photographer.name }}
+                <div class="p-info">
+                    <i class="pi pi-user" style="font-size: 1rem"></i><h3> {{ photographer.name }}</h3>
                 </div>
                 <div>
                     <div class="rating-div">
@@ -20,20 +20,24 @@
                     </div>
                 </div>
             </template>
-            <template #subtitle><i class="pi pi-map-marker" style="font-size: 1rem"></i> {{ photographer.serviceLocation
-                }}</template>
+            <template #subtitle>
+                <div class="p-info">
+                    <i class="pi pi-map-marker" style="font-size: 1rem"></i> {{ photographer.serviceLocation }}
+                </div>
+            </template>
+
             <template #content>
-                <p class="m-0">
+                <p class="p-info">
                     <strong><i class="pi pi-face-smile" style="font-size: 1rem"></i></strong> {{ photographer.experience
                     }} year(s)
                 </p>
-                <p class="m-0">
+                <p class="p-info">
                     <strong><i class="pi pi-language" style="font-size: 1rem"></i></strong> {{ photographer.languages }}
                 </p>
-                <p class="m-0">
+                <p class="p-info">
                     <strong><i class="pi pi-camera" style="font-size: 1rem"></i></strong> {{ photographer.services }}
                 </p>
-                <p class="m-0">
+                <p class="p-info">
                     <i class="pi pi-info-circle" style="font-size: 1rem"></i> {{ photographer.aboutMe }}
                 </p>
             </template>
@@ -46,20 +50,24 @@
     <div class="card" v-if="photographer">
         <Tabs v-model:value="activeTab">
             <TabList>
-                <Tab value="Albums"><i class="pi pi-images" style="font-size: 1rem"></i><span style="font-weight: bold; font-size: smaller;">Albums</span></Tab>
-                <Tab value="Packages"><i class="pi pi-list-check" style="font-size: 1rem"></i><span style="font-weight: bold; font-size: smaller;">Packages</span></Tab>
-                <Tab value="Equipments"><i class="pi pi-briefcase" style="font-size: 1rem"></i><span style="font-weight: bold; font-size: smaller;">Equipments</span></Tab>
-                <Tab value="Reviews"><i class="pi pi-star" style="font-size: 1rem"></i><span style="font-weight: bold; font-size: smaller;">Reviews</span></Tab>
+                <Tab value="Albums"><i class="pi pi-images" style="font-size: 1rem"></i><span
+                        style="font-weight: bold; font-size: smaller;">Albums</span></Tab>
+                <Tab value="Packages"><i class="pi pi-list-check" style="font-size: 1rem"></i><span
+                        style="font-weight: bold; font-size: smaller;">Packages</span></Tab>
+                <Tab value="Equipments"><i class="pi pi-briefcase" style="font-size: 1rem"></i><span
+                        style="font-weight: bold; font-size: smaller;">Equipments</span></Tab>
+                <Tab value="Reviews"><i class="pi pi-star" style="font-size: 1rem"></i><span
+                        style="font-weight: bold; font-size: smaller;">Reviews</span></Tab>
             </TabList>
             <TabPanels>
                 <TabPanel value="Albums">
                     <PhotographerAlbums :photographer_id="photographer.pid" />
                 </TabPanel>
                 <TabPanel value="Packages">
-                    <PackageDetails :packageDetails="package" :photographer_id="photographer.pid"  />
+                    <PackageDetails :packageDetails="package" :photographer_id="photographer.pid" />
                 </TabPanel>
                 <TabPanel value="Equipments">
-                    <PhotographerEquipments :photographer_id="photographer.pid"/>
+                    <PhotographerEquipments :photographer_id="photographer.pid" />
                 </TabPanel>
                 <TabPanel value="Reviews">
                     <ReviewForm :photographer_id="photographer.pid" />
@@ -130,6 +138,12 @@ img {
     width: 20vw;
 }
 
+.p-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
 .p-card {
     flex-direction: row;
 }
@@ -178,6 +192,7 @@ img {
     .p-card-body {
         width: 100%;
     }
+
     .p-tab {
         display: flex;
         align-items: center;
