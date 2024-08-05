@@ -5,10 +5,10 @@
         <div class="f-links">
             <div class="p-col-12 p-md-4">
                 <ul class="footer-links">
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">About Us</a></li>
-                    <li><a href="#">Services</a></li>
-                    <li><a href="#">Contact</a></li>
+                    <li>Home</li>
+                    <li>Services</li>
+                    <li>Contact</li>
+                    <li>About Us</li>
                 </ul>
             </div>
             <div class="social-icons">
@@ -35,7 +35,6 @@ export default {
 <style scoped>
 .footer {
     padding: 1rem 1rem;
-    color: #ffffff;
     text-align: center;
     font-size: smaller;
     margin-top: 5rem;
@@ -59,7 +58,6 @@ export default {
 }
 
 .footer-links a {
-    color: #ffffff;
     text-decoration: none;
 }
 

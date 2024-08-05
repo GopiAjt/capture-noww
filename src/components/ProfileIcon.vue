@@ -41,4 +41,7 @@ export default {
 .p-menu-item-link{
     padding: 5%;
 }
+.p-menu{
+    max-width: 5rem;
+}
 </style>

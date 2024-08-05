@@ -9,7 +9,7 @@
 
             <template #end>
                 <AutoComplete v-model="selectedCountry" optionLabel="name" :suggestions="filteredCountries"
-                    @complete="search" fluid />
+                    @complete="search" fluid  size="small"/>
                 <SignupSignin v-if="!$store.state.isLogedIn" />
                 <ProfileIcon v-else></ProfileIcon>
             </template>
