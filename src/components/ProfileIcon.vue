@@ -42,6 +42,6 @@ export default {
     padding: 5%;
 }
 .p-menu{
-    max-width: 5rem;
+    min-width: 10rem;
 }
 </style>
