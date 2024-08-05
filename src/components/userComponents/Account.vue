@@ -20,20 +20,34 @@
 </template>
 
 <script>
-import { email } from '@vuelidate/validators';
+import AuthService from '@/services/AuthService';
 
 export default {
     data() {
         return {
             userName: null,
             email: null,
-            phNo: null
+            phNo: null,
+            userData: this.$store.state.user
         }
     },
     methods: {
-        updateDetails() {
+        async updateDetails() {
+            const customerUpdateDto = {
+                name: this.userName,
+                email: this.email,
+                phoneNo: this.phNo
+            }
+            const resposne = await AuthService.updateDetails(customerUpdateDto, this.$store.state.token);
+            console.log(resposne.data);
+            
             console.log('updated..');
         }
+    },
+    mounted() {
+        this.userName = this.userData.name;
+        this.email = this.userData.email;
+        this.phNo = this.userData.phoneNo;
     }
 }
 </script>

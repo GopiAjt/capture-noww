@@ -83,5 +83,13 @@ export default {
                 'Authorization': `Bearer ${authToken}`
             }
         })
+    },
+    updateDetails(customerUpdateDto, authToken){
+        return Api().post('/customer/updateDetails', customerUpdateDto, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${authToken}`
+            }
+        } )
     }
 };

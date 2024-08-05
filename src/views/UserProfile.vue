@@ -58,7 +58,7 @@ export default {
         }
     },
     mounted() {
-        console.log(this.userData.name);
+        console.log(this.userData);
     }
 }
 
