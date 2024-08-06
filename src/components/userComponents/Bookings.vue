@@ -13,10 +13,10 @@
             <div class="b-header">
                 <p style="font-weight: bold;">{{ b.bookedPackage.category }}</p>
                 <h5>{{ HelperService.formatDateTime(b.bookedDateTime) }}</h5>
-                <Tag value="created" rounded></Tag>
+                <Tag :severity="getSeverity(b.status)" :value="b.status" rounded></Tag>
             </div>
             <Accordion value="0">
-                <AccordionPanel >
+                <AccordionPanel>
                     <AccordionHeader>package details</AccordionHeader>
                     <AccordionContent>
                         <p class="m-0" v-html="HelperService.addLineBreaks(b.bookedPackage.description)"></p>
@@ -74,6 +74,20 @@ export default {
             const respose = await AuthService.cancelBooking(bookingId, this.$store.state.token);
             console.log(respose);
             this.getBookingData(store);
+        },
+        getSeverity(status) {
+            switch (status) {
+                case 'Created':
+                    return 'Contrast'
+                case 'Accepted':
+                    return 'success';
+                case 'Pending':
+                    return 'warning';
+                case 'Rejected':
+                    return 'danger';
+                default:
+                    return 'secondary';
+            }
         }
     },
     mounted() {
