@@ -9,19 +9,31 @@
                             style="cursor: pointer;" />
                     </div>
                 </template>
-
                 <template #title>
-                    <h3 @click.prevent="photographerProfile(photographer.id)" style="cursor: pointer; font-weight: bold;">{{ photographer.name }}</h3>
+                    <div class="card-info-style">
+                        <i class="pi pi-user" style="font-size: 1rem"></i>
+                        <h3 @click.prevent="photographerProfile(photographer.id)"
+                            style="cursor: pointer; font-weight: bold;">{{ photographer.name }}
+                        </h3>
+                    </div>
+
                     <div class="rating-div">
-                        <i class="pi pi-star-fill"
-                            style="font-size: 1.5rem; color: yellow; margin-right: 5px;"></i>{{ photographer.avgRating }}
+                        <i class="pi pi-star-fill" style="font-size: 1.5rem; color: yellow; margin-right: 5px;"></i>
+                        {{ photographer.avgRating }}
                     </div>
                 </template>
-                <template #subtitle>{{ photographer.experience }}</template>
+                <template #subtitle>
+                    <div class="card-info-style"><i class="pi pi-face-smile" style="font-size: 1rem"></i>
+                        {{ photographer.experience }}
+                    </div>
+                </template>
                 <template #content>
-                    <div class="card-info-style">{{ photographer.serviceLocation }}</div>
-                    <div class="card-info-style">{{ photographer.services }}</div>
-                    <div class="card-info-style">{{ photographer.languages }}</div>
+                    <div class="card-info-style"><i class="pi pi-map-marker" style="font-size: 1rem"></i> {{
+                        photographer.serviceLocation }}</div>
+                    <div class="card-info-style"><i class="pi pi-camera" style="font-size: 1rem"></i> {{
+                        photographer.services }}</div>
+                    <div class="card-info-style"><i class="pi pi-language" style="font-size: 1rem"></i> {{
+                        photographer.languages }}</div>
                 </template>
                 <template #footer>
                     <div class="footer-div">
@@ -33,7 +45,7 @@
             </Card>
         </div>
         <div style="display: flex; justify-content: center;">
-            <ProgressSpinner v-if="isLoading"/>
+            <ProgressSpinner v-if="isLoading" />
         </div>
         <div>
             <Paginator :rows="pageSize" :totalRecords="totalPhotographers" :rowsPerPageOptions="[10, 20, 30]"
@@ -97,6 +109,11 @@ export default {
 </script>
 
 <style scoped>
+.card-info-style{
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
 .card {
     padding-top: 5%;
     padding-bottom: 5%;

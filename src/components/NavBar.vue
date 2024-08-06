@@ -59,12 +59,12 @@ export default {
 
 <style scoped>
 #blurred-toolbar {
-    background-color: rgba(255, 255, 0, 0.316);
+    background-color: rgba(255, 255, 0, 0.234);
     padding: 5px;
     padding-left: 10vw;
     padding-right: 10vw;
     width: 100%;
-    backdrop-filter: blur(5px);
+    backdrop-filter: blur(8px);
     position: relative;
 }
 

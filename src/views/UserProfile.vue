@@ -2,9 +2,9 @@
     <header>
         <Navbar />
     </header>
-    <div style="display: flex; align-items: center; padding: 3%; flex-direction: column;">
-        <img src="/src/assets/images/default_profile.png" alt="" width="150px"><br>
-        <h3>{{ userData.name }}</h3>
+    <div style="display: flex; align-items: center; padding: 3%; flex-direction: column; gap: 1rem;">
+        <img src="/src/assets/images/default_profile.png" alt="" width="150px">
+        <h2>{{ userData.name }}</h2>
     </div>
     <div class="card-panel">
         <Tabs value="0">
