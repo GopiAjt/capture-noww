@@ -1,6 +1,6 @@
 <template>
     <footer class="footer">
-        <img src="/public/CaptureNowLogo.svg" alt="CaptureNoww" srcset="" width="50px" style="">
+        <img src="/CaptureNowLogo.svg" alt="CaptureNoww" srcset="" width="50px" style="">
         <p>Every Movements Mater</p>
         <div class="f-links">
             <div class="p-col-12 p-md-4">

@@ -2,7 +2,7 @@
     <div class="nav-card">
         <Toolbar id="blurred-toolbar">
             <template #start>
-                <img src="/public/CaptureNowLogo.svg" alt="CaptureNoww" width="45px" @click="navigateTo('/')"
+                <img src="/CaptureNowLogo.svg" alt="CaptureNoww" width="45px" @click="navigateTo('/')"
                     style="cursor: pointer;">
             </template>
 

@@ -3,7 +3,7 @@
         <Navbar />
     </header>
     <div style="display: flex; align-items: center; padding: 3%; flex-direction: column;">
-        <img src="/public/CaptureNow.svg" alt="" width="100px">
+        <img src="/src/assets/images/default_profile.png" alt="" width="150px"><br>
         <h3>{{ userData.name }}</h3>
     </div>
     <div class="card-panel">
