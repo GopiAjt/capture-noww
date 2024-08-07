@@ -1,17 +1,24 @@
 <template>
-    <div style="display: flex; justify-content: center; gap: 10px;">
-        <Password v-model="value" :feedback="false" />
-        <br>
-        <Password v-model="value" toggleMask />
-        <br>
-        <Password v-model="value" :feedback="false" />
+    <div style="display: flex; justify-content: center; gap: 20px;">
+        <div style="display: flex; flex-direction: column; justify-content: center;">
+            <label for="username">Old Password</label>
+            <Password v-model="oldPass" :feedback="false" />
+        </div>
+        <div  style="display: flex; flex-direction: column; justify-content: center;">
+            <label for="username">New Password</label>
+            <Password v-model="newPass" toggleMask />
+        </div>
+        <div  style="display: flex; flex-direction: column; justify-content: center;">
+            <label for="username">Confirm Password</label>
+            <Password v-model="confirmPass" :feedback="false" />
+        </div>
     </div>
-
-    <div class="card flex justify-center">
-        <div class="flex flex-col items-center">
+    <br>
+    <div style="display: flex; justify-content: center;">
+        <div style="display: flex; align-items: center; flex-direction: column;">
             <div class="font-bold text-xl mb-2">Authenticate Your Account</div>
-            <p class="text-surface-500 dark:text-surface-400 block mb-8">Please enter the code sent to your phone.</p>
-            <InputOtp v-model="value" :length="6" style="gap: 0">
+            <p class="text-surface-500 dark:text-surface-400 block mb-8">Please enter the code sent to your email.</p>
+            <InputOtp v-model="otp" :length="6" style="gap: 0">
                 <template #default="{ attrs, events, index }">
                     <input type="text" v-bind="attrs" v-on="events" class="custom-otp-input" />
                     <div v-if="index === 3" class="px-4">
@@ -19,9 +26,9 @@
                     </div>
                 </template>
             </InputOtp>
-            <div class="flex justify-between mt-8 self-stretch">
-                <Button label="Resend Code" link class="p-0"></Button>
-                <Button label="Submit Code"></Button>
+            <div style="display: flex; flex-direction: column;">
+                <Button label="Send Code" link class="p-0"></Button>
+                <Button label="Update" fluid></Button>
             </div>
         </div>
     </div>
