@@ -90,7 +90,6 @@ export default {
                     const token = response.data.authToken;
                     
                     localStorage.setItem('user', JSON.stringify(response.data));
-                    console.log(response.data);
 
                     this.$store.dispatch('login', { user, token })
                 } else {

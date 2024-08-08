@@ -3,14 +3,14 @@ import { createStore } from 'vuex';
 const store = createStore({
     state: {
         token: localStorage.getItem('token') || '',
-        user: localStorage.getItem('user') || '',
+        user: JSON.parse(localStorage.getItem('user')) || null, // Parse the user data from localStorage
         isLogedIn: !!localStorage.getItem('token') // Initialize isLogedIn based on token presence
     },
     mutations: {
         setUser(state, user) {
             state.user = user;
             state.isLogedIn = true;
-            localStorage.setItem('user', user); // Store user in localStorage
+            localStorage.setItem('user', JSON.stringify(user)); // Store user as a JSON string in localStorage
         },
         clearUser(state) {
             state.user = null;
