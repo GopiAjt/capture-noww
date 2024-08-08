@@ -27,7 +27,7 @@
                 </template>
             </InputOtp>
             <div style="display: flex; flex-direction: column;">
-                <Button label="Send Otp" link class="p-0" @click="sendVerificationOtp"></Button>
+                <Button label="Send Otp" link @click="sendVerificationOtp"></Button>
                 <Button label="Update" fluid @click="resetPassword"></Button>
             </div>
         </div>

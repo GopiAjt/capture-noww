@@ -39,7 +39,7 @@
                     <div class="footer-div">
                         <div class="price-range">Starts with: {{ photographer.startsWith }}</div>
                         <Toast position="bottom-center" />
-                        <Button label="Book Me" class="p-button-sm p-button-dark" @click="bookMe" raised outlined />
+                        <Button label="Book Me" class="p-button-sm p-button-dark" @click="bookMe" raised outlined fluid/>
                     </div>
                 </template>
             </Card>
