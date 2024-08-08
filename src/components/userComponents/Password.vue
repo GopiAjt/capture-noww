@@ -1,16 +1,16 @@
 <template>
-    <div style="display: flex; justify-content: center; gap: 20px;">
+    <div class="pass-div">
         <div style="display: flex; flex-direction: column; justify-content: center;">
             <label for="username">Old Password</label>
-            <Password v-model="oldPass" :feedback="false" />
+            <Password v-model="oldPass" :feedback="false" fluid />
         </div>
-        <div  style="display: flex; flex-direction: column; justify-content: center;">
+        <div style="display: flex; flex-direction: column; justify-content: center;">
             <label for="username">New Password</label>
-            <Password v-model="newPass" toggleMask />
+            <Password v-model="newPass" toggleMask fluid />
         </div>
-        <div  style="display: flex; flex-direction: column; justify-content: center;">
+        <div style="display: flex; flex-direction: column; justify-content: center;">
             <label for="username">Confirm Password</label>
-            <Password v-model="confirmPass" :feedback="false" />
+            <Password v-model="confirmPass" :feedback="false" fluid />
         </div>
     </div>
     <br>
@@ -27,24 +27,53 @@
                 </template>
             </InputOtp>
             <div style="display: flex; flex-direction: column;">
-                <Button label="Send Code" link class="p-0"></Button>
-                <Button label="Update" fluid></Button>
+                <Button label="Send Otp" link class="p-0" @click="sendVerificationOtp"></Button>
+                <Button label="Update" fluid @click="resetPassword"></Button>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+import AuthService from '@/services/AuthService';
 export default {
     data() {
         return {
-            value: null
+            oldPass: null,
+            newPass: null,
+            confirmPass: null,
+            otp: null
+        }
+    },
+    methods: {
+        async resetPassword() {
+            const resetData = {
+                emailId: this.$store.state.user.email,
+                oldPassword: this.oldPass,
+                newPassword: this.newPass,
+                otp: this.otp,
+            };
+            console.log(resetData);
+            const response = await AuthService.resetPassword(resetData, this.$store.state.token);
+            console.log(response.data);
+
+        },
+        async sendVerificationOtp() {
+            const response = await AuthService.sendOtp(this.$store.state.user.email, this.$store.state.token);
+            console.log(response.data);
+
         }
     }
 };
 </script>
 
 <style scoped>
+.pass-div {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
 .custom-otp-input {
     width: 48px;
     height: 48px;
@@ -79,5 +108,14 @@ export default {
     border-right-width: 1px;
     border-right-style: solid;
     border-color: var(--p-inputtext-border-color);
+}
+
+@media (max-width: 575px) {
+    .pass-div {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 20px;
+    }
 }
 </style>

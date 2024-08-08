@@ -58,7 +58,7 @@ export default {
         })
     },
     bookPackage(from, till, packageId, u_id, p_id, token) {
-        
+
         const bookingRequestDto = {
             startDate: from,
             endDate: till,
@@ -68,7 +68,7 @@ export default {
             bookedDateTime: new Date().toISOString()
         };
         console.log(bookingRequestDto);
-        
+
         return Api().post('/customer/createBooking', bookingRequestDto, {
             headers: {
                 'Content-Type': 'application/json',
@@ -84,12 +84,28 @@ export default {
             }
         })
     },
-    updateDetails(customerUpdateDto, authToken){
+    updateDetails(customerUpdateDto, authToken) {
         return Api().post('/customer/updateDetails', customerUpdateDto, {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${authToken}`
             }
-        } )
+        })
+    },
+    sendOtp(eId, authToken) {
+        return Api().post(`/customer/resetPasswordOtp?emailId=${eId}`, {
+            headers: {
+                'Content-type': 'application/json',
+                'Authorization': `Bearer ${authToken}`
+            }
+        })
+    },
+    resetPassword(resetData, token){
+        return Api().post('/customer/resetPassword', resetData, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        })
     }
 };
