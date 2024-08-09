@@ -50,7 +50,9 @@ import AccordionPanel from 'primevue/accordionpanel';
 import AccordionHeader from 'primevue/accordionheader';
 import AccordionContent from 'primevue/accordioncontent';
 import Menu from 'primevue/menu';
-
+import ConfirmPopup from 'primevue/confirmpopup';
+import ConfirmDialog from 'primevue/confirmdialog';
+import ConfirmationService from 'primevue/confirmationservice';
 
 import Ripple from 'primevue/ripple';
 
@@ -92,6 +94,7 @@ app.use(store);
 app.use(createPinia());
 app.use(router);
 app.use(ToastService);
+app.use(ConfirmationService);
 app.component('Toolbar', Toolbar);
 app.component('Button', Button);
 app.component('IconField', IconField);
@@ -130,4 +133,7 @@ app.component('AccordionPanel', AccordionPanel);
 app.component('AccordionHeader', AccordionHeader);
 app.component('AccordionContent', AccordionContent);
 app.component('Menu', Menu);
-app.mount('#app')
+app.component('ConfirmPopup', ConfirmPopup);
+app.component('ConfirmDialog', ConfirmDialog);
+
+app.mount('#app');

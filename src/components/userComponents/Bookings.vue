@@ -36,11 +36,12 @@
             <br>
             <div style="display: flex; gap: 2rem;">
                 <Button label="Pay" fluid outlined></Button>
-                <Button label="cancel" @click="cancelBooking(b.bookingId)" text raised></Button>
+                <Button label="Cancel" @click="confirmCancel($event, b.bookingId)" text raised />
             </div>
-
         </Fieldset>
     </div>
+    <Toast position="bottom-center" />
+    <ConfirmDialog></ConfirmDialog>
 </template>
 
 <script>
@@ -62,18 +63,54 @@ export default {
             HelperService
         }
     },
+    computed: {
+        store() {
+            return useStore();
+        }
+    },
     methods: {
-        async getBookingData(store) {
-            console.log(HelperService, HelperService.formatDateTime);
-            const response = await AuthService.getBookings(this.user, store.state.token);
-            console.log(response.data);
-            this.bookings = response.data;
+        async getBookingData() {
+            try {
+                const response = await AuthService.getBookings(this.user, this.store.state.token);
+                this.bookings = response.data;
+            } catch (error) {
+                console.error('Error fetching bookings:', error);
+                this.$toast.add({ severity: 'error', summary: 'Failed to load bookings', life: 3000 });
+            }
+        },
+        confirmCancel(event, bookingId) {
+            this.$confirm.require({
+                target: event.currentTarget,
+                message: 'Do you want to cancel this booking?',
+                icon: 'pi pi-info-circle',
+                position: 'bottom',
+                rejectProps: {
+                    label: 'No',
+                    severity: 'secondary',
+                    outlined: true
+                },
+                acceptProps: {
+                    label: 'Yes',
+                    severity: 'danger',
+                    outlined: true
+                },
+                accept: async () => {
+                    await this.cancelBooking(bookingId);
+                },
+                reject: () => {
+                    this.$toast.add({ severity: 'error', summary: 'Cancelled', detail: 'You rejected the cancellation', life: 3000 });
+                }
+            });
         },
         async cancelBooking(bookingId) {
-            console.log("canceled");
-            const respose = await AuthService.cancelBooking(bookingId, this.$store.state.token);
-            console.log(respose);
-            this.getBookingData(store);
+            try {
+                await AuthService.cancelBooking(bookingId, this.store.state.token);
+                this.getBookingData(); // Refresh bookings after cancellation
+                this.$toast.add({ severity: 'success', summary: 'Cancelled', detail: 'Booking has been cancelled', life: 3000 });
+            } catch (error) {
+                console.error('Error cancelling booking:', error);
+                this.$toast.add({ severity: 'error', summary: 'Failed', detail: 'Failed to cancel booking', life: 3000 });
+            }
         },
         getSeverity(status) {
             switch (status) {
@@ -91,8 +128,7 @@ export default {
         }
     },
     mounted() {
-        const store = useStore();
-        this.getBookingData(store);
+        this.getBookingData();
     }
 }
 </script>
