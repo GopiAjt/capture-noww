@@ -17,7 +17,7 @@
                             <div class="card flex justify-center">
                                 <Password v-model="LoginPassword" placeholder="Password" :feedback="false" fluid />
                             </div><br>
-                            <Button label="Log In" @click="handleLogin" />
+                            <Button label="Log In" @click="handleLogin" fluid/>
                         </TabPanel>
                         <TabPanel value="1">
                             <div class="card flex flex-col items-center gap-4">
@@ -51,7 +51,7 @@
                                     <Password v-model="password2" placeholder="Re Enter Password" :feedback="false"
                                         fluid />
                                 </div><br>
-                                <Button label="Sign Up" @click="handleSignup" class="mt-2" />
+                                <Button label="Sign Up" @click="handleSignup" class="mt-2" fluid />
                             </div>
                         </TabPanel>
                     </TabPanels>

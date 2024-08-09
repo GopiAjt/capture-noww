@@ -91,6 +91,10 @@ header::before {
     justify-content: space-between;
     width: 100%;
   }
+
+  .p-toast {
+    width: 300px !important;
+  }
 }
 </style>
 <!-- <div class="wrapper">
