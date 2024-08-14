@@ -11,12 +11,20 @@
             </template>
             <template #title>
                 <div class="p-info">
-                    <i class="pi pi-user" style="font-size: 1rem"></i><h3> {{ photographer.name }}</h3>
+                    <i class="pi pi-user" style="font-size: 1rem"></i>
+                    <h3> {{ photographer.name }}</h3>
                 </div>
-                <div>
-                    <div class="rating-div">
-                        <i class="pi pi-star-fill" style="font-size: 1.5rem; color: yellow; margin-right: 5px;"></i>{{
-                            photographer.avgRating }}
+                <div class="p-info">
+                    <div>
+                        <!-- Add to Favorites Button -->
+                        <Button @click="toggleFavorite"  :icon="isFavorite ? 'pi pi-heart-fill' : 'pi pi-heart'" outlined/>
+                    </div>
+                    <div>
+                        <div class="rating-div">
+                            <i class="pi pi-star-fill"
+                                style="font-size: 1.5rem; color: yellow; margin-right: 5px;"></i>{{
+                                    photographer.avgRating }}
+                        </div>
                     </div>
                 </div>
             </template>
@@ -90,6 +98,7 @@ import AllReviews from '@/components/AllReviews.vue'
 import PhotographerAlbums from '@/components/PhotographerAlbums.vue'
 import PhotographerEquipments from '@/components/PhotographerEquipments.vue'
 import Footer from '@/components/Footer.vue'
+import { useStore } from 'vuex';
 
 const activeTab = ref('Albums'); // Set the default active tab
 
@@ -103,16 +112,22 @@ export default {
         return {
             photographer: {},
             package: {},
+            isFavorite: false
         };
+    },
+    computed: {
+        store() {
+            return useStore();
+        }
     },
     mounted() {
         const id = this.$route.params.id;
         const token = this.$store.state.token;
         this.fetchPhotographerDetails(id, token);
+        this.checkIfFavorite(id);
     },
     methods: {
         async fetchPhotographerDetails(id, token) {
-
             try {
                 const response = await Api().get(`/customer/getPhotographerById?id=${id}`, {
                     headers: {
@@ -128,7 +143,16 @@ export default {
             } catch (error) {
                 console.error('Error fetching photographer:', error);
             }
-        }
+        },
+        checkIfFavorite(id){
+            console.log(this.store.state.user.favorites.includes(id));
+            
+            if(this.store.state.user.favorites.includes(id)){
+                this.isFavorite = true;
+            }else{
+                this.isFavorite = false;
+            }
+        },
     }
 };
 </script>

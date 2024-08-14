@@ -88,6 +88,7 @@ export default {
                 } else if (response.status === 200) {
                     const user = response.data;
                     const token = response.data.authToken;
+                    console.log(response.data);
                     
                     localStorage.setItem('user', JSON.stringify(response.data));
 
