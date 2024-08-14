@@ -107,5 +107,13 @@ export default {
                 'Authorization': `Bearer ${token}`
             }
         })
+    },
+    removeFav(authToken, c_id, p_id){
+        return Api().delete(`/customer/removeFromFavorites?customerId=${c_id}&photographerId=${p_id}`,{
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${authToken}`
+            }
+        })
     }
 };

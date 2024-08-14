@@ -99,6 +99,7 @@ import PhotographerAlbums from '@/components/PhotographerAlbums.vue'
 import PhotographerEquipments from '@/components/PhotographerEquipments.vue'
 import Footer from '@/components/Footer.vue'
 import { useStore } from 'vuex';
+import AuthService from '@/services/AuthService';
 
 const activeTab = ref('Albums'); // Set the default active tab
 
@@ -153,6 +154,25 @@ export default {
                 this.isFavorite = false;
             }
         },
+        async toggleFavorite(){
+            if(this.isFavorite){
+                console.log(this.store.state.user.email);
+                console.log(this.$route.params.id);
+                
+                console.log(this.store.state.token);
+                
+                const response = await AuthService.removeFav(this.store.state.token, this.store.state.user.email, this.$route.params.id);
+                if(response.data)
+                    console.log(true);
+                    
+                this.isFavorite = false;    
+            }else{
+                const response = AuthService().addFav();
+                this.isFavorite = true;
+                console.log(this.isFavorite);
+                
+            }
+        }
     }
 };
 </script>
