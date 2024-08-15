@@ -7,7 +7,7 @@
         <h2>{{ userData.name }}</h2>
     </div>
     <div class="card-panel">
-        <Tabs value="0">
+        <Tabs v-model:value="activeTab">
             <TabList>
                 <Tab value="Bookings"><i class="pi pi-book" style="font-size: 1rem"></i>
                     <p style="font-weight: bold; font-size: smaller;">Bookings</p>
@@ -42,6 +42,7 @@
 </template>
 
 <script setup>
+import { ref } from 'vue';
 import Navbar from '@/components/NavBar.vue'
 import Footer from '@/components/Footer.vue'
 import Favorites from '@/components/userComponents/Favorites.vue'
@@ -49,12 +50,15 @@ import Account from '@/components/userComponents/Account.vue'
 import Booking from '@/components/userComponents/Bookings.vue'
 import Password from '@/components/userComponents/Password.vue'
 
+const activeTab = ref('Bookings'); // Set the default active tab
+
 </script>
 <script>
 export default {
     data() {
         return {
-            userData: this.$store.state.user
+            userData: this.$store.state.user,
+
         }
     },
     mounted() {

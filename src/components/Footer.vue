@@ -1,7 +1,7 @@
 <template>
     <footer class="footer">
         <img src="/CaptureNowLogo.svg" alt="CaptureNoww" srcset="" width="50px" style="">
-        <p>Every Movements Mater</p>
+        <p>Every Movement Maters</p>
         <div class="f-links">
             <div class="p-col-12 p-md-4">
                 <ul class="footer-links">

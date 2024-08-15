@@ -2,7 +2,7 @@
     <header>
         <Navbar />
     </header>
-
+    <LoadingScreen v-if="isLoading"></LoadingScreen>
     <div class="card-container" v-if="photographer">
         <Card style="width: 100%; overflow: hidden">
             <template #header class="profile-img">
@@ -101,6 +101,7 @@ import PhotographerEquipments from '@/components/PhotographerEquipments.vue'
 import Footer from '@/components/Footer.vue'
 import { useStore } from 'vuex';
 import AuthService from '@/services/AuthService';
+import LoadingScreen from '@/components/LoadingScreen.vue'
 
 const activeTab = ref('Albums'); // Set the default active tab
 
@@ -114,7 +115,8 @@ export default {
         return {
             photographer: {},
             package: {},
-            isFavorite: false
+            isFavorite: false,
+            isLoading: false
         };
     },
     computed: {
@@ -131,6 +133,7 @@ export default {
     methods: {
         async fetchPhotographerDetails(id, token) {
             try {
+                this.isLoading = true;
                 const response = await Api().get(`/customer/getPhotographerById?id=${id}`, {
                     headers: {
                         'Content-Type': 'application/json',
@@ -141,10 +144,11 @@ export default {
                     this.photographer = response.data;
                     this.package = response.data.packages;
                     console.log(token);
-
+                    this.isLoading = false;
                 }
                 console.log(response.data);
             } catch (error) {
+                this.isLoading = false;
                 console.error('Error fetching photographer:', error);
             }
         },
@@ -162,6 +166,7 @@ export default {
             const photographerId = this.$route.params.id;
             if (this.isFavorite) {
                 try {
+                    this.isLoading = true;
                     const response = await AuthService.removeFav(this.store.state.token, this.store.state.user.email, this.$route.params.id);
                     this.isFavorite = false;
                     if (response.status === 200) {
@@ -176,6 +181,7 @@ export default {
                                 detail: 'This photographer has been removed from favorites',
                                 life: 3000
                             });
+                            this.isLoading = false;
                         }
                     }
                 } catch (error) {
@@ -185,9 +191,11 @@ export default {
                         summary: 'error unable to remove',
                         life: 3000
                     });
+                    this.isLoading = false;
                 }
             } else {
                 try {
+                    this.isLoading = true;
                     const response = await AuthService.addFav(this.store.state.token, this.store.state.user.email, this.$route.params.id);
                     if (response.status === 200) {
                         this.isFavorite = true;
@@ -200,6 +208,7 @@ export default {
                             detail: 'Photographer added to favorites',
                             life: 3000
                         });
+                        this.isLoading = false;
                     }
                 } catch (error) {
                     console.log(error);
@@ -209,6 +218,7 @@ export default {
                         detail: 'Error unable to add',
                         life: 3000
                     });
+                    this.isLoading = false;
                 }
             }
         }
