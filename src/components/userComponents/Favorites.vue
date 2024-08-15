@@ -1,13 +1,13 @@
 <template>
-    <div v-if="!favoritesData">
-        <h3>No Favorite Photographers Found!</h3>
-    </div>
+
     <div class="card" v-for="fav in favoritesData" :key="fav.pid">
+        <div v-if="fav.length == 0">
+            <h3>No Favorite Photographers Found!</h3>
+        </div>
         <Panel>
             <div style="display: flex; align-items: center; gap: 15px;">
                 <img :src="fav.profilePhoto ? `data:image/jpeg;base64,${fav.profilePhoto}` : 'src/assets/images/default_profile.png'"
-                    alt="" width="50px" 
-                    @click="navigatTo(fav.pid)">
+                    alt="" width="50px" @click="navigatTo(fav.pid)">
                 <h2 @click="navigatTo(fav.pid)">{{ fav.name }}</h2>
             </div>
             <div style="display: flex; justify-content: space-between; margin-top: 10px;">
@@ -66,7 +66,8 @@ h2 {
     cursor: pointer;
     font-weight: bold;
 }
-img{
+
+img {
     cursor: pointer;
 }
 </style>

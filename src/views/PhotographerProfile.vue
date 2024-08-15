@@ -17,8 +17,8 @@
                 <div class="p-info">
                     <div>
                         <!-- Add to Favorites Button -->
-                        <Button @click="toggleFavorite" :icon="isFavorite ? 'pi pi-heart-fill' : 'pi pi-heart'"
-                            outlined rounded />
+                        <Button @click="toggleFavorite" :icon="isFavorite ? 'pi pi-heart-fill' : 'pi pi-heart'" outlined
+                            rounded />
                     </div>
                     <div>
                         <div class="rating-div">
@@ -158,21 +158,57 @@ export default {
             }
         },
         async toggleFavorite() {
+            const user = JSON.parse(localStorage.getItem('user'));
+            const photographerId = this.$route.params.id;
             if (this.isFavorite) {
                 try {
                     const response = await AuthService.removeFav(this.store.state.token, this.store.state.user.email, this.$route.params.id);
                     this.isFavorite = false;
+                    if (response.status === 200) {
+                        const index = this.store.state.user.favorites.indexOf(this.$route.params.id);
+                        if (index > -1) {
+                            this.store.state.user.favorites.splice(index, 1);
+                            user.favorites = user.favorites.filter(id => id !== photographerId);
+                            localStorage.setItem('user', JSON.stringify(user));
+                            this.$toast.add({
+                                severity: 'warn',
+                                summary: 'Alert!',
+                                detail: 'This photographer has been removed from favorites',
+                                life: 3000
+                            });
+                        }
+                    }
                 } catch (error) {
                     console.log(error);
+                    this.$toast.add({
+                        severity: 'error',
+                        summary: 'error unable to remove',
+                        life: 3000
+                    });
                 }
             } else {
                 try {
                     const response = await AuthService.addFav(this.store.state.token, this.store.state.user.email, this.$route.params.id);
                     if (response.status === 200) {
                         this.isFavorite = true;
+                        user.favorites.push(photographerId);
+                        localStorage.setItem('user', JSON.stringify(user));
+                        this.store.state.user.favorites.push(this.$route.params.id);
+                        this.$toast.add({
+                            severity: 'info',
+                            summary: 'Successfull!',
+                            detail: 'Photographer added to favorites',
+                            life: 3000
+                        });
                     }
                 } catch (error) {
                     console.log(error);
+                    this.$toast.add({
+                        severity: 'error',
+                        summary: 'Successfull!',
+                        detail: 'Error unable to add',
+                        life: 3000
+                    });
                 }
             }
         }
