@@ -44,4 +44,8 @@ export default {
 .p-menu{
     min-width: 10rem;
 }
+.p-menu-item-label{
+    color: rgb(114, 114, 114);
+    font-weight: 600;
+}
 </style>

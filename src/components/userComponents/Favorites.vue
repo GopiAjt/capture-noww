@@ -1,9 +1,8 @@
 <template>
-
+    <div v-if="!favoritesData || favoritesData.length === 0">
+        <h3>No Favorite Photographers Found!</h3>
+    </div>
     <div class="card" v-for="fav in favoritesData" :key="fav.pid">
-        <div v-if="fav.length == 0">
-            <h3>No Favorite Photographers Found!</h3>
-        </div>
         <Panel>
             <div style="display: flex; align-items: center; gap: 15px;">
                 <img :src="fav.profilePhoto ? `data:image/jpeg;base64,${fav.profilePhoto}` : 'src/assets/images/default_profile.png'"
@@ -39,7 +38,7 @@ export default {
     methods: {
         async getFevorites(u_id, token) {
             try {
-                const response = AuthService.getFevorites(u_id, token);
+                const response = await AuthService.getFevorites(u_id, token);
                 console.log((await response).data);
                 this.favoritesData = (await response).data;
                 console.log(this.favoritesData);

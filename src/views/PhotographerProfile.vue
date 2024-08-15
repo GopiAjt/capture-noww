@@ -12,7 +12,7 @@
             <template #title>
                 <div class="p-info">
                     <i class="pi pi-user" style="font-size: 1rem"></i>
-                    <h3> {{ photographer.name }}</h3>
+                    <h3 style="font-weight: bold;"> {{ photographer.name }}</h3>
                 </div>
                 <div class="p-info">
                     <div>
