@@ -115,5 +115,13 @@ export default {
                 'Authorization': `Bearer ${authToken}`
             }
         })
+    },
+    addFav(authToken, c_id, p_id){
+        return Api().get(`/customer/addToFavorites?customerId=${c_id}&photographerId=${p_id}`,{
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${authToken}`
+            }
+        })
     }
 };

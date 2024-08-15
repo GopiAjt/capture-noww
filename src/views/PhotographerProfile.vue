@@ -17,7 +17,8 @@
                 <div class="p-info">
                     <div>
                         <!-- Add to Favorites Button -->
-                        <Button @click="toggleFavorite"  :icon="isFavorite ? 'pi pi-heart-fill' : 'pi pi-heart'" outlined/>
+                        <Button @click="toggleFavorite" :icon="isFavorite ? 'pi pi-heart-fill' : 'pi pi-heart'"
+                            outlined rounded />
                     </div>
                     <div>
                         <div class="rating-div">
@@ -139,38 +140,40 @@ export default {
                 if (response.status == 200) {
                     this.photographer = response.data;
                     this.package = response.data.packages;
+                    console.log(token);
+
                 }
                 console.log(response.data);
             } catch (error) {
                 console.error('Error fetching photographer:', error);
             }
         },
-        checkIfFavorite(id){
+        checkIfFavorite(id) {
             console.log(this.store.state.user.favorites.includes(id));
-            
-            if(this.store.state.user.favorites.includes(id)){
+
+            if (this.store.state.user.favorites.includes(id)) {
                 this.isFavorite = true;
-            }else{
+            } else {
                 this.isFavorite = false;
             }
         },
-        async toggleFavorite(){
-            if(this.isFavorite){
-                console.log(this.store.state.user.email);
-                console.log(this.$route.params.id);
-                
-                console.log(this.store.state.token);
-                
-                const response = await AuthService.removeFav(this.store.state.token, this.store.state.user.email, this.$route.params.id);
-                if(response.data)
-                    console.log(true);
-                    
-                this.isFavorite = false;    
-            }else{
-                const response = AuthService().addFav();
-                this.isFavorite = true;
-                console.log(this.isFavorite);
-                
+        async toggleFavorite() {
+            if (this.isFavorite) {
+                try {
+                    const response = await AuthService.removeFav(this.store.state.token, this.store.state.user.email, this.$route.params.id);
+                    this.isFavorite = false;
+                } catch (error) {
+                    console.log(error);
+                }
+            } else {
+                try {
+                    const response = await AuthService.addFav(this.store.state.token, this.store.state.user.email, this.$route.params.id);
+                    if (response.status === 200) {
+                        this.isFavorite = true;
+                    }
+                } catch (error) {
+                    console.log(error);
+                }
             }
         }
     }
