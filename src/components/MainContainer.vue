@@ -39,7 +39,8 @@
                     <div class="footer-div">
                         <div class="price-range">Starts with: {{ photographer.startsWith }}</div>
                         <Toast position="bottom-center" />
-                        <Button label="Book Me" class="p-button-sm p-button-dark" @click="bookMe(photographer.id)" raised outlined />
+                        <Button label="Book Me" class="p-button-sm p-button-dark" @click="bookMe(photographer.id)"
+                            raised outlined />
                     </div>
                 </template>
             </Card>
@@ -63,10 +64,13 @@
             </div>
             <Accordion value="0">
                 <AccordionPanel v-for="p in packages" :key="p.id">
-                    <AccordionHeader>{{ p.category }}</AccordionHeader>
+                    <AccordionHeader>{{ p.category }}
+                        <RadioButton v-model="selectedPackage" :value="p.id" />
+                    </AccordionHeader>
                     <AccordionContent>
                         <h3>{{ p.packageName }}</h3>
-                        <span>Description: </span><p class="m-0" v-html="HelperService.addLineBreaks(p.description)"></p>
+                        <span>Description: </span>
+                        <p class="m-0" v-html="HelperService.addLineBreaks(p.description)"></p>
                         <br>
                         <div style="display: flex; justify-content: space-between; flex-wrap: wrap;">
                             <p>Event Price: {{ p.eventRate }}</p>
@@ -98,7 +102,9 @@ export default {
             pageSize: 10,
             isLoading: false,
             packages: [],
-            HelperService
+            HelperService,
+            selectedPackage: null,
+            photographer_id: null
         };
     },
     components: {
@@ -136,8 +142,10 @@ export default {
             this.visible = true;
 
             console.log(this.$store.state.token);
-            
+
             try {
+
+                this.photographer_id = id;
                 const response = await AuthService.getPackages(id, this.$store.state.token);
                 console.log(response.data);
                 if (response.status === 200) {
@@ -145,7 +153,7 @@ export default {
                 }
             } catch (error) {
                 console.log(error);
-                
+
             }
         },
         onPageChange(event) {
@@ -153,6 +161,12 @@ export default {
             this.pageSize = event.rows;
             this.fetchPhotographers(this.page, this.pageSize);
         },
+    },
+    watch: {
+        selectedPackage(newPackage) {
+            console.log('Selected Package ID:', newPackage);
+            
+        }
     }
 };
 </script>
