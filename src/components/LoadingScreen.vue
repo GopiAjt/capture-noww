@@ -4,12 +4,21 @@
             <ProgressSpinner />
         </div>
 
+        <l-infinity size="55" stroke="4" stroke-length="0.15" bg-opacity="0.1" speed="1.3" color="black"></l-infinity>
+
     </div>
 </template>
 
 <script>
+
+
+
+
+// Default values shown
+
 </script>
 <style scoped>
+
 .loading-container {
     display: none;
     position: fixed;

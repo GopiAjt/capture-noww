@@ -39,7 +39,7 @@
                     <div class="footer-div">
                         <div class="price-range">Starts with: {{ photographer.startsWith }}</div>
                         <Toast position="bottom-center" />
-                        <Button label="Book Me" class="p-button-sm p-button-dark" @click="bookMe" raised outlined />
+                        <Button label="Book Me" class="p-button-sm p-button-dark" @click="bookMe(photographer.id)" raised outlined />
                     </div>
                 </template>
             </Card>
@@ -53,21 +53,56 @@
             </Paginator>
         </div>
     </div>
+    <div class="card flex justify-center">
+        <Drawer v-model:visible="visible" header="Drawer" position="bottom" style="height: auto">
+            <template #header>
+                <h3>Select Package</h3>
+            </template>
+            <div v-if="!packages || packages.length === 0">
+                <p>No Packages Found!</p>
+            </div>
+            <Accordion value="0">
+                <AccordionPanel v-for="p in packages" :key="p.id">
+                    <AccordionHeader>{{ p.category }}</AccordionHeader>
+                    <AccordionContent>
+                        <h3>{{ p.packageName }}</h3>
+                        <span>Description: </span><p class="m-0" v-html="HelperService.addLineBreaks(p.description)"></p>
+                        <br>
+                        <div style="display: flex; justify-content: space-between; flex-wrap: wrap;">
+                            <p>Event Price: {{ p.eventRate }}</p>
+                            <p>Video Price: {{ p.videoRate }}</p>
+                            <p>One Day Price: {{ p.oneDayRate }}</p>
+                            <p>One Hour Price: {{ p.oneHourRate }}</p>
+                        </div>
+                    </AccordionContent>
+                </AccordionPanel>
+            </Accordion>
+            <Booking :package="selectedPackage" :photographer_id="photographer_id" />
+        </Drawer>
+    </div>
 </template>
 
 <script>
 import Api from '@/services/Api';
-
+import Booking from '@/components/Booking.vue';
+import AuthService from '@/services/AuthService';
+import HelperService from '@/services/HelperService';
 export default {
     data() {
         return {
+            visible: false,
             photographers: null,
             totalPhotographers: 0,
             error: null,
             page: 0,
             pageSize: 10,
-            isLoading: false
+            isLoading: false,
+            packages: [],
+            HelperService
         };
+    },
+    components: {
+        Booking
     },
     mounted() {
         this.fetchPhotographers(this.page, this.pageSize);
@@ -96,8 +131,22 @@ export default {
                 this.$toast.add({ severity: 'error', summary: 'Please Login!', life: 3000 });
             }
         },
-        bookMe() {
+        async bookMe(id) {
             // Implement the booking logic
+            this.visible = true;
+
+            console.log(this.$store.state.token);
+            
+            try {
+                const response = await AuthService.getPackages(id, this.$store.state.token);
+                console.log(response.data);
+                if (response.status === 200) {
+                    this.packages = response.data;
+                }
+            } catch (error) {
+                console.log(error);
+                
+            }
         },
         onPageChange(event) {
             this.page = event.page;
@@ -109,11 +158,12 @@ export default {
 </script>
 
 <style scoped>
-.card-info-style{
+.card-info-style {
     display: flex;
     align-items: center;
     gap: 0.5rem;
 }
+
 .card {
     padding-top: 5%;
     padding-bottom: 5%;

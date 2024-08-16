@@ -123,5 +123,13 @@ export default {
                 'Authorization': `Bearer ${authToken}`
             }
         })
+    },
+    getPackages(id, token){
+        return Api().get(`/customer/getPackages?email=${id}`, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        })
     }
 };
