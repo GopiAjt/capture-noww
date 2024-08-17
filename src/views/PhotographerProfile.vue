@@ -2,7 +2,7 @@
     <header>
         <Navbar />
     </header>
-    <LoadingScreen v-if="isLoading"></LoadingScreen>
+    <LoadingScreen :isVisible="isLoading"></LoadingScreen>
     <div class="card-container" v-if="photographer">
         <Card style="width: 100%; overflow: hidden">
             <template #header class="profile-img">

@@ -58,8 +58,6 @@ import RadioButton from 'primevue/radiobutton';
 
 import Ripple from 'primevue/ripple';
 
-import { infinity } from 'ldrs'
-infinity.register();
 
 const app = createApp(App)
 app.directive('ripple', Ripple);
