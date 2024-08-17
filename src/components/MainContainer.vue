@@ -62,25 +62,29 @@
             <div v-if="!packages || packages.length === 0">
                 <p>No Packages Found!</p>
             </div>
-            <Accordion value="0">
-                <AccordionPanel v-for="p in packages" :key="p.id">
-                    <AccordionHeader>{{ p.category }}
-                        <RadioButton v-model="selectedPackage" :value="p.id" />
-                    </AccordionHeader>
-                    <AccordionContent>
-                        <h3>{{ p.packageName }}</h3>
-                        <span>Description: </span>
-                        <p class="m-0" v-html="HelperService.addLineBreaks(p.description)"></p>
-                        <br>
-                        <div style="display: flex; justify-content: space-between; flex-wrap: wrap;">
-                            <p>Event Price: {{ p.eventRate }}</p>
-                            <p>Video Price: {{ p.videoRate }}</p>
-                            <p>One Day Price: {{ p.oneDayRate }}</p>
-                            <p>One Hour Price: {{ p.oneHourRate }}</p>
-                        </div>
-                    </AccordionContent>
-                </AccordionPanel>
-            </Accordion>
+            <ScrollPanel id="s-p">
+                <Accordion value="0">
+                    <AccordionPanel v-for="p in packages" :key="p.id">
+                        <AccordionHeader>{{ p.category }}
+                            <RadioButton v-model="selectedPackage" :value="p.id" />
+                        </AccordionHeader>
+
+                        <AccordionContent>
+                            <h3>{{ p.packageName }}</h3>
+                            <span>Description: </span>
+                            <p class="m-0" v-html="HelperService.addLineBreaks(p.description)"></p>
+                            <br>
+                            <div style="display: flex; justify-content: space-between; flex-wrap: wrap;">
+                                <p>Event Price: {{ p.eventRate }}</p>
+                                <p>Video Price: {{ p.videoRate }}</p>
+                                <p>One Day Price: {{ p.oneDayRate }}</p>
+                                <p>One Hour Price: {{ p.oneHourRate }}</p>
+                            </div>
+                        </AccordionContent>
+
+                    </AccordionPanel>
+                </Accordion>
+            </ScrollPanel>
             <Booking :package="selectedPackage" :photographer_id="photographer_id" />
         </Drawer>
     </div>
@@ -165,13 +169,18 @@ export default {
     watch: {
         selectedPackage(newPackage) {
             console.log('Selected Package ID:', newPackage);
-            
+
         }
     }
 };
 </script>
 
 <style scoped>
+#s-p {
+    width: 100%;
+    height: 100px;
+}
+
 .card-info-style {
     display: flex;
     align-items: center;

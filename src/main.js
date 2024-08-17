@@ -54,6 +54,7 @@ import ConfirmPopup from 'primevue/confirmpopup';
 import ConfirmDialog from 'primevue/confirmdialog';
 import ConfirmationService from 'primevue/confirmationservice';
 import RadioButton from 'primevue/radiobutton';
+import ScrollPanel from 'primevue/scrollpanel';
 
 
 import Ripple from 'primevue/ripple';
@@ -137,5 +138,6 @@ app.component('Menu', Menu);
 app.component('ConfirmPopup', ConfirmPopup);
 app.component('ConfirmDialog', ConfirmDialog);
 app.component('RadioButton', RadioButton);
+app.component('ScrollPanel', ScrollPanel);
 
 app.mount('#app');
