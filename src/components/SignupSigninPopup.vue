@@ -17,7 +17,7 @@
                             <div class="card flex justify-center">
                                 <Password v-model="LoginPassword" placeholder="Password" :feedback="false" fluid />
                             </div><br>
-                            <Button label="Log In" @click="handleLogin" fluid/>
+                            <Button label="Log In" @click="handleLogin" fluid />
                         </TabPanel>
                         <TabPanel value="1">
                             <div class="card flex flex-col items-center gap-4">
@@ -82,14 +82,14 @@ export default {
             try {
                 const tokenResponse = await Api().get(`/customer/authtoken?email=${this.LoginEmailId}&password=${this.LoginPassword}`);
                 const response = await Api().get(`/customer/signin?email=${this.LoginEmailId}&password=${this.LoginPassword}`);
-        
+
                 if (response.status === 400) {
                     window.alert('Please verify your account');
                 } else if (response.status === 200) {
                     const user = response.data;
                     const token = response.data.authToken;
                     console.log(response.data);
-                    
+
                     localStorage.setItem('user', JSON.stringify(response.data));
 
                     this.$store.dispatch('login', { user, token })
@@ -102,32 +102,36 @@ export default {
             }
         },
         async handleSignup() {
+            console.log("signing up");
+
             const options = {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                data: {
-                    name: this.name,
-                    email: this.emailId,
-                    phoneNo: this.phoneNo,
-                    password: this.password1,
-                },
+                name: this.name,
+                email: this.emailId,
+                phoneNo: this.phoneNo,
+                password: this.password1,
             };
 
-            try {
-                const response = await Api().post(`/customer/signup`, options);
 
-                if (response.data.status === 'success') {
-                    window.alert("Please Verify your Email!");
-                } else if (response.data.status === 'error') {
-                    window.alert(response.data.message);
-                } else {
-                    console.error("Error signing up:", response);
+            const response = await Api().post(`/customer/signup`, options, {
+                headers: {
+                    "Content-Type": "application/json",
                 }
-            } catch (error) {
-                console.error("Error during signup:", error);
+            });
+
+            console.log(response.status);
+
+            if (response.status === 201) {
+                console.log("Please Verify your Email!");
+
+                window.alert("Please Verify your Email!");
+            } else if (response.status === 400) {
+                console.log("Email Already existes please verify otp to login");
+
+                window.alert("Email Already existes");
+            } else {
+                console.error("Error signing up:", response);
             }
+
         },
     },
 };
@@ -141,7 +145,8 @@ export default {
 .p-tablist-tab-list {
     justify-content: space-between;
 }
-.p-tabpanels{
+
+.p-tabpanels {
     padding-left: 4%;
     padding-right: 4%;
 }

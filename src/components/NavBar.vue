@@ -8,20 +8,25 @@
 
 
             <template #end>
-                <AutoComplete v-model="selectedCountry" optionLabel="name" :suggestions="filteredCountries"
-                    @complete="search" fluid  size="small"/>
+                <!-- <AutoComplete v-model="selectedCountry" optionLabel="name" :suggestions="filteredCountries"
+                    @complete="search" fluid size="small" /> -->
+                <Button icon="pi pi-search" outlined aria-label="Search" @click="visible = true" fluid></Button>
                 <SignupSignin v-if="!$store.state.isLogedIn" />
                 <ProfileIcon v-else></ProfileIcon>
             </template>
 
         </Toolbar>
     </div>
+    <Drawer v-model:visible="visible" header="Search" position="full">
+        <SearchBar></SearchBar>
+    </Drawer>
 </template>
 
 <script setup>
 import SignupSignin from '@/components/SignupSigninPopup.vue'
 import ProfileIcon from './ProfileIcon.vue';
 import { CategoryService } from "@/services/CategoryService";
+import SearchBar from './SearchBar.vue';
 
 </script>
 <script>
@@ -30,7 +35,8 @@ export default {
         return {
             categories: [], // Initialize as an empty array
             selectedCountry: null,
-            filteredCountries: null
+            filteredCountries: null,
+            visible: false
         };
     },
     methods: {
@@ -92,10 +98,7 @@ export default {
 }
 </style>
 <style>
-.p-inputtext {
-    font-size: 10px;
-}
-.p-toolbar-end{
+.p-toolbar-end {
     gap: 20px;
 }
 </style>
