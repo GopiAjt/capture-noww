@@ -8,12 +8,12 @@
 
 
             <template #end>
-                <!-- <AutoComplete v-model="selectedCountry" optionLabel="name" :suggestions="filteredCountries"
-                    @complete="search" fluid size="small" /> -->
                 <Button icon="pi pi-search" raised aria-label="Search" @click="visible = true" fluid></Button>
                 <span style="color: black;">|</span>
                 <SignupSignin v-if="!$store.state.isLogedIn" />
-                <ProfileIcon v-else></ProfileIcon>
+                <Avatar  v-else class="mr-2" size="1.5rem" style="background-color: #fff0; color: #2a1261" shape="circle">
+                    <ProfileIcon />
+                </Avatar>
             </template>
         </Toolbar>
     </div>

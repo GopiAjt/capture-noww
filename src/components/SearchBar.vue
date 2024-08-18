@@ -29,13 +29,16 @@ export default {
                         return country.name.toLowerCase().startsWith(event.query.toLowerCase());
                     });
                 }
-            }, 250);
+            }, 0);
         },
         logSelectedCountry() {
             if (this.selectedCountry) {
+                let cat;
                 this.selectedCountry.forEach(country => {
-                    console.log(country.name); // Or any other property you need
+                    cat = country.name;
                 });
+                console.log(cat);
+                
             } else {
                 console.log("No country selected");
             }

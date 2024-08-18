@@ -100,7 +100,7 @@ export default {
             }
         })
     },
-    resetPassword(resetData, token){
+    resetPassword(resetData, token) {
         return Api().post('/customer/resetPassword', resetData, {
             headers: {
                 'Content-Type': 'application/json',
@@ -108,27 +108,36 @@ export default {
             }
         })
     },
-    removeFav(authToken, c_id, p_id){
-        return Api().delete(`/customer/removeFromFavorites?customerId=${c_id}&photographerId=${p_id}`,{
+    removeFav(authToken, c_id, p_id) {
+        return Api().delete(`/customer/removeFromFavorites?customerId=${c_id}&photographerId=${p_id}`, {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${authToken}`
             }
         })
     },
-    addFav(authToken, c_id, p_id){
-        return Api().get(`/customer/addToFavorites?customerId=${c_id}&photographerId=${p_id}`,{
+    addFav(authToken, c_id, p_id) {
+        return Api().get(`/customer/addToFavorites?customerId=${c_id}&photographerId=${p_id}`, {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${authToken}`
             }
         })
     },
-    getPackages(id, token){
+    getPackages(id, token) {
         return Api().get(`/customer/getPackages?email=${id}`, {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
+            }
+        })
+    },
+    searchByCategory(searchText, offset, pageSize) {
+        return Api().get(`/customer/searchByPreference?pre=${searchText}&offset=${offset}&pageSize=${pageSize}`, {
+            headers: {
+                "Content-Type": "application/json",
+                // 'Authorization': `Bearer ${user.authToken}`
+                // Add any other headers as needed
             }
         })
     }

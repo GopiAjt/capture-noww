@@ -1,7 +1,6 @@
 <template>
     <div class="card flex justify-center">
-        <Button label="Log In" @click="visible = true" id="login-btn"
-            :style="{ backgroundColor: 'yellow', borderColor: 'black' }" />
+        <Button label="Log In" @click="visible = true" raised />
         <Dialog v-model:visible="visible" header="CaptureNoww" modal :style="{ width: '25rem' }">
             <div class="card">
                 <Tabs value="0">
@@ -59,6 +58,7 @@
             </div>
         </Dialog>
     </div>
+    <Toast position="bottom-center" />
 </template>
 
 <script>
@@ -84,21 +84,22 @@ export default {
                 const response = await Api().get(`/customer/signin?email=${this.LoginEmailId}&password=${this.LoginPassword}`);
 
                 if (response.status === 400) {
-                    window.alert('Please verify your account');
+                    this.$toast.add({ severity: 'info', summary: 'Please verify your Email', life: 3000 });
+                    window.alert('');
                 } else if (response.status === 200) {
                     const user = response.data;
                     const token = response.data.authToken;
                     console.log(response.data);
-
+                    this.$toast.add({ severity: 'success', summary: 'Loged in', life: 3000 });
                     localStorage.setItem('user', JSON.stringify(response.data));
 
                     this.$store.dispatch('login', { user, token })
                 } else {
-                    window.alert('Invalid Credentials');
+                    this.$toast.add({ severity: 'warn', summary: 'Invalid Credentials!', life: 3000 });
                 }
             } catch (error) {
+                this.$toast.add({ severity: 'error', summary: 'Error!', life: 3000 });
                 console.error('Error during login:', error);
-                window.alert('An error occurred. Please try again later.');
             }
         },
         async handleSignup() {
@@ -122,7 +123,7 @@ export default {
 
             if (response.status === 201) {
                 console.log("Please Verify your Email!");
-
+                this.$toast.add({ severity: 'error', summary: 'Error!', life: 3000 });
                 window.alert("Please Verify your Email!");
             } else if (response.status === 400) {
                 console.log("Email Already existes please verify otp to login");
@@ -138,10 +139,6 @@ export default {
 </script>
 
 <style scoped>
-#login-btn {
-    height: 35px;
-}
-
 .p-tablist-tab-list {
     justify-content: space-between;
 }
