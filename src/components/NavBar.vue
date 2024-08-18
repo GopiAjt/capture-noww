@@ -10,11 +10,11 @@
             <template #end>
                 <!-- <AutoComplete v-model="selectedCountry" optionLabel="name" :suggestions="filteredCountries"
                     @complete="search" fluid size="small" /> -->
-                <Button icon="pi pi-search" outlined aria-label="Search" @click="visible = true" fluid></Button>
+                <Button icon="pi pi-search" raised aria-label="Search" @click="visible = true" fluid></Button>
+                <span style="color: black;">|</span>
                 <SignupSignin v-if="!$store.state.isLogedIn" />
                 <ProfileIcon v-else></ProfileIcon>
             </template>
-
         </Toolbar>
     </div>
     <Drawer v-model:visible="visible" header="Search" position="full">
@@ -65,7 +65,7 @@ export default {
 
 <style scoped>
 #blurred-toolbar {
-    background-color: rgba(255, 255, 0, 0.234);
+    background-color: rgb(255, 255, 0);
     padding: 5px;
     padding-left: 10vw;
     padding-right: 10vw;
@@ -75,7 +75,7 @@ export default {
 }
 
 .nav-card {
-    padding: 10px;
+    padding: 5px;
 }
 
 .p-button {
@@ -88,7 +88,7 @@ export default {
 
 @media (max-width: 575px) {
     #blurred-toolbar {
-        background-color: rgba(255, 255, 0, 0.316);
+        background-color: rgb(255, 255, 0);
         padding: 5px;
         padding-left: 2vw;
         padding-right: 2vw;

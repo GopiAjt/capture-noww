@@ -242,8 +242,8 @@ img {
 }
 
 .card-container {
-    padding-left: 5vw;
-    padding-right: 5vw;
+    padding-left: 10vw;
+    padding-right: 10vw;
     padding-top: 3vw;
 }
 

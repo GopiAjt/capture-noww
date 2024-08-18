@@ -190,8 +190,8 @@ export default {
 .card {
     padding-top: 5%;
     padding-bottom: 5%;
-    padding-left: 8vw;
-    padding-right: 8vw;
+    padding-left: 10vw;
+    padding-right: 10vw;
 }
 
 .p-card {

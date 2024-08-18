@@ -1,7 +1,7 @@
 <template>
     <div class="card" style="display: flex; flex-direction: column;">
         <AutoComplete v-model="selectedCountry" multiple fluidtiple optionLabel="name" :suggestions="filteredCountries"
-            @complete="search" />
+            @keydown.enter="logSelectedCountry" @complete="search" />
     </div>
 </template>
 
@@ -30,6 +30,15 @@ export default {
                     });
                 }
             }, 250);
+        },
+        logSelectedCountry() {
+            if (this.selectedCountry) {
+                this.selectedCountry.forEach(country => {
+                    console.log(country.name); // Or any other property you need
+                });
+            } else {
+                console.log("No country selected");
+            }
         }
     }
 };
