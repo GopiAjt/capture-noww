@@ -17,7 +17,6 @@
     <div class="main-card">
         <Button label="Update" class="p-button-sm p-button-dark" @click="updateDetails" outlined />
     </div>
-    <Toast position="bottom-center" />
 </template>
 
 <script>

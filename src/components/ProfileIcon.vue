@@ -4,7 +4,7 @@
         @click="toggle" aria-controls="overlay_menu" style="cursor: pointer;">
         <Menu ref="menu" id="overlay_menu" :model="items" :popup="true" />
     </div>
-    <Toast position="bottom-center" />
+    <!-- <Toast position="bottom-center" /> -->
 </template>
 
 <script>

@@ -38,6 +38,7 @@
             </TabPanels>
         </Tabs>
     </div>
+    <Toast position="bottom-center" />
     <Footer></Footer>
 </template>
 

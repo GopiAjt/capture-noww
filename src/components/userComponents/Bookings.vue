@@ -40,7 +40,6 @@
             </div>
         </Fieldset>
     </div>
-    <Toast position="bottom-center" />
     <ConfirmDialog></ConfirmDialog>
 </template>
 

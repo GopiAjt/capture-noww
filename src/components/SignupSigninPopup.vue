@@ -16,7 +16,7 @@
                             <div class="card flex justify-center">
                                 <Password v-model="LoginPassword" placeholder="Password" :feedback="false" fluid />
                             </div><br>
-                            <Button label="Log In" @click="handleLogin" fluid />
+                            <Button label="Log In" :disabled="loading" @click="handleLogin" fluid />
                         </TabPanel>
                         <TabPanel value="1">
                             <div class="card flex flex-col items-center gap-4">
@@ -47,10 +47,10 @@
                                     </Password>
                                 </div><br>
                                 <div class="card flex justify-center">
-                                    <Password v-model="password2" placeholder="Re Enter Password" :feedback="false"
+                                    <Password v-model="password2" placeholder="Re-enter Password" :feedback="false"
                                         fluid />
                                 </div><br>
-                                <Button label="Sign Up" @click="handleSignup" class="mt-2" fluid />
+                                <Button label="Sign Up" :disabled="loading" @click="handleSignup" class="mt-2" fluid />
                             </div>
                         </TabPanel>
                     </TabPanels>
@@ -58,7 +58,7 @@
             </div>
         </Dialog>
     </div>
-    <Toast position="bottom-center" />
+    <!-- <Toast position="bottom-center" /> -->
 </template>
 
 <script>
@@ -75,65 +75,76 @@ export default {
             password1: null,
             password2: null,
             visible: false,
+            loading: false, // new state for loading
         };
     },
     methods: {
         async handleLogin() {
+            this.loading = true;
             try {
                 const tokenResponse = await Api().get(`/customer/authtoken?email=${this.LoginEmailId}&password=${this.LoginPassword}`);
                 const response = await Api().get(`/customer/signin?email=${this.LoginEmailId}&password=${this.LoginPassword}`);
 
                 if (response.status === 400) {
                     this.$toast.add({ severity: 'info', summary: 'Please verify your Email', life: 3000 });
-                    window.alert('');
                 } else if (response.status === 200) {
                     const user = response.data;
                     const token = response.data.authToken;
                     console.log(response.data);
-                    this.$toast.add({ severity: 'success', summary: 'Loged in', life: 3000 });
+                    this.$toast.add({ severity: 'success', summary: 'Logged in', life: 3000 });
                     localStorage.setItem('user', JSON.stringify(response.data));
 
-                    this.$store.dispatch('login', { user, token })
+                    this.$store.dispatch('login', { user, token });
                 } else {
                     this.$toast.add({ severity: 'warn', summary: 'Invalid Credentials!', life: 3000 });
                 }
             } catch (error) {
                 this.$toast.add({ severity: 'error', summary: 'Error!', life: 3000 });
                 console.error('Error during login:', error);
+            } finally {
+                this.loading = false;
             }
         },
         async handleSignup() {
-            console.log("signing up");
-
-            const options = {
-                name: this.name,
-                email: this.emailId,
-                phoneNo: this.phoneNo,
-                password: this.password1,
-            };
-
-
-            const response = await Api().post(`/customer/signup`, options, {
-                headers: {
-                    "Content-Type": "application/json",
-                }
-            });
-
-            console.log(response.status);
-
-            if (response.status === 201) {
-                console.log("Please Verify your Email!");
-                this.$toast.add({ severity: 'error', summary: 'Error!', life: 3000 });
-                window.alert("Please Verify your Email!");
-            } else if (response.status === 400) {
-                console.log("Email Already existes please verify otp to login");
-
-                window.alert("Email Already existes");
-            } else {
-                console.error("Error signing up:", response);
+            if (this.password1 !== this.password2) {
+                this.$toast.add({ severity: 'warn', summary: 'Passwords do not match!', life: 3000 });
+                return;
             }
 
-        },
+            this.loading = true;
+            try {
+                console.log("Signing up");
+
+                const options = {
+                    name: this.name,
+                    email: this.emailId,
+                    phoneNo: this.phoneNo,
+                    password: this.password1,
+                };
+
+                const response = await Api().post(`/customer/signup`, options, {
+                    headers: {
+                        "Content-Type": "application/json",
+                    }
+                });
+
+                if (response.status === 201) {
+                    console.log("Please verify your Email!");
+                    this.$toast.add({ severity: 'success', summary: 'Signup successful!', detail: 'Please verify your email to activate your account.', life: 3000 });
+                } else if (response.status === 400) {
+                    console.log("Email already exists, please verify OTP to login.");
+                    this.$toast.add({ severity: 'warn', summary: 'Email already exists', detail: 'Please verify your email to login.', life: 3000 });
+                } else {
+                    console.error("Unexpected error during signup:", response);
+                    this.$toast.add({ severity: 'error', summary: 'Error!', detail: 'An unexpected error occurred during signup.', life: 3000 });
+                }
+            } catch (error) {
+                console.error("Error signing up:", error);
+                this.$toast.add({ severity: 'error', summary: 'Error!', detail: 'Account already exists!', life: 3000 });
+            } finally {
+                this.loading = false;
+            }
+        }
     },
 };
 </script>

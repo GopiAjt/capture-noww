@@ -11,7 +11,6 @@
         </div>
         <Button label="Submit" text raised @click="addReview" />
     </div>
-    <Toast position="bottom-center" />
 </template>
 
 <script>

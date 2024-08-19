@@ -38,7 +38,6 @@
                 <template #footer>
                     <div class="footer-div">
                         <div class="price-range">Starts with: {{ photographer.startsWith }}</div>
-                        <Toast position="bottom-center" />
                         <Button label="Book Me" class="p-button-sm p-button-dark" @click="bookMe(photographer.id)"
                             raised outlined />
                     </div>
@@ -88,6 +87,7 @@
             <Booking :package="selectedPackage" :photographer_id="photographer_id" />
         </Drawer>
     </div>
+    <Toast position="bottom-center" />
 </template>
 
 <script>
