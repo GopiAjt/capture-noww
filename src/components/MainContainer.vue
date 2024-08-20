@@ -108,13 +108,15 @@ export default {
             packages: [],
             HelperService,
             selectedPackage: null,
-            photographer_id: null
+            photographer_id: null,
+            idLogedIn: false
         };
     },
     components: {
         Booking
     },
     mounted() {
+        this.idLogedIn = this.$store.state.isLogedIn;
         this.fetchPhotographers(this.page, this.pageSize);
     },
     methods: {
@@ -142,23 +144,28 @@ export default {
             }
         },
         async bookMe(id) {
-            // Implement the booking logic
-            this.visible = true;
+            if (this.idLogedIn) {
+                // Implement the booking logic
+                this.visible = true;
 
-            console.log(this.$store.state.token);
+                console.log(this.$store.state.token);
 
-            try {
+                try {
 
-                this.photographer_id = id;
-                const response = await AuthService.getPackages(id, this.$store.state.token);
-                console.log(response.data);
-                if (response.status === 200) {
-                    this.packages = response.data;
+                    this.photographer_id = id;
+                    const response = await AuthService.getPackages(id, this.$store.state.token);
+                    console.log(response.data);
+                    if (response.status === 200) {
+                        this.packages = response.data;
+                    }
+                } catch (error) {
+                    console.log(error);
+
                 }
-            } catch (error) {
-                console.log(error);
-
+            } else {
+                this.$toast.add({ severity: 'error', summary: 'Please Login!', life: 3000 });
             }
+
         },
         onPageChange(event) {
             this.page = event.page;

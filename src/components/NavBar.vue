@@ -75,7 +75,7 @@ export default {
 }
 
 .nav-card {
-    padding: 5px;
+    padding: 10px;
 }
 
 .p-button {
