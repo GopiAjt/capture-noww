@@ -108,15 +108,13 @@ export default {
             packages: [],
             HelperService,
             selectedPackage: null,
-            photographer_id: null,
-            idLogedIn: false
+            photographer_id: null
         };
     },
     components: {
         Booking
     },
     mounted() {
-        this.idLogedIn = this.$store.state.isLogedIn;
         this.fetchPhotographers(this.page, this.pageSize);
     },
     methods: {
@@ -143,13 +141,10 @@ export default {
                 this.$toast.add({ severity: 'error', summary: 'Please Login!', life: 3000 });
             }
         },
-        async bookMe(id) {
-            if (this.idLogedIn) {
+        async bookMe(id) {   
+            if (this.$store.state.isLogedIn) {
                 // Implement the booking logic
                 this.visible = true;
-
-                console.log(this.$store.state.token);
-
                 try {
 
                     this.photographer_id = id;

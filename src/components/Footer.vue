@@ -5,9 +5,9 @@
         <div class="f-links">
             <div class="p-col-12 p-md-4">
                 <ul class="footer-links">
-                    <li>Home</li>
-                    <li>Services</li>
-                    <li>Contact</li>
+                    <li>Terms & Conditions</li>
+                    <li>Join As Photographer</li>
+                    <li>Contact Us</li>
                     <li>About Us</li>
                 </ul>
             </div>
