@@ -7,7 +7,7 @@
 
 <script>
 import { CategoryService } from '@/services/CategoryService';
-
+import AuthService from '@/services/AuthService';
 export default {
     data() {
         return {
@@ -31,13 +31,19 @@ export default {
                 }
             }, 0);
         },
-        logSelectedCountry() {
+        async logSelectedCountry() {
+            let searchText; 
+            let offset = 0; 
+            let pageSize = 10;
             if (this.selectedCountry) {
                 let cat;
                 this.selectedCountry.forEach(country => {
                     cat = country.name;
+                    searchText = country.name;
                 });
                 console.log(cat);
+                const response = await AuthService.searchByCategory(searchText, offset, pageSize);
+                console.log(response.data);
                 
             } else {
                 console.log("No country selected");
