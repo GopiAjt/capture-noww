@@ -1,10 +1,12 @@
+//src/stores/store.js
 import { createStore } from 'vuex';
 
 const store = createStore({
     state: {
         token: localStorage.getItem('token') || '',
         user: JSON.parse(localStorage.getItem('user')) || null, // Parse the user data from localStorage
-        isLogedIn: !!localStorage.getItem('token') // Initialize isLogedIn based on token presence
+        isLogedIn: !!localStorage.getItem('token'), // Initialize isLogedIn based on token presence
+        photographers: [],
     },
     mutations: {
         setUser(state, user) {
@@ -28,6 +30,19 @@ const store = createStore({
         setIsLogedIn(state, status) {
             state.isLogedIn = status;
         },
+        // Photographers mutations
+        setPhotographers(state, photographers) {
+            state.photographers = photographers;
+        },
+        addPhotographer(state, photographer) {
+            state.photographers.push(photographer);
+        },
+        updatePhotographer(state, updatedPhotographer) {
+            const index = state.photographers.findIndex(p => p.email === updatedPhotographer.email);
+            if (index !== -1) {
+                state.photographers[index] = updatedPhotographer;
+            }
+        },
     },
     actions: {
         login({ commit }, { user, token }) {
@@ -45,7 +60,9 @@ const store = createStore({
         isAuthenticated: state => !!state.token && !!state.user,
         user: state => state.user,
         token: state => state.token,
-        isLogedIn: state => state.isLogedIn
+        isLogedIn: state => state.isLogedIn,
+        allPhotographers: state => state.photographers,
+        getPhotographerByEmail: state => email => state.photographers.find(p => p.email === email),
     }
 });
 
