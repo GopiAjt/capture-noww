@@ -8,6 +8,8 @@
 <script>
 import { CategoryService } from '@/services/CategoryService';
 import AuthService from '@/services/AuthService';
+import { mapMutations, mapGetters } from 'vuex';
+
 export default {
     data() {
         return {
@@ -20,6 +22,8 @@ export default {
         CategoryService.getCategories().then((data) => (this.countries = data));
     },
     methods: {
+        ...mapMutations(['setPhotographers', 'addPhotographer', 'deletePhotographer']),
+        ...mapGetters(['allPhotographers']),
         search(event) {
             setTimeout(() => {
                 if (!event.query.trim().length) {
@@ -44,6 +48,8 @@ export default {
                 console.log(cat);
                 const response = await AuthService.searchByCategory(searchText, offset, pageSize);
                 console.log(response.data);
+                this.setPhotographers(response.data);
+                console.log(this.allPhotographers().content);
                 
             } else {
                 console.log("No country selected");
