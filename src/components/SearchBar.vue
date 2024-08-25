@@ -23,7 +23,6 @@ export default {
     },
     methods: {
         ...mapMutations(['setPhotographers', 'addPhotographer', 'deletePhotographer']),
-        ...mapGetters(['allPhotographers']),
         search(event) {
             setTimeout(() => {
                 if (!event.query.trim().length) {
@@ -48,13 +47,14 @@ export default {
                 console.log(cat);
                 const response = await AuthService.searchByCategory(searchText, offset, pageSize);
                 console.log(response.data);
-                this.setPhotographers(response.data);
-                console.log(this.allPhotographers().content);
-                
+                this.setPhotographers(response.data.content);
             } else {
                 console.log("No country selected");
             }
         }
-    }
+    },
+    computed: {
+        ...mapGetters(['allPhotographers']),
+    },
 };
 </script>

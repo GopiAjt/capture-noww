@@ -160,17 +160,14 @@
             <li>Using CaptureNow.in, you acknowledge and agree to the terms outlined in this data policy.</li>
         </ol>
     </div>
-    <Footer></Footer>
+    <!-- <Footer></Footer> -->
 </template>
 
 <script>
 import AuthService from '@/services/AuthService';
 import NavBar from '../NavBar.vue';
-import Footer from '@/components/Footer.vue';
-
 export default {
     components: {
-        Footer,
         NavBar,
     }
 }

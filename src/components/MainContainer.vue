@@ -101,7 +101,7 @@ export default {
     data() {
         return {
             visible: false,
-            photographers: null,
+            // photographers: null,
             totalPhotographers: 0,
             error: null,
             page: 0,
@@ -116,22 +116,25 @@ export default {
     components: {
         Booking
     },
+    computed: {
+        ...mapGetters(['allPhotographers']),
+        photographers() {
+            return this.allPhotographers; // Use the getter to get photographers from Vuex state
+        },
+    },
     mounted() {
         this.fetchPhotographers(this.page, this.pageSize);
     },
     methods: {
         ...mapMutations(['setPhotographers', 'addPhotographer', 'deletePhotographer']),
-        ...mapGetters(['allPhotographers']),
         async fetchPhotographers(page, pageSize) {
             try {
                 this.isLoading = true;
                 const offset = page * pageSize;
                 const response = await Api().get(`/customer/getPhotographersIndex/${offset}/${pageSize}`);
-               
+                console.log(response);
+                
                 this.setPhotographers(response.data.content);
-                this.photographers = this.allPhotographers().content;
-                console.log(this.allPhotographers().content);
-                this.photographers = response.data.content;
                 this.totalPhotographers = response.data.totalElements;
                 this.isLoading = false;
             } catch (error) {
