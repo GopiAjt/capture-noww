@@ -95,6 +95,8 @@ import Api from '@/services/Api';
 import Booking from '@/components/Booking.vue';
 import AuthService from '@/services/AuthService';
 import HelperService from '@/services/HelperService';
+import { mapMutations, mapGetters } from 'vuex';
+
 export default {
     data() {
         return {
@@ -118,13 +120,18 @@ export default {
         this.fetchPhotographers(this.page, this.pageSize);
     },
     methods: {
+        ...mapMutations(['setPhotographers', 'addPhotographer', 'deletePhotographer']),
+        ...mapGetters(['allPhotographers']),
         async fetchPhotographers(page, pageSize) {
             try {
                 this.isLoading = true;
                 const offset = page * pageSize;
                 const response = await Api().get(`/customer/getPhotographersIndex/${offset}/${pageSize}`);
+               
+                this.setPhotographers(response.data.content);
+                this.photographers = this.allPhotographers().content;
+                console.log(this.allPhotographers().content);
                 this.photographers = response.data.content;
-                console.log(response.data.content);
                 this.totalPhotographers = response.data.totalElements;
                 this.isLoading = false;
             } catch (error) {
@@ -141,7 +148,7 @@ export default {
                 this.$toast.add({ severity: 'error', summary: 'Please Login!', life: 3000 });
             }
         },
-        async bookMe(id) {   
+        async bookMe(id) {
             if (this.$store.state.isLogedIn) {
                 // Implement the booking logic
                 this.visible = true;

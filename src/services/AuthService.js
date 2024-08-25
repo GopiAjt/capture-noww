@@ -93,7 +93,7 @@ export default {
         })
     },
     sendOtp(eId, authToken) {
-        return Api().post(`/customer/resetPasswordOtp?emailId=${eId}`, {
+        return Api().get(`/customer/resetPasswordOtp?emailId=${eId}`, {
             headers: {
                 'Content-type': 'application/json',
                 'Authorization': `Bearer ${authToken}`

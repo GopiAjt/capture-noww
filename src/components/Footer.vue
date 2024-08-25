@@ -5,10 +5,10 @@
         <div class="f-links">
             <div class="p-col-12 p-md-4">
                 <ul class="footer-links">
-                    <li>Terms & Conditions</li>
-                    <li>Join As Photographer</li>
-                    <li>Contact Us</li>
-                    <li>About Us</li>
+                    <li><router-link to="/terms-and-conditions">Terms & Conditions</router-link></li>
+                    <li><router-link to="/join-as-photographer">Join As Photographer</router-link></li>
+                    <li><router-link to="/contact-us">Contact Us</router-link></li>
+                    <li><router-link to="/about-us">About Us</router-link></li>
                 </ul>
             </div>
             <div class="social-icons">
@@ -25,6 +25,10 @@
 </template>
 
 <script>
+import AboutUs from '@/components/footerComponents/AboutUs.vue'
+import ContactUs from '@/components/footerComponents/ContactUs.vue'
+import JoinAsPhotographer from '@/components/footerComponents/JoinAsPhotographer.vue'
+import TermsAndconditions from '@/components/footerComponents/TermsAndConditions.vue'
 
 export default {
     name: 'FooterComponent',
