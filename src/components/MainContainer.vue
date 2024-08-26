@@ -101,7 +101,6 @@ export default {
     data() {
         return {
             visible: false,
-            // photographers: null,
             totalPhotographers: 0,
             error: null,
             page: 0,
@@ -117,25 +116,30 @@ export default {
         Booking
     },
     computed: {
-        ...mapGetters(['allPhotographers']),
+        ...mapGetters(['allPhotographers', 'photographersPage', 'photographersPageSize']),
         photographers() {
             return this.allPhotographers; // Use the getter to get photographers from Vuex state
         },
     },
     mounted() {
-        this.fetchPhotographers(this.page, this.pageSize);
+        if (!this.photographers.length || this.page !== this.photographersPage || this.pageSize !== this.photographersPageSize) {
+            this.fetchPhotographers(this.page, this.pageSize);
+        } else {
+            this.totalPhotographers = this.photographers.length;
+        }
     },
     methods: {
-        ...mapMutations(['setPhotographers', 'addPhotographer', 'deletePhotographer']),
+        ...mapMutations(['setPhotographers', 'setPhotographersPage', 'setPhotographersPageSize']),
         async fetchPhotographers(page, pageSize) {
             try {
                 this.isLoading = true;
                 const offset = page * pageSize;
                 const response = await Api().get(`/customer/getPhotographersIndex/${offset}/${pageSize}`);
-                console.log(response);
-                
-                this.setPhotographers(response.data.content);
+
+                this.setPhotographers(response.data.content); // Store fetched photographers in Vuex
                 this.totalPhotographers = response.data.totalElements;
+                this.setPhotographersPage(page); // Store current page in Vuex
+                this.setPhotographersPageSize(pageSize); // Store page size in Vuex
                 this.isLoading = false;
             } catch (error) {
                 console.error('Error fetching photographers:', error);
@@ -145,7 +149,6 @@ export default {
         },
         photographerProfile(id) {
             if (this.$store.state.isLogedIn) {
-                console.log(id);
                 this.$router.push(`/photorapherProfile/${id}`);
             } else {
                 this.$toast.add({ severity: 'error', summary: 'Please Login!', life: 3000 });
@@ -153,24 +156,19 @@ export default {
         },
         async bookMe(id) {
             if (this.$store.state.isLogedIn) {
-                // Implement the booking logic
                 this.visible = true;
                 try {
-
                     this.photographer_id = id;
                     const response = await AuthService.getPackages(id, this.$store.state.token);
-                    console.log(response.data);
                     if (response.status === 200) {
                         this.packages = response.data;
                     }
                 } catch (error) {
                     console.log(error);
-
                 }
             } else {
                 this.$toast.add({ severity: 'error', summary: 'Please Login!', life: 3000 });
             }
-
         },
         onPageChange(event) {
             this.page = event.page;
@@ -181,11 +179,11 @@ export default {
     watch: {
         selectedPackage(newPackage) {
             console.log('Selected Package ID:', newPackage);
-
         }
     }
 };
 </script>
+
 
 <style scoped>
 #s-p {

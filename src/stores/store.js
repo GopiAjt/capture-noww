@@ -1,31 +1,32 @@
-//src/stores/store.js
 import { createStore } from 'vuex';
 
 const store = createStore({
     state: {
         token: localStorage.getItem('token') || '',
-        user: JSON.parse(localStorage.getItem('user')) || null, // Parse the user data from localStorage
-        isLogedIn: !!localStorage.getItem('token'), // Initialize isLogedIn based on token presence
-        photographers: [],
+        user: JSON.parse(localStorage.getItem('user')) || null,
+        isLogedIn: !!localStorage.getItem('token'),
+        photographers: [], // Stores the list of photographers
+        photographersPage: 0, // Stores the current page number
+        photographersPageSize: 10, // Stores the page size
     },
     mutations: {
         setUser(state, user) {
             state.user = user;
             state.isLogedIn = true;
-            localStorage.setItem('user', JSON.stringify(user)); // Store user as a JSON string in localStorage
+            localStorage.setItem('user', JSON.stringify(user));
         },
         clearUser(state) {
             state.user = null;
             state.isLogedIn = false;
-            localStorage.removeItem('user'); // Remove user from localStorage
+            localStorage.removeItem('user');
         },
         setToken(state, token) {
             state.token = token;
-            localStorage.setItem('token', token); // Store token in localStorage
+            localStorage.setItem('token', token);
         },
         clearToken(state) {
             state.token = null;
-            localStorage.removeItem('token'); // Remove token from localStorage
+            localStorage.removeItem('token');
         },
         setIsLogedIn(state, status) {
             state.isLogedIn = status;
@@ -42,6 +43,13 @@ const store = createStore({
             if (index !== -1) {
                 state.photographers[index] = updatedPhotographer;
             }
+        },
+        // New mutations for pagination state
+        setPhotographersPage(state, page) {
+            state.photographersPage = page;
+        },
+        setPhotographersPageSize(state, pageSize) {
+            state.photographersPageSize = pageSize;
         },
     },
     actions: {
@@ -62,6 +70,8 @@ const store = createStore({
         token: state => state.token,
         isLogedIn: state => state.isLogedIn,
         allPhotographers: state => state.photographers,
+        photographersPage: state => state.photographersPage, // Getter for current page
+        photographersPageSize: state => state.photographersPageSize, // Getter for page size
         getPhotographerByEmail: state => email => state.photographers.find(p => p.email === email),
     }
 });
