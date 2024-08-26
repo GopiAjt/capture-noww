@@ -1,22 +1,28 @@
 <template>
     <NavBar></NavBar>
 
-    <h2>Contact Us</h2>
-    <input type="radio" id="photographer" name="fav_language" value="Photographer" />
-    <label for="photographer">Photographer</label>
-
-    <input type="radio" id="customer" name="fav_language" value="Customer" />
-    <label for="customer">Customer</label>
-
-    <input type="text" class="field" placeholder="Your Name" />
-    <input type="text" class="field" placeholder="Your Email" />
-    <input type="text" class="field" placeholder="Phone" />
-    <textarea placeholder="Message" class="field"></textarea>
-    <button class="send-btn">Send</button>
-
+    <div class="container">
+        <h2>Contact Us</h2>
+        <div id="category">
+            <RadioButton v-model="value" inputId="photographer" name="pizza" value="photographer" />
+            <label for="ingredient1" class="ml-2">Photographer</label>
+            <RadioButton v-model="value" inputId="customer" name="pizza" value="customer" />
+            <label for="ingredient1" class="ml-2">Customer</label>
+        </div>
+        <InputText v-model="value2" type="text" placeholder="Your Name" fluid/>
+        <InputText v-model="value2" type="text" placeholder="Your Email" fluid/>
+        <InputText v-model="value2" type="text" placeholder="Phone" fluid/>
+        <Textarea v-model="value" rows="5" cols="30" placeholder="message" fluid/>
+        <Button label="Submit" />
+    </div>
     <!-- <Footer></Footer> -->
 </template>
 
+<script setup>
+import { ref } from 'vue';
+
+const value = ref('');
+</script>
 <script>
 import AuthService from '@/services/AuthService';
 import NavBar from '../NavBar.vue';
@@ -30,4 +36,17 @@ export default {
 </script>
 
 
-<style scoped></style>
+<style scoped>
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+#category{
+    display: flex;
+    gap: 10px;
+}
+</style>

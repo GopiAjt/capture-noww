@@ -59,6 +59,7 @@ export default {
 
 .footer-links li {
     margin-bottom: 0.5rem;
+    font-size: x-small;
 }
 
 .footer-links a {

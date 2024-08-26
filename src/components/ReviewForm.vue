@@ -6,9 +6,7 @@
         <div class="card flex justify-center">
             <Rating v-model="rating" style="font-size: 1.5rem;" />
         </div>
-        <div class="card">
-            <Textarea v-model="comment" autoResize rows="5" cols="40" class="responsive-textarea" />
-        </div>
+        <Textarea v-model="comment" autoResize rows="5" cols="40" class="responsive-textarea" fluid />
         <Button label="Submit" text raised @click="addReview" />
     </div>
 </template>
@@ -51,6 +49,8 @@ export default {
     flex-direction: column;
     align-items: center;
     gap: 1rem;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .responsive-textarea {
