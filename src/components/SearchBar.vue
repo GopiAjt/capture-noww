@@ -19,7 +19,9 @@ export default {
         };
     },
     mounted() {
-        CategoryService.getCategories().then((data) => (this.countries = data));
+        CategoryService.getCategories().then((data) => {
+            this.countries = data;
+        });
     },
     methods: {
         ...mapMutations(['setPhotographers', 'addPhotographer', 'deletePhotographer']),
@@ -35,18 +37,18 @@ export default {
             }, 0);
         },
         async logSelectedCountry() {
-            let searchText; 
-            let offset = 0; 
+            let searchText = '';
+            let offset = 0;
             let pageSize = 10;
-            if (this.selectedCountry) {
-                let cat;
-                this.selectedCountry.forEach(country => {
-                    cat = country.name;
-                    searchText = country.name;
-                });
-                console.log(cat);
+
+            if (this.selectedCountry && this.selectedCountry.length) {
+                searchText = this.selectedCountry.map(country => country.name).join(',');
+                console.log('Search Text:', searchText);
+
                 const response = await AuthService.searchByCategory(searchText, offset, pageSize);
-                console.log(response.data);
+                console.log('Search Results:', response.data);
+
+                // Store the search results in Vuex
                 this.setPhotographers(response.data.content);
             } else {
                 console.log("No country selected");
