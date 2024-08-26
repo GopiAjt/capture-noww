@@ -17,8 +17,8 @@
                 <div class="p-info">
                     <div>
                         <!-- Add to Favorites Button -->
-                        <Button @click="toggleFavorite" :icon="isFavorite ? 'pi pi-heart-fill' : 'pi pi-heart'" outlined
-                            rounded />
+                        <Button @click="toggleFavorite" :icon="isFavorite ? 'pi pi-heart-fill' : 'pi pi-heart'" text
+                        raised  rounded class="p-button-rounded p-button-text" />
                     </div>
                     <div>
                         <div class="rating-div">
