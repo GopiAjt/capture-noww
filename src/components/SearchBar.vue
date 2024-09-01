@@ -50,6 +50,7 @@ export default {
 
                 // Store the search results in Vuex
                 this.setPhotographers(response.data.content);
+                // this.$router.push('/');
             } else {
                 console.log("No country selected");
             }
