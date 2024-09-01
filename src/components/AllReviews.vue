@@ -2,8 +2,8 @@
     <div class="card" v-for="(review, index) in reviews" :key="index">
         <Panel>
             <div  style="display: flex; justify-content: space-between;" >
-                <div style="display: flex; gap: 10px;">
-                    <Avatar image="/CaptureNowLogo.svg" size="large" shape="circle" />
+                <div style="display: flex; gap: 10px; align-items: center;">
+                    <Avatar image="/src/assets/images/default_profile.png" size="normal" shape="circle" />
                     <div style="display: flex; flex-direction: column;">
                         <span class="font-bold">{{ review.customerName }}</span>
                         <p style="font-size: smaller;">{{ formatDate(review.ratingDate) }}</p>

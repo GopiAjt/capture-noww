@@ -6,7 +6,7 @@
         <Fieldset>
             <template #legend>
                 <div style="display: flex; align-items: center; gap: 5px">
-                    <Avatar image="/CaptureNow.svg" shape="circle" />
+                    <Avatar image="/src/assets/images/default_profile.png" shape="circle" />
                     <span style="font-weight: bold;">{{ b.photographerName }}</span>
                 </div>
             </template>
