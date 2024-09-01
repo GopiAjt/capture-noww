@@ -59,6 +59,8 @@ export default {
 
         },
         async sendVerificationOtp() {
+            console.log(this.$store.state.user.email);
+            
             const response = await AuthService.sendOtp(this.$store.state.user.email, this.$store.state.token);
             console.log(response.data);
 
