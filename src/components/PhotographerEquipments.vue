@@ -34,7 +34,7 @@
 <script>
 import AuthService from '@/services/AuthService';
 import { useStore } from 'vuex';
-import { ref, watch } from 'vue';
+import { ref, watch, onMounted } from 'vue';
 
 export default {
     props: {
@@ -80,8 +80,15 @@ export default {
             loadAlbums();
         };
 
-        watch(() => props.photographer_id, loadAlbums, { immediate: true });
+        // Watch for changes in photographer_id and trigger delayed load
+        watch(() => props.photographer_id, () => {
+            setTimeout(loadAlbums, 5000); // Fetch data after 5 seconds
+        }, { immediate: false });
         watch([page, pageSize], loadAlbums);
+
+        onMounted(() => {
+            setTimeout(loadAlbums, 10000); // Fetch data once after 5 seconds
+        });
 
         return {
             images,
