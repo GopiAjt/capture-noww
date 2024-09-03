@@ -58,13 +58,17 @@
             </div>
         </Dialog>
     </div>
-    <!-- <Toast position="bottom-center" /> -->
+    <LoadingScreen :isVisible="isLoading"></LoadingScreen>
 </template>
 
 <script>
 import Api from '@/services/Api';
+import LoadingScreen from '@/components/LoadingScreen.vue'
 
 export default {
+    components: {
+        LoadingScreen
+    },
     data() {
         return {
             LoginEmailId: null,
@@ -75,12 +79,12 @@ export default {
             password1: null,
             password2: null,
             visible: false,
-            loading: false, // new state for loading
+            isLoading: false, // new state for loading
         };
     },
     methods: {
         async handleLogin() {
-            this.loading = true;
+            this.isLoading = true;
             try {
                 const tokenResponse = await Api().get(`/customer/authtoken?email=${this.LoginEmailId}&password=${this.LoginPassword}`);
                 const response = await Api().get(`/customer/signin?email=${this.LoginEmailId}&password=${this.LoginPassword}`);
@@ -102,7 +106,7 @@ export default {
                 this.$toast.add({ severity: 'error', summary: 'Error!', life: 3000 });
                 console.error('Error during login:', error);
             } finally {
-                this.loading = false;
+                this.isLoading = false;
             }
         },
         async handleSignup() {
@@ -111,7 +115,7 @@ export default {
                 return;
             }
 
-            this.loading = true;
+            this.isLoading = true;
             try {
                 console.log("Signing up");
 
@@ -142,7 +146,7 @@ export default {
                 console.error("Error signing up:", error);
                 this.$toast.add({ severity: 'error', summary: 'Error!', detail: 'Account already exists!', life: 3000 });
             } finally {
-                this.loading = false;
+                this.isLoading = false;
             }
         }
     },
