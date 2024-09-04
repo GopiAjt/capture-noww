@@ -3,7 +3,14 @@ import { createStore } from 'vuex';
 const store = createStore({
     state: {
         token: localStorage.getItem('token') || '',
-        user: JSON.parse(localStorage.getItem('user')) || null,
+        user: (() => {
+            try {
+                return JSON.parse(localStorage.getItem('user'));
+            } catch (e) {
+                console.error('Error parsing user data from localStorage:', e);
+                return null;
+            }
+        })(),
         isLogedIn: !!localStorage.getItem('token'),
         photographers: [], // Stores the list of photographers
         photographersPage: 0, // Stores the current page number
