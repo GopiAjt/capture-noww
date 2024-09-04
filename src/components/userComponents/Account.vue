@@ -10,17 +10,19 @@
         </div>
         <div style="display: flex; flex-direction: column; gap: 2px;">
             <label for="number-input">Number</label>
-            <InputNumber id="number-input" v-model="phNo" />
+            <InputNumber id="number-input" :useGrouping="false" v-model="phNo" />
         </div>
     </div>
     <br>
     <div class="main-card">
         <Button label="Update" class="p-button-sm p-button-dark" @click="updateDetails" outlined />
     </div>
+    <LoadingScreen :isVisible="isLoading"></LoadingScreen>
 </template>
 
 <script>
 import AuthService from '@/services/AuthService';
+import LoadingScreen from '@/components/LoadingScreen.vue'
 
 export default {
     data() {
@@ -31,6 +33,10 @@ export default {
             userData: this.$store.state.user,
             isLoading: false // Loading state
         }
+    },
+    components: {
+        LoadingScreen,
+        // other components
     },
     methods: {
         async updateDetails() {
