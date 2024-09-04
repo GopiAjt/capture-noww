@@ -6,22 +6,39 @@
     </div>
 </template>
 
-
 <script>
-
-
 export default {
     props: {
         isVisible: {
             type: Boolean,
             required: true
         }
+    },
+    watch: {
+        isVisible(newValue) {
+            if (newValue) {
+                document.body.style.overflow = 'hidden';  // Disable scrolling
+                document.body.style.touchAction = 'none';  // Disable touch actions
+            } else {
+                document.body.style.overflow = '';  // Restore scrolling
+                document.body.style.touchAction = '';  // Restore touch actions
+            }
+        }
+    },
+    mounted() {
+        if (this.isVisible) {
+            document.body.style.overflow = 'hidden';
+            document.body.style.touchAction = 'none';
+        }
+    },
+    beforeUnmount() {
+        // Ensure scroll is enabled when component is destroyed
+        document.body.style.overflow = '';
+        document.body.style.touchAction = '';
     }
 };
-
-// Default values shown
-
 </script>
+
 <style scoped>
 .loading-container {
     display: flex;
@@ -34,5 +51,8 @@ export default {
     height: 100%;
     background-color: rgba(0, 0, 0, 0.7);
     z-index: 9999;
+    /* Ensure this is higher than any other component */
+    pointer-events: all;
+    /* Ensure it captures all interactions */
 }
 </style>
