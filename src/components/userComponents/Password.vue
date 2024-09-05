@@ -32,21 +32,30 @@
             </div>
         </div>
     </div>
+    <LoadingScreen :isVisible="isLoading"></LoadingScreen>
 </template>
 
 <script>
 import AuthService from '@/services/AuthService';
+import LoadingScreen from '@/components/LoadingScreen.vue';
+
 export default {
     data() {
         return {
             oldPass: null,
             newPass: null,
             confirmPass: null,
-            otp: null
+            otp: null,
+            isLoading: false
         }
+    },
+    components: {
+        LoadingScreen,
+        // other components
     },
     methods: {
         async resetPassword() {
+            this.isLoading = true;
             const resetData = {
                 emailId: this.$store.state.user.email,
                 oldPassword: this.oldPass,
@@ -54,15 +63,30 @@ export default {
                 otp: this.otp,
             };
             console.log(resetData);
-            const response = await AuthService.resetPassword(resetData, this.$store.state.token);
-            console.log(response.data);
+
+            try {
+                const response = await AuthService.resetPassword(resetData, this.$store.state.token);
+                console.log(response.data);
+            } catch (error) {
+                console.log(error);
+            }finally{
+                this.isLoading = false;
+            }
 
         },
         async sendVerificationOtp() {
+            this.isLoading = true;
             console.log(this.$store.state.user.email);
-            
-            const response = await AuthService.sendOtp(this.$store.state.user.email, this.$store.state.token);
-            console.log(response.data);
+
+            try {
+                const response = await AuthService.sendOtp(this.$store.state.user.email, this.$store.state.token);
+                console.log(response.data);
+            } catch (error) {
+                console.log(error);
+
+            } finally {
+                this.isLoading = false;
+            }
 
         }
     }
