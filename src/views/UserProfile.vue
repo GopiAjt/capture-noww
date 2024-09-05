@@ -79,7 +79,7 @@ export default {
 }
 
 .card-panel {
-    padding: 0% 10%;
+    padding: 0% 15%;
 }
 
 @media (max-width: 575px) {

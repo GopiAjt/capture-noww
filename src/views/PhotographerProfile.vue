@@ -242,15 +242,15 @@ img {
 }
 
 .card-container {
-    padding-left: 10vw;
-    padding-right: 10vw;
+    padding-left: 15vw;
+    padding-right: 15vw;
     padding-top: 3vw;
 }
 
 .card {
     margin-top: 15px;
-    margin-left: 10vw;
-    margin-right: 10vw;
+    margin-left: 15vw;
+    margin-right: 15vw;
 }
 
 .p-tab {

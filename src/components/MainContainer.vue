@@ -200,15 +200,15 @@ export default {
 .card {
     padding-top: 5%;
     padding-bottom: 5%;
-    padding-left: 10vw;
-    padding-right: 10vw;
+    padding-left: 15vw;
+    padding-right: 15vw;
 }
 
 .p-card {
     flex-direction: row;
     width: 100%;
     overflow: hidden;
-    margin-bottom: 20px;
+    margin-bottom: 5%;
 }
 
 .footer-div {
