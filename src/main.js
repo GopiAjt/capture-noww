@@ -55,6 +55,12 @@ import ConfirmDialog from 'primevue/confirmdialog';
 import ConfirmationService from 'primevue/confirmationservice';
 import RadioButton from 'primevue/radiobutton';
 import ScrollPanel from 'primevue/scrollpanel';
+import Stepper from 'primevue/stepper';
+import StepList from 'primevue/steplist';
+import StepPanels from 'primevue/steppanels';
+import StepItem from 'primevue/stepitem';
+import Step from 'primevue/step';
+import StepPanel from 'primevue/steppanel';
 
 
 import Ripple from 'primevue/ripple';
@@ -139,5 +145,11 @@ app.component('ConfirmPopup', ConfirmPopup);
 app.component('ConfirmDialog', ConfirmDialog);
 app.component('RadioButton', RadioButton);
 app.component('ScrollPanel', ScrollPanel);
+app.component('Stepper', Stepper);
+app.component('StepList', StepList);
+app.component('StepPanels', StepPanels);
+app.component('StepItem', StepItem);
+app.component('Step', Step);
+app.component('StepPanel', StepPanel);
 
 app.mount('#app');

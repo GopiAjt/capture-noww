@@ -9,15 +9,19 @@
                         <Tab value="1">Sign Up</Tab>
                     </TabList>
                     <TabPanels>
+                        <!-- Login -->
                         <TabPanel value="0">
-                            <div class="flex-auto">
+                            <div>
                                 <InputText v-model="LoginEmailId" type="text" placeholder="Email Id" fluid />
                             </div><br>
-                            <div class="card flex justify-center">
+                            <div>
                                 <Password v-model="LoginPassword" placeholder="Password" :feedback="false" fluid />
                             </div><br>
                             <Button label="Log In" :disabled="loading" @click="handleLogin" fluid />
+                            <br><br>
+                            <p style="text-align: center; cursor: pointer">Forgot Password</p>
                         </TabPanel>
+                        <!-- Sign up -->
                         <TabPanel value="1">
                             <div class="card flex flex-col items-center gap-4">
                                 <div class="flex-auto">
