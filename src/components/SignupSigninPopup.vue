@@ -17,7 +17,7 @@
                             <div>
                                 <Password v-model="LoginPassword" placeholder="Password" :feedback="false" fluid />
                             </div><br>
-                            <Button label="Log In" :disabled="loading" @click="handleLogin" fluid />
+                            <Button label="Log In" @click="handleLogin" fluid />
                             <br><br>
                             <p style="text-align: center; cursor: pointer" @click="navToForgotPass('/Forgot-Password')">Forgot Password</p>
                         </TabPanel>
@@ -54,7 +54,7 @@
                                     <Password v-model="password2" placeholder="Re-enter Password" :feedback="false"
                                         fluid />
                                 </div><br>
-                                <Button label="Sign Up" :disabled="loading" @click="handleSignup" class="mt-2" fluid />
+                                <Button label="Sign Up" @click="handleSignup" class="mt-2" fluid />
                             </div>
                         </TabPanel>
                     </TabPanels>
