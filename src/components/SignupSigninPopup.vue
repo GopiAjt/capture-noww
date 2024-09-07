@@ -19,7 +19,7 @@
                             </div><br>
                             <Button label="Log In" :disabled="loading" @click="handleLogin" fluid />
                             <br><br>
-                            <p style="text-align: center; cursor: pointer">Forgot Password</p>
+                            <p style="text-align: center; cursor: pointer" @click="navToForgotPass('/Forgot-Password')">Forgot Password</p>
                         </TabPanel>
                         <!-- Sign up -->
                         <TabPanel value="1">
@@ -152,6 +152,9 @@ export default {
             } finally {
                 this.isLoading = false;
             }
+        },
+        navToForgotPass(route){
+            this.$router.push(route);
         }
     },
 };
