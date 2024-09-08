@@ -23,7 +23,7 @@
                     </StepPanel>
                     <StepPanel v-slot="{ activateCallback }" value="2">
                         <div class="step-panel">
-                            <InputOtp v-model="otp" integerOnly />
+                            <InputOtp v-model="otp" :length="6" integerOnly />
                         </div>
                         <div class="button-group">
                             <Button label="Back" severity="secondary" icon="pi pi-arrow-left"
@@ -50,6 +50,7 @@
 </template>
 
 <script>
+import AuthService from '@/services/AuthService';
 export default {
     data() {
         return {
@@ -61,13 +62,27 @@ export default {
         };
     },
     methods: {
-        sendOtp(){
+        async sendOtp(){
             console.log('sending');
-            
+            try {
+                const response = await AuthService.sendForgotPasswordOtp(this.email_id);
+                console.log(response);
+                
+            } catch (error) {
+                console.log(error);
+                
+            }
         },
-        resetPassword(){
+        async resetPassword(){
             console.log('reseting');
-            
+            try {
+                const response = await AuthService.forgotPassword(this.email_id, this.newPassword, this.otp);
+                console.log(response);
+                
+            } catch (error) {
+                console.log(error);
+                
+            }
         }
     }
 };
