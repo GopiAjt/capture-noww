@@ -18,12 +18,12 @@
                         </div>
                         <div class="button-group">
                             <Button label="Next" icon="pi pi-arrow-right" iconPos="right"
-                                @click="activateCallback('2')" />
+                                @click="activateCallback('2'), sendOtp()" />
                         </div>
                     </StepPanel>
                     <StepPanel v-slot="{ activateCallback }" value="2">
                         <div class="step-panel">
-                            <InputOtp v-model="value" integerOnly />
+                            <InputOtp v-model="otp" integerOnly />
                         </div>
                         <div class="button-group">
                             <Button label="Back" severity="secondary" icon="pi pi-arrow-left"
@@ -34,9 +34,9 @@
                     </StepPanel>
                     <StepPanel v-slot="{ activateCallback }" value="3">
                         <div class="step-panel">
-                            <Password v-model="value" toggleMask fluid/>
-                            <Password v-model="value" :feedback="false" fluid/>
-                            <Button label="Reset" severity="secondary" fluid/>
+                            <Password v-model="newPassword" toggleMask fluid/>
+                            <Password v-model="confirmPassword" :feedback="false" fluid/>
+                            <Button label="Reset" @click="resetPassword()" severity="secondary" fluid/>
                         </div>
                         <div class="button-group">
                             <Button label="Back" severity="secondary" icon="pi pi-arrow-left"
@@ -53,9 +53,23 @@
 export default {
     data() {
         return {
-            currentStep: '1', // Reactive data to manage current step
+            currentStep: '1',
+            email_id: null,
+            otp: null,
+            newPassword: null,
+            confirmPassword: null
         };
     },
+    methods: {
+        sendOtp(){
+            console.log('sending');
+            
+        },
+        resetPassword(){
+            console.log('reseting');
+            
+        }
+    }
 };
 </script>
 
@@ -83,6 +97,7 @@ export default {
     padding: 20px;
     border: 1px solid #ddd;
     border-radius: 8px;
+    gap: 10px;
 }
 
 .input-container {

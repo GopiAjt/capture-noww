@@ -1,4 +1,5 @@
 import Api from '@/services/Api';
+import { email } from '@vuelidate/validators';
 
 export default {
     addReview(c_id, p_id, rating, comment, token) {
@@ -140,5 +141,11 @@ export default {
                 // Add any other headers as needed
             }
         })
+    },
+    sendForgotPasswordOtp(emailId){
+        return Api().post(`/customer/forgotPasswordOtp?emailId=${emailId}`)
+    },
+    forgotPassword(emailId, newPass, otp){
+        return Api().post(`/customer/forgotPassword?emailId=${emailId}&newPassword=${newPass}&otp=${otp}`)
     }
 };
