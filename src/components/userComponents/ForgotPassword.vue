@@ -1,5 +1,7 @@
 <template>
     <Panel header="Forgot Password">
+        <!-- Toast component for displaying error messages -->
+        <Toast position="bottom-center" />
         <div class="stepper-container">
             <Stepper :value="currentStep" class="stepper">
                 <StepList>
@@ -18,7 +20,7 @@
                         </div>
                         <div class="button-group">
                             <Button label="Next" icon="pi pi-arrow-right" iconPos="right"
-                                @click="activateCallback('2'), sendOtp()" />
+                                @click="validateEmail(activateCallback)" />
                         </div>
                     </StepPanel>
                     <StepPanel v-slot="{ activateCallback }" value="2">
@@ -29,14 +31,14 @@
                             <Button label="Back" severity="secondary" icon="pi pi-arrow-left"
                                 @click="activateCallback('1')" />
                             <Button label="Next" icon="pi pi-arrow-right" iconPos="right"
-                                @click="activateCallback('3')" />
+                                @click="validateOtp(activateCallback)" />
                         </div>
                     </StepPanel>
                     <StepPanel v-slot="{ activateCallback }" value="3">
                         <div class="step-panel">
-                            <Password v-model="newPassword" toggleMask fluid/>
-                            <Password v-model="confirmPassword" :feedback="false" fluid/>
-                            <Button label="Reset" @click="resetPassword()" severity="secondary" fluid/>
+                            <Password v-model="newPassword" toggleMask fluid />
+                            <Password v-model="confirmPassword" :feedback="false" fluid />
+                            <Button label="Reset" @click="validatePassword" severity="secondary" fluid />
                         </div>
                         <div class="button-group">
                             <Button label="Back" severity="secondary" icon="pi pi-arrow-left"
@@ -51,6 +53,7 @@
 
 <script>
 import AuthService from '@/services/AuthService';
+
 export default {
     data() {
         return {
@@ -58,30 +61,62 @@ export default {
             email_id: null,
             otp: null,
             newPassword: null,
-            confirmPassword: null
+            confirmPassword: null,
         };
     },
     methods: {
-        async sendOtp(){
-            console.log('sending');
-            try {
-                const response = await AuthService.sendForgotPasswordOtp(this.email_id);
-                console.log(response);
-                
-            } catch (error) {
-                console.log(error);
-                
+        showToast(severity, summary, detail) {
+            // Use $toast to show messages
+            this.$toast.add({
+                severity: severity,
+                summary: summary,
+                detail: detail,
+                life: 3000
+            });
+        },
+        validateEmail(activateCallback) {
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!this.email_id) {
+                this.showToast('error', 'Validation Error', 'Email is required');
+            } else if (!emailPattern.test(this.email_id)) {
+                this.showToast('error', 'Validation Error', 'Invalid Email format');
+            } else {
+                this.sendOtp();
+                activateCallback('2');
             }
         },
-        async resetPassword(){
-            console.log('reseting');
+        validateOtp(activateCallback) {
+            if (!this.otp || this.otp.length !== 6) {
+                this.showToast('error', 'Validation Error', 'OTP must be 6 digits');
+            } else {
+                activateCallback('3');
+            }
+        },
+        validatePassword() {
+            if (!this.newPassword) {
+                this.showToast('error', 'Validation Error', 'New Password is required');
+            } else if (this.newPassword.length < 6) {
+                this.showToast('error', 'Validation Error', 'Password must be at least 6 characters long');
+            } else if (this.newPassword !== this.confirmPassword) {
+                this.showToast('error', 'Validation Error', 'Passwords do not match');
+            } else {
+                this.resetPassword();
+            }
+        },
+        async sendOtp() {
+            try {
+                const response = await AuthService.sendForgotPasswordOtp(this.email_id);
+                this.showToast('success', 'OTP Sent', 'Please check your email for the OTP');
+            } catch (error) {
+                this.showToast('error', 'Error', 'Failed to send OTP');
+            }
+        },
+        async resetPassword() {
             try {
                 const response = await AuthService.forgotPassword(this.email_id, this.newPassword, this.otp);
-                console.log(response);
-                
+                this.showToast('success', 'Success', 'Password reset successfully');
             } catch (error) {
-                console.log(error);
-                
+                this.showToast('error', 'Error', 'Failed to reset password');
             }
         }
     }
@@ -89,9 +124,10 @@ export default {
 </script>
 
 <style scoped>
-.p-panel-content{
+.p-panel-content {
     padding: 0%;
 }
+
 .stepper-container {
     display: flex;
     justify-content: center;
