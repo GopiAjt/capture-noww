@@ -1,7 +1,5 @@
 <template>
     <Panel header="Forgot Password">
-        <!-- Toast component for displaying error messages -->
-        <Toast position="bottom-center" />
         <div class="stepper-container">
             <Stepper :value="currentStep" class="stepper">
                 <StepList>
@@ -12,21 +10,25 @@
                 <StepPanels>
                     <StepPanel v-slot="{ activateCallback }" value="1">
                         <div class="step-panel">
+                            <!-- email id inoput -->
                             <div class="input-container">
                                 <label for="email">Email Id</label>
                                 <InputText id="email" v-model="email_id" aria-describedby="email-help" />
                                 <small id="email-help">Enter your Email Id to reset your password.</small>
                             </div>
                         </div>
+                        <!-- button to send otp -->
                         <div class="button-group">
                             <Button label="Next" icon="pi pi-arrow-right" iconPos="right"
                                 @click="validateEmail(activateCallback)" />
                         </div>
                     </StepPanel>
                     <StepPanel v-slot="{ activateCallback }" value="2">
+                        <!-- otp input -->
                         <div class="step-panel">
                             <InputOtp v-model="otp" :length="6" integerOnly />
                         </div>
+                        <!-- back and next -->
                         <div class="button-group">
                             <Button label="Back" severity="secondary" icon="pi pi-arrow-left"
                                 @click="activateCallback('1')" />
@@ -35,11 +37,13 @@
                         </div>
                     </StepPanel>
                     <StepPanel v-slot="{ activateCallback }" value="3">
+                        <!-- password input -->
                         <div class="step-panel">
-                            <Password v-model="newPassword" toggleMask fluid />
-                            <Password v-model="confirmPassword" :feedback="false" fluid />
-                            <Button label="Reset" @click="validatePassword" severity="secondary" fluid />
+                            <Password v-model="newPassword" toggleMask fluid/>
+                            <Password v-model="confirmPassword" :feedback="false" fluid/>
+                            <Button label="Reset" @click="validatePassword" severity="secondary" fluid/>
                         </div>
+                        <!-- back btn -->
                         <div class="button-group">
                             <Button label="Back" severity="secondary" icon="pi pi-arrow-left"
                                 @click="activateCallback('2')" />
@@ -49,11 +53,11 @@
             </Stepper>
         </div>
     </Panel>
+    <Toast position="bottom-center" />
 </template>
 
 <script>
 import AuthService from '@/services/AuthService';
-
 export default {
     data() {
         return {
@@ -61,10 +65,32 @@ export default {
             email_id: null,
             otp: null,
             newPassword: null,
-            confirmPassword: null,
+            confirmPassword: null
         };
     },
     methods: {
+        async sendOtp(){
+            console.log('sending');
+            try {
+                const response = await AuthService.sendForgotPasswordOtp(this.email_id);
+                console.log(response);
+                
+            } catch (error) {
+                console.log(error);
+                
+            }
+        },
+        async resetPassword(){
+            console.log('reseting');
+            try {
+                const response = await AuthService.forgotPassword(this.email_id, this.newPassword, this.otp);
+                console.log(response);
+                
+            } catch (error) {
+                console.log(error);
+                
+            }
+        },
         showToast(severity, summary, detail) {
             // Use $toast to show messages
             this.$toast.add({
@@ -103,31 +129,14 @@ export default {
                 this.resetPassword();
             }
         },
-        async sendOtp() {
-            try {
-                const response = await AuthService.sendForgotPasswordOtp(this.email_id);
-                this.showToast('success', 'OTP Sent', 'Please check your email for the OTP');
-            } catch (error) {
-                this.showToast('error', 'Error', 'Failed to send OTP');
-            }
-        },
-        async resetPassword() {
-            try {
-                const response = await AuthService.forgotPassword(this.email_id, this.newPassword, this.otp);
-                this.showToast('success', 'Success', 'Password reset successfully');
-            } catch (error) {
-                this.showToast('error', 'Error', 'Failed to reset password');
-            }
-        }
     }
 };
 </script>
 
 <style scoped>
-.p-panel-content {
+.p-panel-content{
     padding: 0%;
 }
-
 .stepper-container {
     display: flex;
     justify-content: center;
