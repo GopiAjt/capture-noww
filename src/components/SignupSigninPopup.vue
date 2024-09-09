@@ -173,4 +173,11 @@ export default {
     padding-left: 4%;
     padding-right: 4%;
 }
+
+@media (max-width: 575px) {
+    .p-drawer-content {
+        padding: 5% 0%;
+    }
+
+}
 </style>

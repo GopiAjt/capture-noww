@@ -39,9 +39,9 @@
                     <StepPanel v-slot="{ activateCallback }" value="3">
                         <!-- password input -->
                         <div class="step-panel">
-                            <Password v-model="newPassword" toggleMask fluid/>
-                            <Password v-model="confirmPassword" :feedback="false" fluid/>
-                            <Button label="Reset" @click="validatePassword" severity="secondary" fluid/>
+                            <Password v-model="newPassword" toggleMask fluid />
+                            <Password v-model="confirmPassword" :feedback="false" fluid />
+                            <Button label="Reset" @click="validatePassword" severity="secondary" fluid />
                         </div>
                         <!-- back btn -->
                         <div class="button-group">
@@ -54,41 +54,53 @@
         </div>
     </Panel>
     <Toast position="bottom-center" />
+    <LoadingScreen :isVisible="isLoading"></LoadingScreen>
 </template>
 
 <script>
 import AuthService from '@/services/AuthService';
+import LoadingScreen from '@/components/LoadingScreen.vue'
 export default {
+    components: {
+        LoadingScreen,
+        // other components
+    },
     data() {
         return {
             currentStep: '1',
             email_id: null,
             otp: null,
             newPassword: null,
-            confirmPassword: null
+            confirmPassword: null,
+            isLoading: false
         };
     },
     methods: {
-        async sendOtp(){
+        async sendOtp() {
+            this.isLoading = true;
             console.log('sending');
             try {
                 const response = await AuthService.sendForgotPasswordOtp(this.email_id);
                 console.log(response);
-                
+
             } catch (error) {
                 console.log(error);
-                
+
+            } finally {
+                this.isLoading = false; // Reset loading state
             }
         },
-        async resetPassword(){
+        async resetPassword() {
             console.log('reseting');
             try {
                 const response = await AuthService.forgotPassword(this.email_id, this.newPassword, this.otp);
                 console.log(response);
-                
+
             } catch (error) {
                 console.log(error);
-                
+
+            } finally {
+                this.isLoading = false; // Reset loading state
             }
         },
         showToast(severity, summary, detail) {
@@ -134,9 +146,10 @@ export default {
 </script>
 
 <style scoped>
-.p-panel-content{
+.p-panel-content {
     padding: 0%;
 }
+
 .stepper-container {
     display: flex;
     justify-content: center;
