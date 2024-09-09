@@ -1,5 +1,5 @@
 <template>
-    <Panel header="Forgot Password">
+    <Panel>
         <div class="stepper-container">
             <Stepper :value="currentStep" class="stepper">
                 <StepList>

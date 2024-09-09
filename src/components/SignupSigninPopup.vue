@@ -19,7 +19,8 @@
                             </div><br>
                             <Button label="Log In" @click="handleLogin" fluid />
                             <br><br>
-                            <p style="text-align: center; cursor: pointer" @click="navToForgotPass('/Forgot-Password')">Forgot Password</p>
+                            <p style="text-align: center; cursor: pointer" @click="drawerVisible = true">
+                                Forgot Password</p>
                         </TabPanel>
                         <!-- Sign up -->
                         <TabPanel value="1">
@@ -62,16 +63,21 @@
             </div>
         </Dialog>
     </div>
+    <Drawer v-model:visible="drawerVisible" header="Forgot Password" position="full">
+        <ForgotPassword></ForgotPassword>
+    </Drawer>
     <LoadingScreen :isVisible="isLoading"></LoadingScreen>
 </template>
 
 <script>
 import Api from '@/services/Api';
 import LoadingScreen from '@/components/LoadingScreen.vue'
+import ForgotPassword from '@/components/userComponents/ForgotPassword.vue'
 
 export default {
     components: {
-        LoadingScreen
+        LoadingScreen,
+        ForgotPassword
     },
     data() {
         return {
@@ -84,6 +90,7 @@ export default {
             password2: null,
             visible: false,
             isLoading: false, // new state for loading
+            drawerVisible: false
         };
     },
     methods: {
@@ -153,9 +160,6 @@ export default {
                 this.isLoading = false;
             }
         },
-        navToForgotPass(route){
-            this.$router.push(route);
-        }
     },
 };
 </script>
