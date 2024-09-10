@@ -66,6 +66,17 @@
     <Drawer v-model:visible="drawerVisible" header="Forgot Password" position="full">
         <ForgotPassword></ForgotPassword>
     </Drawer>
+    <!-- OTP Verification Dialog -->
+    <Dialog v-model:visible="otpVisible" header="Verify OTP" modal :style="{ width: '20rem' }">
+        <div class="p-fluid">
+            <p>Enter the OTP sent to your email:</p>
+            <div class="card flex justify-center">
+                <InputOtp v-model="value" :length="6"/>
+            </div>
+            <br>
+            <Button label="Verify" @click="verifyOtp" fluid/>
+        </div>
+    </Dialog>
     <LoadingScreen :isVisible="isLoading"></LoadingScreen>
 </template>
 
@@ -83,17 +94,42 @@ export default {
         return {
             LoginEmailId: null,
             LoginPassword: null,
-            name: null,
-            emailId: null,
-            phoneNo: null,
-            password1: null,
-            password2: null,
+            name: "gopi",
+            emailId: "gopiajt23@gmail.com",
+            phoneNo: "9008830298",
+            password1: "Trish23@",
+            password2: "Trish23@",
             visible: false,
             isLoading: false, // new state for loading
-            drawerVisible: false
+            drawerVisible: false,
+            otpVisible: false,
+            otp: '',
         };
     },
     methods: {
+        confirm1() {
+            this.otpVisible = true;
+            this.$confirm.require({
+                message: 'An OTP has been sent to your email. Please verify.',
+                header: 'Verify OTP',
+                icon: 'pi pi-exclamation-triangle',
+                rejectProps: {
+                    label: 'Cancel',
+                    severity: 'secondary',
+                    outlined: true
+                },
+                acceptProps: {
+                    label: 'Verify'
+                },
+                accept: () => {
+                    // Show the OTP verification dialog
+                    this.otpVisible = true;
+                },
+                reject: () => {
+                    this.$toast.add({ severity: 'error', summary: 'Cancelled', detail: 'OTP verification cancelled', life: 3000 });
+                }
+            });
+        },
         async handleLogin() {
             this.isLoading = true;
             try {
@@ -146,14 +182,18 @@ export default {
                 if (response.status === 201) {
                     console.log("Please verify your Email!");
                     this.$toast.add({ severity: 'success', summary: 'Signup successful!', detail: 'Please verify your email to activate your account.', life: 3000 });
-                } else if (response.status === 400) {
+                }
+
+                if (response.status === 400) {
                     console.log("Email already exists, please verify OTP to login.");
+                    this.confirm1();
                     this.$toast.add({ severity: 'warn', summary: 'Email already exists', detail: 'Please verify your email to login.', life: 3000 });
                 } else {
                     console.error("Unexpected error during signup:", response);
                     this.$toast.add({ severity: 'error', summary: 'Error!', detail: 'An unexpected error occurred during signup.', life: 3000 });
                 }
             } catch (error) {
+                this.confirm1();
                 console.error("Error signing up:", error);
                 this.$toast.add({ severity: 'error', summary: 'Error!', detail: 'Account already exists!', life: 3000 });
             } finally {
@@ -172,12 +212,5 @@ export default {
 .p-tabpanels {
     padding-left: 4%;
     padding-right: 4%;
-}
-
-@media (max-width: 575px) {
-    .p-drawer-content {
-        padding: 5% 0%;
-    }
-
 }
 </style>
