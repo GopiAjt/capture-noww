@@ -71,10 +71,10 @@
         <div class="p-fluid">
             <p>Enter the OTP sent to your email:</p>
             <div class="card flex justify-center">
-                <InputOtp v-model="value" :length="6"/>
+                <InputOtp v-model="otp" :length="6" />
             </div>
             <br>
-            <Button label="Verify" @click="verifyOtp" fluid/>
+            <Button label="Verify" @click="verifyOtp" fluid />
         </div>
     </Dialog>
     <LoadingScreen :isVisible="isLoading"></LoadingScreen>
@@ -94,16 +94,16 @@ export default {
         return {
             LoginEmailId: null,
             LoginPassword: null,
-            name: "gopi",
-            emailId: "gopiajt23@gmail.com",
-            phoneNo: "9008830298",
-            password1: "Trish23@",
-            password2: "Trish23@",
+            name: null,
+            emailId: null,
+            phoneNo: null,
+            password1: null,
+            password2: null,
             visible: false,
             isLoading: false, // new state for loading
             drawerVisible: false,
             otpVisible: false,
-            otp: '',
+            otp: null,
         };
     },
     methods: {
@@ -180,6 +180,7 @@ export default {
                 });
 
                 if (response.status === 201) {
+                    this.confirm1();
                     console.log("Please verify your Email!");
                     this.$toast.add({ severity: 'success', summary: 'Signup successful!', detail: 'Please verify your email to activate your account.', life: 3000 });
                 }
@@ -200,6 +201,39 @@ export default {
                 this.isLoading = false;
             }
         },
+        async verifyOtp() {
+            const response = await Api().get(`/customer/validate?email=${this.emailId}&otp=${this.otp}`);
+            console.log(response);
+            
+            if (response.status === 202) {
+                console.log('working');
+                
+                this.isLoading = true;
+                try {
+                    const tokenResponse = await Api().get(`/customer/authtoken?email=${this.emailId}&password=${this.password1}`);
+                    const response = await Api().get(`/customer/signin?email=${this.emailId}&password=${this.password1}`);
+
+                    if (response.status === 400) {
+                        this.$toast.add({ severity: 'info', summary: 'Please verify your Email', life: 3000 });
+                    } else if (response.status === 200) {
+                        const user = response.data;
+                        const token = response.data.authToken;
+                        console.log(response.data);
+                        this.$toast.add({ severity: 'success', summary: 'Logged in', life: 3000 });
+                        localStorage.setItem('user', JSON.stringify(response.data));
+
+                        this.$store.dispatch('login', { user, token });
+                    } else {
+                        this.$toast.add({ severity: 'warn', summary: 'Invalid Credentials!', life: 3000 });
+                    }
+                } catch (error) {
+                    this.$toast.add({ severity: 'error', summary: 'Error!', life: 3000 });
+                    console.error('Error during login:', error);
+                } finally {
+                    this.isLoading = false;
+                }
+            }
+        }
     },
 };
 </script>
