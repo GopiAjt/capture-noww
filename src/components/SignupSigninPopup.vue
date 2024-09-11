@@ -12,10 +12,10 @@
                         <!-- Login -->
                         <TabPanel value="0">
                             <div>
-                                <InputText v-model="LoginEmailId" type="text" placeholder="Email Id" fluid />
+                                <InputText v-model="emailId" type="text" placeholder="Email Id" fluid />
                             </div><br>
                             <div>
-                                <Password v-model="LoginPassword" placeholder="Password" :feedback="false" fluid />
+                                <Password v-model="password1" placeholder="Password" :feedback="false" fluid />
                             </div><br>
                             <Button label="Log In" @click="handleLogin" fluid />
                             <br><br>
@@ -92,8 +92,6 @@ export default {
     },
     data() {
         return {
-            LoginEmailId: null,
-            LoginPassword: null,
             name: null,
             emailId: null,
             phoneNo: null,
@@ -133,24 +131,30 @@ export default {
         async handleLogin() {
             this.isLoading = true;
             try {
-                const tokenResponse = await Api().get(`/customer/authtoken?email=${this.LoginEmailId}&password=${this.LoginPassword}`);
-                const response = await Api().get(`/customer/signin?email=${this.LoginEmailId}&password=${this.LoginPassword}`);
+                const tokenResponse = await Api().get(`/customer/authtoken?email=${this.emailId}&password=${this.password1}`);
+                const response = await Api().get(`/customer/signin?email=${this.emailId}&password=${this.password1}`);
 
-                if (response.status === 400) {
-                    this.$toast.add({ severity: 'info', summary: 'Please verify your Email', life: 3000 });
-                } else if (response.status === 200) {
-                    const user = response.data;
-                    const token = response.data.authToken;
-                    console.log(response.data);
-                    this.$toast.add({ severity: 'success', summary: 'Logged in', life: 3000 });
-                    localStorage.setItem('user', JSON.stringify(response.data));
+                const user = response.data;
+                const token = user.authToken;
 
-                    this.$store.dispatch('login', { user, token });
-                } else {
-                    this.$toast.add({ severity: 'warn', summary: 'Invalid Credentials!', life: 3000 });
-                }
+                // Successful login (status 200)
+                this.$toast.add({ severity: 'success', summary: 'Logged in', life: 3000 });
+                localStorage.setItem('user', JSON.stringify(user));
+                this.$store.dispatch('login', { user, token });
             } catch (error) {
-                this.$toast.add({ severity: 'error', summary: 'Error!', life: 3000 });
+                if (error.response) {
+                    const status = error.response.status;
+                    if (status === 400) {
+                        this.confirm1();
+                        this.$toast.add({ severity: 'info', summary: 'Please verify your Email', life: 3000 });
+                    } else if (status === 401 || status === 403) {
+                        this.$toast.add({ severity: 'warn', summary: 'Invalid Credentials!', life: 3000 });
+                    } else {
+                        this.$toast.add({ severity: 'error', summary: 'Error!', life: 3000 });
+                    }
+                } else {
+                    this.$toast.add({ severity: 'error', summary: 'Network Error', life: 3000 });
+                }
                 console.error('Error during login:', error);
             } finally {
                 this.isLoading = false;
@@ -164,8 +168,6 @@ export default {
 
             this.isLoading = true;
             try {
-                console.log("Signing up");
-
                 const options = {
                     name: this.name,
                     email: this.emailId,
@@ -179,61 +181,59 @@ export default {
                     }
                 });
 
+                // Successful signup (status 201)
                 if (response.status === 201) {
                     this.confirm1();
-                    console.log("Please verify your Email!");
                     this.$toast.add({ severity: 'success', summary: 'Signup successful!', detail: 'Please verify your email to activate your account.', life: 3000 });
                 }
-
-                if (response.status === 400) {
-                    console.log("Email already exists, please verify OTP to login.");
-                    this.confirm1();
-                    this.$toast.add({ severity: 'warn', summary: 'Email already exists', detail: 'Please verify your email to login.', life: 3000 });
-                } else {
-                    console.error("Unexpected error during signup:", response);
-                    this.$toast.add({ severity: 'error', summary: 'Error!', detail: 'An unexpected error occurred during signup.', life: 3000 });
-                }
             } catch (error) {
-                this.confirm1();
-                console.error("Error signing up:", error);
-                this.$toast.add({ severity: 'error', summary: 'Error!', detail: 'Account already exists!', life: 3000 });
+                if (error.response) {
+                    const status = error.response.status;
+                    if (status === 400) {
+                        this.confirm1();
+                        this.$toast.add({ severity: 'warn', summary: 'Email already exists', detail: 'Please verify your email to login.', life: 3000 });
+                    } else {
+                        this.$toast.add({ severity: 'error', summary: 'Error!', detail: 'An unexpected error occurred during signup.', life: 3000 });
+                    }
+                } else {
+                    this.$toast.add({ severity: 'error', summary: 'Network Error', life: 3000 });
+                }
+                console.error('Error signing up:', error);
             } finally {
                 this.isLoading = false;
             }
         },
         async verifyOtp() {
-            const response = await Api().get(`/customer/validate?email=${this.emailId}&otp=${this.otp}`);
-            console.log(response);
-            
-            if (response.status === 202) {
-                console.log('working');
-                
-                this.isLoading = true;
-                try {
+            try {
+                const response = await Api().get(`/customer/validate?email=${this.emailId}&otp=${this.otp}`);
+
+                // OTP verification successful (status 202)
+                if (response.status === 202) {
                     const tokenResponse = await Api().get(`/customer/authtoken?email=${this.emailId}&password=${this.password1}`);
                     const response = await Api().get(`/customer/signin?email=${this.emailId}&password=${this.password1}`);
 
-                    if (response.status === 400) {
-                        this.$toast.add({ severity: 'info', summary: 'Please verify your Email', life: 3000 });
-                    } else if (response.status === 200) {
-                        const user = response.data;
-                        const token = response.data.authToken;
-                        console.log(response.data);
-                        this.$toast.add({ severity: 'success', summary: 'Logged in', life: 3000 });
-                        localStorage.setItem('user', JSON.stringify(response.data));
+                    const user = response.data;
+                    const token = user.authToken;
 
-                        this.$store.dispatch('login', { user, token });
-                    } else {
-                        this.$toast.add({ severity: 'warn', summary: 'Invalid Credentials!', life: 3000 });
-                    }
-                } catch (error) {
-                    this.$toast.add({ severity: 'error', summary: 'Error!', life: 3000 });
-                    console.error('Error during login:', error);
-                } finally {
-                    this.isLoading = false;
+                    this.$toast.add({ severity: 'success', summary: 'Logged in', life: 3000 });
+                    localStorage.setItem('user', JSON.stringify(user));
+                    this.$store.dispatch('login', { user, token });
                 }
+            } catch (error) {
+                if (error.response) {
+                    const status = error.response.status;
+                    if (status === 400) {
+                        this.$toast.add({ severity: 'warn', summary: 'Invalid OTP', life: 3000 });
+                    } else {
+                        this.$toast.add({ severity: 'error', summary: 'Error!', life: 3000 });
+                    }
+                } else {
+                    this.$toast.add({ severity: 'error', summary: 'Network Error', life: 3000 });
+                }
+                console.error('Error verifying OTP:', error);
             }
         }
+
     },
 };
 </script>
