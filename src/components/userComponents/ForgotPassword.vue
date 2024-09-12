@@ -1,4 +1,7 @@
 <template>
+    <div style="display: flex; justify-content: center; margin-top: 20px;">
+        <img src="/public/CaptureNow.svg" width="50px" alt="CaptureNoww.in">
+    </div>
     <Panel>
         <div class="stepper-container">
             <Stepper :value="currentStep" class="stepper">
