@@ -19,7 +19,7 @@
                             </div><br>
                             <Button label="Log In" @click="handleLogin" fluid />
                             <br><br>
-                            <p style="text-align: center; cursor: pointer" @click="drawerVisible = true">
+                            <p style="text-align: center; cursor: pointer" @click="navToForgotPassword">
                                 Forgot Password</p>
                         </TabPanel>
                         <!-- Sign up -->
@@ -63,9 +63,6 @@
             </div>
         </Dialog>
     </div>
-    <Drawer v-model:visible="drawerVisible" header="Forgot Password" position="full">
-        <ForgotPassword></ForgotPassword>
-    </Drawer>
     <!-- OTP Verification Dialog -->
     <Dialog v-model:visible="otpVisible" header="Verify OTP" modal :style="{ width: '20rem' }">
         <div class="p-fluid">
@@ -83,12 +80,11 @@
 <script>
 import Api from '@/services/Api';
 import LoadingScreen from '@/components/LoadingScreen.vue'
-import ForgotPassword from '@/components/userComponents/ForgotPassword.vue'
+
 
 export default {
     components: {
         LoadingScreen,
-        ForgotPassword
     },
     data() {
         return {
@@ -99,7 +95,6 @@ export default {
             password2: null,
             visible: false,
             isLoading: false, // new state for loading
-            drawerVisible: false,
             otpVisible: false,
             otp: null,
         };
@@ -232,8 +227,10 @@ export default {
                 }
                 console.error('Error verifying OTP:', error);
             }
+        },
+        navToForgotPassword(){
+            this.$router.push('/Forgot-Password');
         }
-
     },
 };
 </script>
