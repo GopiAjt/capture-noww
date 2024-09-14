@@ -178,6 +178,8 @@ export default {
         flex-direction: column;
         justify-content: center;
         gap: 20px;
+        padding-left: 10px;
+        padding-right: 10px;
     }
 }
 </style>
