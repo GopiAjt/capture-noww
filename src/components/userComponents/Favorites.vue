@@ -1,5 +1,5 @@
 <template>
-    <div v-if="!favoritesData || favoritesData.length === 0">
+    <div v-if="!favoritesData || favoritesData.length === 0" style="text-align: center;">
         <h3>No Favorite Photographers Found!</h3>
     </div>
     <div class="card" v-for="fav in favoritesData" :key="fav.pid">

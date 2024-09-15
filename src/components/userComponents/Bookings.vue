@@ -1,5 +1,5 @@
 <template>
-    <div v-if="!bookings" style="text-align: center;">
+    <div v-if="!bookings || bookings.length === 0" style="text-align: center;">
         <h3>You Don't Have Any Bookings Found!</h3>
     </div>
     <div class="card" v-for="b in bookings" :key="b.bookingId">
@@ -72,6 +72,8 @@ export default {
             try {
                 const response = await AuthService.getBookings(this.user, this.store.state.token);
                 this.bookings = response.data;
+                console.log(response.data);
+                
             } catch (error) {
                 console.error('Error fetching bookings:', error);
                 this.$toast.add({ severity: 'error', summary: 'Failed to load bookings', life: 3000 });
