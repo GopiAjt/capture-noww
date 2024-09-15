@@ -21,8 +21,11 @@
         </div>
     </div>
     <div v-if="images" style="text-align: center;">
+        <ProgressSpinner v-if="isLoading" style="width: 50px; height: 50px" 
+            strokeWidth="8" fill="transparent"
+            animationDuration=".5s" 
+            aria-label="Loading.." />
         <h3 v-if="images.length === 0">No Equipments to Display!</h3>
-        <!-- <ProgressSpinner v-if="isLoading"/> -->
     </div>
     <div class="card">
         <Paginator :rows="pageSize" :totalRecords="totalPhotographers" :rowsPerPageOptions="[10, 20, 30]"
@@ -51,6 +54,7 @@ export default {
         const page = ref(0);
         const pageSize = ref(10);
         const totalPhotographers = ref(0);
+        const isLoading = ref(false);
         const responsiveOptions = [
             { breakpoint: '1024px', numVisible: 5 },
             { breakpoint: '768px', numVisible: 3 },
@@ -66,6 +70,8 @@ export default {
                 console.log(response);
             } catch (error) {
                 console.error('Error loading albums:', error);
+            } finally{
+                isLoading.value = false;
             }
         };
 
@@ -82,13 +88,14 @@ export default {
 
         // Watch for changes in photographer_id and trigger delayed load
         watch(() => props.photographer_id, () => {
+            isLoading.value = true;
             setTimeout(loadAlbums, 5000); // Fetch data after 5 seconds
         }, { immediate: false });
         watch([page, pageSize], loadAlbums);
 
-        onMounted(() => {
-            setTimeout(loadAlbums, 10000); // Fetch data once after 5 seconds
-        });
+        // onMounted(() => {
+        //     setTimeout(loadAlbums, 10000); // Fetch data once after 5 seconds
+        // });
 
         return {
             images,
@@ -99,7 +106,8 @@ export default {
             pageSize,
             totalPhotographers,
             imageClick,
-            onPageChange
+            onPageChange,
+            isLoading
         };
     }
 };

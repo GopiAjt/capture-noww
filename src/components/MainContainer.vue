@@ -244,8 +244,8 @@ img {
     .card {
         padding-top: 5%;
         padding-bottom: 5%;
-        padding-left: 10px;
-        padding-right: 10px;
+        padding-left: 15px;
+        padding-right: 15px;
     }
 }
 </style>
