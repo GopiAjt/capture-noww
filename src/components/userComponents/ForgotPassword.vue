@@ -1,6 +1,6 @@
 <template>
     <div style="display: flex; justify-content: center; margin-top: 20px;">
-        <img src="/public/CaptureNow.svg" width="50px" alt="CaptureNoww.in">
+        <router-link to="/"><img src="/public/CaptureNow.svg" width="50px" alt="CaptureNoww.in"></router-link>
     </div>
     <Panel>
         <div class="stepper-container">
@@ -30,6 +30,7 @@
                         <!-- otp input -->
                         <div class="step-panel">
                             <InputOtp v-model="otp" :length="6" integerOnly />
+                            <small id="email-help">Enter otp sent on mail to reset your password.</small>
                         </div>
                         <!-- back and next -->
                         <div class="button-group">
@@ -85,7 +86,11 @@ export default {
             try {
                 const response = await AuthService.sendForgotPasswordOtp(this.email_id);
                 console.log(response);
-
+                if (response.data) {
+                    this.$toast.add({ severity: 'info', summary: 'Otp Sent', life: 3000 });
+                }else{
+                    this.$toast.add({ severity: 'info', summary: 'Invalid Email Id', life: 3000 });
+                }
             } catch (error) {
                 console.log(error);
 
@@ -98,10 +103,25 @@ export default {
             try {
                 const response = await AuthService.forgotPassword(this.email_id, this.newPassword, this.otp);
                 console.log(response);
-
+                if(response.status == 200){
+                    this.showToast('success', 'password set', 'password set');
+                    this.$router.push('/')
+                }
             } catch (error) {
+                if (error.response) {
+                    const status = error.response.status;
+                    if (status === 403) {
+                        this.confirm1();
+                        this.$toast.add({ severity: 'info', summary: 'Invalid Otp', life: 3000 });
+                    } else if (status === 401 || status === 403) {
+                        this.$toast.add({ severity: 'warn', summary: 'Invalid Credentials!', life: 3000 });
+                    } else {
+                        this.$toast.add({ severity: 'error', summary: 'Error!', life: 3000 });
+                    }
+                } else {
+                    this.$toast.add({ severity: 'error', summary: 'Network Error', life: 3000 });
+                }
                 console.log(error);
-
             } finally {
                 this.isLoading = false; // Reset loading state
             }
