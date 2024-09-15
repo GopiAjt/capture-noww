@@ -26,6 +26,14 @@ export default {
             }
         })
     },
+    deleteReview(ratingId, token){
+        return Api().delete(`/customer/deleteReviewsById?ratingId=${ratingId}`,{
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        })
+    },
     loadAlbums(p_id, token, offset, pageSize) {
         return Api().get(`/customer/getAlbumsById?id=${p_id}&offset=${offset}&pageSize=${pageSize}`, {
             headers: {
