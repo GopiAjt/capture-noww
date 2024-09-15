@@ -83,7 +83,7 @@ header::before {
 
 @media (max-width: 575px) {
   .p-card-body {
-    padding: 5px;
+    padding: 10px;
     width: 100%;
   }
 

@@ -25,10 +25,6 @@
 </template>
 
 <script>
-import AboutUs from '@/components/footerComponents/AboutUs.vue'
-import ContactUs from '@/components/footerComponents/ContactUs.vue'
-import JoinAsPhotographer from '@/components/footerComponents/JoinAsPhotographer.vue'
-import TermsAndconditions from '@/components/footerComponents/TermsAndConditions.vue'
 
 export default {
     name: 'FooterComponent',
@@ -92,6 +88,12 @@ export default {
 
     .social-icons {
         justify-content: center;
+    }
+
+
+    .footer-links li {
+        margin-bottom: 0.5rem;
+        font-size: xx-small;
     }
 }
 </style>

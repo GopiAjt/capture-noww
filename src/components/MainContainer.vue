@@ -240,5 +240,12 @@ img {
         margin-bottom: 20px;
         align-items: center;
     }
+
+    .card {
+        padding-top: 5%;
+        padding-bottom: 5%;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
 }
 </style>
