@@ -131,7 +131,8 @@ export default {
 
                 const user = response.data;
                 const token = user.authToken;
-
+                console.log(user);
+                
                 // Successful login (status 200)
                 this.$toast.add({ severity: 'success', summary: 'Logged in', life: 3000 });
                 localStorage.setItem('user', JSON.stringify(user));

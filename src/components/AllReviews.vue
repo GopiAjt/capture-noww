@@ -1,7 +1,7 @@
 <template>
     <div class="card" v-for="(review, index) in reviews" :key="index">
         <Panel>
-            <div  style="display: flex; justify-content: space-between;" >
+            <div style="display: flex; justify-content: space-between;">
                 <div style="display: flex; gap: 10px; align-items: center;">
                     <Avatar image="/src/assets/images/default_profile.png" size="normal" shape="circle" />
                     <div style="display: flex; flex-direction: column;">
@@ -10,13 +10,15 @@
                     </div>
                 </div>
                 <div class="rating-div">
-                    <i class="pi pi-star-fill" style="font-size: 1.5rem; color: yellow; margin-right: 5px;"></i> {{ review.rating }}<br>
-                    <Button icon="pi pi-trash" class="p-button-rounded p-button-text" size="small"/>
+                    <i class="pi pi-star-fill" style="font-size: 1.5rem; color: yellow; margin-right: 5px;"></i> {{
+                        review.rating }}<br>
+                    <Button v-if="review.customerName == userData.name" icon="pi pi-trash"
+                        class="p-button-rounded p-button-text" size="small" @click="deleteReview" />
                 </div>
             </div>
 
             <p class="m-0">
-                <strong  v-html="HelperService.addLineBreaks(review.comment) || 'No comment provided'"> </strong> <br>
+                <strong v-html="HelperService.addLineBreaks(review.comment) || 'No comment provided'"> </strong> <br>
             </p>
         </Panel>
     </div>
@@ -36,8 +38,9 @@ export default {
         }
     },
     data() {
-        return{
-            HelperService
+        return {
+            HelperService,
+            userData: this.$store.state.user
         }
     },
     setup(props) {
@@ -47,7 +50,7 @@ export default {
         const loadReview = async () => {
             if (props.p_id) {
                 console.log(props.p_id);
-                
+
                 try {
                     const response = await AuthService.loadReviews(props.p_id, store.state.token); // Use store.state.token
                     reviews.value = response.data;
@@ -71,14 +74,17 @@ export default {
         };
     },
     methods: {
-    reloadReviews() {
-      this.loadReview();
-    }
-  },
+        reloadReviews() {
+            this.loadReview();
+        },
+        deleteReview(){
+            console.log('deleted');
+        }
+    },
 };
 </script>
 
-<style >
+<style>
 .p-panel-header {
     padding: 1%;
 }
