@@ -9,10 +9,10 @@
             <RadioButton v-model="value" inputId="customer" name="pizza" value="customer" />
             <label for="ingredient1" class="ml-2">Customer</label>
         </div>
-        <InputText v-model="value2" type="text" placeholder="Your Name" fluid/>
-        <InputText v-model="value2" type="text" placeholder="Your Email" fluid/>
-        <InputText v-model="value2" type="text" placeholder="Phone" fluid/>
-        <Textarea v-model="value" rows="5" cols="30" placeholder="message" fluid/>
+        <InputText v-model="name" type="text" placeholder="Your Name" fluid />
+        <InputText v-model="emailId" type="text" placeholder="Your Email" fluid />
+        <InputText v-model="phoneNo" type="text" placeholder="Phone" fluid />
+        <Textarea v-model="msg" rows="5" cols="30" placeholder="message" fluid />
         <Button label="Submit" />
     </div>
     <!-- <Footer></Footer> -->
@@ -24,7 +24,6 @@ import { ref } from 'vue';
 const value = ref('');
 </script>
 <script>
-import AuthService from '@/services/AuthService';
 import NavBar from '../NavBar.vue';
 // import Footer from '@/components/Footer.vue';
 export default {
@@ -42,11 +41,23 @@ export default {
     flex-direction: column;
     align-items: center;
     gap: 20px;
-    padding-left: 25px;
-    padding-right: 25px;
+    padding-left: 15vw;
+    padding-right: 15vw;
 }
-#category{
+
+#category {
     display: flex;
     gap: 10px;
+}
+
+@media (max-width: 575px) {
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        padding-left: 5vw;
+        padding-right: 5vw;
+    }
 }
 </style>
