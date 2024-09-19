@@ -5,7 +5,7 @@
     <div class="card" v-for="fav in favoritesData" :key="fav.pid">
         <Panel>
             <div style="display: flex; align-items: center; gap: 15px;">
-                <img :src="fav.profilePhoto ? `data:image/jpeg;base64,${fav.profilePhoto}` : 'src/assets/images/default_profile.png'"
+                <img :src="fav.profilePhoto ? `data:image/jpeg;base64,${fav.profilePhoto}` : '/default_profile.png'"
                     alt="" width="50px" @click="navigatTo(fav.pid)">
                 <h2 @click="navigatTo(fav.pid)">{{ fav.name }}</h2>
             </div>

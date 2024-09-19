@@ -1,6 +1,6 @@
 <template>
     <div style="display: flex; justify-self: center;" class="card" >
-        <img src="/src/assets/images/default_profile.png" width="35" alt="" 
+        <img src="/default_profile.png" width="35" alt="" 
         @click="toggle" aria-controls="overlay_menu" style="cursor: pointer;">
         <Menu ref="menu" id="overlay_menu" :model="items" :popup="true" />
     </div>

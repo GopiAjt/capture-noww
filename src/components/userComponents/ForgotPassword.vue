@@ -1,6 +1,6 @@
 <template>
     <div style="display: flex; justify-content: center; margin-top: 20px;">
-        <router-link to="/"><img src="/public/CaptureNow.svg" width="50px" alt="CaptureNoww.in"></router-link>
+        <router-link to="/"><img src="/CaptureNow.svg" width="50px" alt="CaptureNoww.in"></router-link>
     </div>
     <Panel>
         <div class="stepper-container">

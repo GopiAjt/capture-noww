@@ -4,7 +4,7 @@
             <Card v-for="photographer in photographers" :key="photographer.id">
                 <template #header>
                     <div class="header-img">
-                        <img :src="photographer.profilePhoto ? `data:image/jpeg;base64,${photographer.profilePhoto}` : 'src/assets/images/default_profile.png'"
+                        <img :src="photographer.profilePhoto ? `data:image/jpeg;base64,${photographer.profilePhoto}` : '/default_profile.png'"
                             class="card-img-top" alt="Photographer Image" @click="photographerProfile(photographer.id)"
                             style="cursor: pointer;" />
                     </div>
