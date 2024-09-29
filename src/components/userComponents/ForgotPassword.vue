@@ -88,7 +88,7 @@ export default {
                 console.log(response);
                 if (response.data) {
                     this.$toast.add({ severity: 'info', summary: 'Otp Sent', life: 3000 });
-                }else{
+                } else {
                     this.$toast.add({ severity: 'info', summary: 'Invalid Email Id', life: 3000 });
                 }
             } catch (error) {
@@ -103,7 +103,7 @@ export default {
             try {
                 const response = await AuthService.forgotPassword(this.email_id, this.newPassword, this.otp);
                 console.log(response);
-                if(response.status == 200){
+                if (response.status == 200) {
                     this.showToast('success', 'password set', 'password set');
                     this.$router.push('/')
                 }
@@ -169,10 +169,6 @@ export default {
 </script>
 
 <style scoped>
-.p-panel-content {
-    padding: 0%;
-}
-
 .stepper-container {
     display: flex;
     justify-content: center;
@@ -225,5 +221,15 @@ export default {
     padding: 8px 16px;
     font-size: 14px;
     border-radius: 4px;
+}
+
+
+@media (max-width: 575px) {
+    .stepper-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0px;
+    }
 }
 </style>
