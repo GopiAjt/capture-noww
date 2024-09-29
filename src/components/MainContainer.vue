@@ -54,7 +54,7 @@
         </div>
     </div>
     <div class="card flex justify-center">
-        <Drawer v-model:visible="visible" header="Drawer" position="bottom" style="height: auto">
+        <Drawer v-model:visible="visible" header="Drawer" position="full" style="height: auto">
             <template #header>
                 <h3>Select Package</h3>
             </template>
@@ -80,7 +80,6 @@
                                 <p>One Hour Price: {{ p.oneHourRate }}</p>
                             </div>
                         </AccordionContent>
-
                     </AccordionPanel>
                 </Accordion>
             </ScrollPanel>
@@ -247,5 +246,11 @@ img {
         padding-left: 15px;
         padding-right: 15px;
     }
+}
+</style>
+<style>
+.p-drawer-content {
+    padding: 5% 5%;
+    justify-content: space-between;
 }
 </style>

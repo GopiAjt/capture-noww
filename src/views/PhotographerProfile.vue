@@ -6,7 +6,7 @@
     <div class="card-container" v-if="photographer">
         <Card style="width: 100%; overflow: hidden">
             <template #header class="profile-img">
-                <img :src="photographer.profilePhoto ? `data:image/jpeg;base64,${photographer.profilePhoto}` : '../src/assets/images/default_profile.png'"
+                <img :src="photographer.profilePhoto ? `data:image/jpeg;base64,${photographer.profilePhoto}` : '/default_profile.png'"
                     class="card-img-top" alt="Photographer Image" />
             </template>
             <template #title>

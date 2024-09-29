@@ -9,8 +9,9 @@
             <label for="datepicker-24h" class="font-bold block mb-2"> Till </label>
             <DatePicker id="datepicker-24h" v-model="tillDate" showTime hourFormat="24" fluid />
         </div>
+        <br>
+        <Button @click="book" label="Book" outlined fluid></Button>
     </div>
-    <Button @click="book" label="Book" outlined fluid></Button>
     <Toast position="bottom-center" />
     <LoadingScreen :isVisible="isLoading" ></LoadingScreen>
 </template>
