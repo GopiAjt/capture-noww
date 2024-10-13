@@ -61,28 +61,27 @@
             <div v-if="!packages || packages.length === 0">
                 <p>No Packages Found!</p>
             </div>
-            <ScrollPanel id="s-p">
-                <Accordion value="0">
-                    <AccordionPanel v-for="p in packages" :key="p.id">
-                        <AccordionHeader>{{ p.category }}
-                            <RadioButton v-model="selectedPackage" :value="p.id" />
-                        </AccordionHeader>
+            <Accordion :value="activeAccordion" @change="handleAccordionChange">
+                <AccordionPanel v-for="p in packages" :key="p.id">
+                    <AccordionHeader>{{ p.category }}
+                        <RadioButton v-model="selectedPackage" :value="p.id" />
+                    </AccordionHeader>
 
-                        <AccordionContent>
-                            <h3>{{ p.packageName }}</h3>
-                            <span>Description: </span>
-                            <p class="m-0" v-html="HelperService.addLineBreaks(p.description)"></p>
-                            <br>
-                            <div style="display: flex; justify-content: space-between; flex-wrap: wrap;">
-                                <p>Event Price: {{ p.eventRate }}</p>
-                                <p>Video Price: {{ p.videoRate }}</p>
-                                <p>One Day Price: {{ p.oneDayRate }}</p>
-                                <p>One Hour Price: {{ p.oneHourRate }}</p>
-                            </div>
-                        </AccordionContent>
-                    </AccordionPanel>
-                </Accordion>
-            </ScrollPanel>
+                    <AccordionContent>
+                        <h3>{{ p.packageName }}</h3>
+                        <span>Description: </span>
+                        <p class="m-0" v-html="HelperService.addLineBreaks(p.description)"></p>
+                        <br>
+                        <div style="display: flex; justify-content: space-between; flex-wrap: wrap;">
+                            <p>Event Price: {{ p.eventRate }}</p>
+                            <p>Video Price: {{ p.videoRate }}</p>
+                            <p>One Day Price: {{ p.oneDayRate }}</p>
+                            <p>One Hour Price: {{ p.oneHourRate }}</p>
+                        </div>
+                    </AccordionContent>
+                </AccordionPanel>
+            </Accordion>
+
             <Booking :package="selectedPackage" :photographer_id="photographer_id" />
         </Drawer>
     </div>
@@ -108,7 +107,8 @@ export default {
             packages: [],
             HelperService,
             selectedPackage: null,
-            photographer_id: null
+            photographer_id: null,
+            activeAccordion: null,
         };
     },
     components: {
@@ -174,6 +174,10 @@ export default {
             this.pageSize = event.rows;
             this.fetchPhotographers(this.page, this.pageSize);
         },
+        handleAccordionChange(index) {
+            // Toggle the accordion: open if closed, close if open
+            this.activeAccordion = this.activeAccordion === index ? null : index;
+        }
     },
     watch: {
         selectedPackage(newPackage) {

@@ -78,10 +78,6 @@ export default {
     padding: 10px;
 }
 
-.p-button {
-    width: 30px;
-}
-
 .p-iconfield {
     width: 20px;
 }

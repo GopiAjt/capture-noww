@@ -10,8 +10,8 @@
                     </div>
                 </div>
                 <div class="rating-div">
-                    <i class="pi pi-star-fill" style="font-size: 1.5rem; color: yellow; margin-right: 5px;"></i> {{
-                        review.rating }}<br>
+                    <i class="pi pi-star-fill" style="font-size: 1.5rem; color: yellow; margin-right: 5px;"></i> 
+                    {{ review.rating }}<br>
                     <Button v-if="review.customerName == userData.name" icon="pi pi-trash"
                         class="p-button-rounded p-button-text" size="small" @click="deleteReview(review.ratingId)" />
                 </div>
