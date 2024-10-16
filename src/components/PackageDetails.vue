@@ -8,12 +8,8 @@
                 <template #header>
                     <strong style="font-weight: bold;">{{ packages.packageName }}</strong>
                 </template>
-
-                <p class="m-0">
-                    <strong style="font-weight: 500;">Description:</strong><br>
-                    <span v-html="HelperService.addLineBreaks(packages.description)"></span>
-                </p>
-
+                <strong style="font-weight: 500;">Description:</strong><br>
+                <pre class="formatted-text-display">{{ packages.description }}</pre>
                 <br>
                 <div class="p-footer">
                     <p>
@@ -93,6 +89,17 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.formatted-text-display {
+    white-space: pre-wrap;
+    /* This will ensure text wraps within the container */
+    word-wrap: break-word;
+    /* This ensures long words break and wrap */
+    width: 100%;
+    /* Ensure the text stays within the container width */
+    overflow-wrap: break-word;
+    /* Fallback for older browsers */
 }
 
 @media (max-width: 575px) {
