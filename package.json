@@ -19,6 +19,7 @@
     "primevue": "^4.0.0",
     "tailwindcss-primeui": "^0.3.4",
     "vue": "^3.4.29",
+    "vue-advanced-cropper": "^2.8.9",
     "vue-router": "^4.3.3",
     "vuex": "^4.0.2"
   },

@@ -18,11 +18,13 @@
         <Button label="Update" class="p-button-sm p-button-dark" @click="updateDetails" outlined />
     </div>
     <LoadingScreen :isVisible="isLoading"></LoadingScreen>
+    <ImageCropper @cropped="handleCroppedImage" />
 </template>
 
 <script>
 import AuthService from '@/services/AuthService';
-import LoadingScreen from '@/components/LoadingScreen.vue'
+import LoadingScreen from '@/components/LoadingScreen.vue';
+import ImageCropper from '@/components/userComponents/ImageCropper.vue';
 
 export default {
     data() {
@@ -36,6 +38,7 @@ export default {
     },
     components: {
         LoadingScreen,
+        ImageCropper
         // other components
     },
     methods: {
