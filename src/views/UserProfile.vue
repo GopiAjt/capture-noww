@@ -3,7 +3,7 @@
         <Navbar />
     </header>
     <div style="display: flex; align-items: center; padding: 3%; flex-direction: column; gap: 1rem;">
-        <img src="/default_profile.png" alt="" width="150px">
+        <img src="/default_profile.png" alt="" width="150px" style="cursor: pointer" @click="imgEditDrawer">
         <h2>{{ userData.name }}</h2>
     </div>
     <div class="card-panel">
@@ -38,6 +38,12 @@
             </TabPanels>
         </Tabs>
     </div>
+    <Drawer v-model:visible="visible" header="Drawer" position="full" style="height: auto">
+            <template #header>
+                <h3>Crop Image</h3>
+            </template>
+            <ImageCropper/>
+        </Drawer>
     <Toast position="bottom-center" />
     <Footer></Footer>
 </template>
@@ -50,7 +56,7 @@ import Favorites from '@/components/userComponents/Favorites.vue'
 import Account from '@/components/userComponents/Account.vue'
 import Booking from '@/components/userComponents/Bookings.vue'
 import Password from '@/components/userComponents/Password.vue'
-
+import ImageCropper from '@/components/userComponents/ImageCropper.vue'
 const activeTab = ref('Bookings'); // Set the default active tab
 
 </script>
@@ -59,12 +65,17 @@ export default {
     data() {
         return {
             userData: this.$store.state.user,
-
+            visible: false,
         }
     },
     mounted() {
         this.userData = this.$store.state.user;
         console.log(this.userData);
+    },
+    methods: {
+        imgEditDrawer(){
+            this.visible = true;
+        }
     }
 }
 

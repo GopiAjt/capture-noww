@@ -1,43 +1,28 @@
 <template>
   <div class="image-cropper">
-    <input
-      type="file"
-      ref="fileInput"
-      accept="image/*"
-      @change="onFileChange"
-      style="display: none"
-    />
-    
+    <input type="file" ref="fileInput" accept="image/*" @change="onFileChange" style="display: none" />
+
     <!-- PrimeVue Button for triggering file input -->
-    
+
 
     <div v-if="imageSource" class="cropper-container">
-      <cropper
-        ref="cropper"
-        :src="imageSource"
-        :stencil-props="{ aspectRatio: 1/1 }"
-        :resize-image="{ adjustStencil: false }"
-        @change="handleChange"
-      />
-  
+      <cropper ref="cropper" :src="imageSource" :stencil-props="{ aspectRatio: 1 / 1 }"
+        :resize-image="{ adjustStencil: false }" @change="handleChange" />
+
       <div class="action-buttons">
         <!-- PrimeVue Buttons for Cancel and Crop actions -->
         <Button @click="cancelCrop" label="Cancel" class="cancel-button" />
         <Button @click="cropImage" label="Crop" class="crop-button" />
       </div>
     </div>
-  
+
     <div v-if="croppedImage" class="preview-container">
       <img :src="croppedImage" alt="Cropped Preview" class="preview-image" />
       <!-- PrimeVue Button for editing image -->
       <Button @click="editImage" label="Edit Again" class="edit-button" />
+      <Button @click="uploadImage" label="Upload Images" class="edit-button" />
     </div>
-    <Button
-      v-if="!imageSource"
-      @click="triggerFileInput"
-      label="Upload Photo"
-      class="upload-button"
-    />
+    <Button v-if="!imageSource" @click="triggerFileInput" label="Upload Photo" class="upload-button" />
   </div>
 </template>
 
@@ -82,7 +67,7 @@ export default {
         const croppedImage = canvas.toDataURL()
         this.croppedImage = croppedImage
         this.imageSource = null
-        
+
         // Emit the cropped image blob
         const blob = await new Promise(resolve => canvas.toBlob(resolve))
         this.$emit('cropped', blob)
@@ -95,6 +80,10 @@ export default {
     editImage() {
       this.imageSource = this.croppedImage
       this.croppedImage = null
+    },
+    uploadImage(){
+      console.log('uploaded');
+      
     }
   }
 }
@@ -102,8 +91,6 @@ export default {
 
 <style scoped>
 .image-cropper {
-  max-width: 500px;
-  margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -119,7 +106,8 @@ export default {
 @media (max-width: 600px) {
   .cropper-container {
     max-width: 100%;
-    padding: 0 10px; /* add some horizontal padding if desired */
+    padding: 0 10px;
+    /* add some horizontal padding if desired */
   }
 }
 
