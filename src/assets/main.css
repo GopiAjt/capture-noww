@@ -1,7 +1,9 @@
 @import './base.css';
-/* @tailwind base; */
-/* @tailwind components; */
-/* @tailwind utilities; */
+/* Tailwind directives are required so PostCSS + Tailwind can generate utility classes.
+  They were previously commented out which prevented Tailwind styles from being applied. */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 #app {
   font-weight: normal;

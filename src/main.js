@@ -1,5 +1,3 @@
-import './assets/main.css'
-
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import PrimeVue from 'primevue/config';
@@ -152,4 +150,15 @@ app.component('StepItem', StepItem);
 app.component('Step', Step);
 app.component('StepPanel', StepPanel);
 
-app.mount('#app');
+// Load local app styles (Tailwind) after PrimeVue theme is initialized so
+// Tailwind utilities and custom overrides have higher precedence than
+// styles injected by PrimeVue's theme engine.
+import('./assets/main.css')
+    .then(() => {
+        app.mount('#app');
+    })
+    .catch((err) => {
+        console.error('Failed to load main.css dynamically:', err);
+        // Fallback to mounting the app even if CSS fails to load
+        app.mount('#app');
+    });
