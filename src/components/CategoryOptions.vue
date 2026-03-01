@@ -6,24 +6,20 @@
       <br>
     </div>
 
-    <!-- PrimeFlex grid -->
-    <div class="p-grid p-nogutter">
-      <template v-for="(row, rowIndex) in rowsToShow" :key="rowIndex">
-        <div v-for="category in row" :key="category.name" class="p-col-12 p-md-4 p-lg-4 p-p-3">
-          <div class="p-d-flex p-flex-column p-h-100">
-            <Card class="category-card p-flex-1 p-d-flex p-flex-column p-jc-between" :aria-label="`Category ${category.name}`">
-              <template #header>
-                <img :src="category.image" :alt="category.name" class="category-image" loading="lazy" />
-              </template>
-
-              <div class="p-d-flex p-flex-column p-ai-center p-text-center p-p-3">
-                <h4 class="p-mt-3 p-text-bold">{{ category.name }}</h4>
-                <Button label="Explore" class="p-mt-3 p-button-sm" :aria-label="`Explore ${category.name}`" />
+    <!-- CSS Grid layout: 3 columns x 2 rows -->
+    <div class="categories-grid">
+      <div v-for="category in visibleCategories" :key="category.name" class="category-item">
+        <Card class="category-card" :aria-label="`Category ${category.name}`">
+          <template #header>
+            <div class="image-wrap">
+              <img :src="category.image" :alt="category.name" class="category-image" loading="lazy" />
+              <div class="image-overlay">
+                <h4 class="category-title">{{ category.name }}</h4>
               </div>
-            </Card>
-          </div>
-        </div>
-      </template>
+            </div>
+          </template>
+        </Card>
+      </div>
     </div>
   </section>
 </template>
@@ -40,22 +36,14 @@ const categories = ref([
   { name: 'Fashion', image: '/src/assets/images/categories/fashion.jpg' },
 ]);
 
-// Chunk categories into rows of 3 and take the first two rows to render a 3x2 layout
-const chunk = (arr, size) => {
-  const chunks = [];
-  for (let i = 0; i < arr.length; i += size) chunks.push(arr.slice(i, i + size));
-  return chunks;
-};
-
-const rowsToShow = chunk(categories.value, 3).slice(0, 2);
+// Show first 6 categories (3 columns x 2 rows)
+const visibleCategories = categories.value.slice(0, 6);
 </script>
 
 <style scoped>
 .category-card {
   cursor: pointer;
   transition: transform 0.25s ease, box-shadow 0.25s ease;
-  padding-left: 40px;
-  padding-right: 40px;
 }
 .category-card:hover {
   transform: translateY(-6px);
@@ -66,5 +54,73 @@ const rowsToShow = chunk(categories.value, 3).slice(0, 2);
   height: 220px;
   object-fit: cover;
   display: block;
+}
+
+/* Make card background transparent and match image height */
+.category-card .p-card {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+.category-card {
+  padding: 0 !important;
+}
+.category-card .p-card-body {
+  padding: 0 !important;
+}
+.category-card .p-card-header {
+  padding: 0 !important;
+}
+
+.image-wrap {
+  position: relative;
+}
+
+.image-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  background: linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(0,0,0,0.55) 100%);
+  color: #fff;
+  padding: 5rem;
+}
+
+.overlay-button {
+  background-color: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.18);
+}
+
+/* CSS Grid for 3x2 layout */
+.categories-grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .categories-grid {
+    grid-template-columns: repeat(3, 1fr); /* 3 columns on md+ */
+    grid-auto-rows: 1fr; /* equal height rows */
+  }
+}
+
+.category-item {
+  display: flex;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.category-title {
+  margin: 0.5rem 0 0.75rem;
+  font-weight: 600;
 }
 </style>
