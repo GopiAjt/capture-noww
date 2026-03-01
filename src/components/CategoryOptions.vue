@@ -7,8 +7,9 @@
     </div>
 
     <!-- CSS Grid layout: 3 columns x 2 rows -->
-    <div class="categories-grid">
-      <div v-for="category in visibleCategories" :key="category.name" class="category-item">
+    <div id="main-container" class="categories-grid">
+      <div v-for="category in visibleCategories" :key="category.name" class="category-item" 
+           @click="handleCategoryClick(category.name.replace(/s$/, ''))">
         <Card class="category-card" :aria-label="`Category ${category.name}`">
           <template #header>
             <div class="image-wrap">
@@ -26,15 +27,37 @@
 
 <script setup>
 import { ref } from 'vue';
+import AuthService from '@/services/AuthService';
+import { useStore } from 'vuex';
+
+const store = useStore();
+
+const getImageUrl = (name) => {
+  return new URL(`../assets/images/categories/${name}`, import.meta.url).href;
+};
 
 const categories = ref([
-  { name: 'Weddings', image: '/src/assets/images/categories/wedding.jpg' },
-  { name: 'Portraits', image: '/src/assets/images/categories/portrait.jpg' },
-  { name: 'Events', image: '/src/assets/images/categories/event.jpg' },
-  { name: 'Real Estate', image: '/src/assets/images/categories/real-estate.jpg' },
-  { name: 'Products', image: '/src/assets/images/categories/product.jpg' },
-  { name: 'Fashion', image: '/src/assets/images/categories/fashion.jpg' },
+  { name: 'Weddings', image: getImageUrl('wedding.jpg') },
+  { name: 'Portraits', image: getImageUrl('portrait.jpg') },
+  { name: 'Events', image: getImageUrl('event.jpg') },
+  { name: 'Real Estate', image: getImageUrl('real-estate.jpg') },
+  { name: 'Products', image: getImageUrl('product.jpg') },
+  { name: 'Fashion', image: getImageUrl('fashion.jpg') },
 ]);
+
+const handleCategoryClick = async (categoryName) => {
+  try {
+    const response = await AuthService.searchByCategory(categoryName, 0, 10);
+    store.commit('setPhotographers', response.data.content);
+    store.commit('setPhotographersPage', 0);
+    store.commit('setPhotographersPageSize', 10);
+    
+    // Scroll to the photographer list
+    document.querySelector('.categories-grid')?.nextElementSibling?.scrollIntoView({ behavior: 'smooth' });
+  } catch (error) {
+    console.error('Error filtering by category:', error);
+  }
+};
 
 // Show first 6 categories (3 columns x 2 rows)
 const visibleCategories = categories.value.slice(0, 6);
