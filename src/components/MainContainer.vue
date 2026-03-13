@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="photographers-list">
         <div v-if="photographers" class="card">
             <Card v-for="photographer in photographers" :key="photographer.id">
                 <template #header>
@@ -48,7 +48,7 @@
             <ProgressSpinner v-if="isLoading" />
         </div>
         <div>
-            <Paginator :rows="pageSize" :totalRecords="totalPhotographers" :rowsPerPageOptions="[10, 20, 30]"
+            <Paginator :rows="photographersPageSize" :first="photographersPage * photographersPageSize" :totalRecords="totalPhotographers" :rowsPerPageOptions="[10, 20, 30]"
                 @page="onPageChange">
             </Paginator>
         </div>
@@ -99,10 +99,7 @@ export default {
     data() {
         return {
             visible: false,
-            totalPhotographers: 0,
             error: null,
-            page: 0,
-            pageSize: 10,
             isLoading: false,
             packages: [],
             HelperService,
@@ -115,28 +112,31 @@ export default {
         Booking
     },
     computed: {
-        ...mapGetters(['allPhotographers', 'photographersPage', 'photographersPageSize']),
+        ...mapGetters(['allPhotographers', 'photographersPage', 'photographersPageSize', 'totalPhotographers', 'selectedCategory']),
         photographers() {
             return this.allPhotographers; // Use the getter to get photographers from Vuex state
         },
     },
     mounted() {
-        if (!this.photographers.length || this.page !== this.photographersPage || this.pageSize !== this.photographersPageSize) {
-            this.fetchPhotographers(this.page, this.pageSize);
-        } else {
-            this.totalPhotographers = this.photographers.length;
+        if (!this.photographers.length) {
+            this.fetchPhotographers(this.photographersPage, this.photographersPageSize);
         }
     },
     methods: {
-        ...mapMutations(['setPhotographers', 'setPhotographersPage', 'setPhotographersPageSize']),
+        ...mapMutations(['setPhotographers', 'setPhotographersPage', 'setPhotographersPageSize', 'setTotalPhotographers']),
         async fetchPhotographers(page, pageSize) {
             try {
                 this.isLoading = true;
                 const offset = page * pageSize;
-                const response = await Api().get(`/customer/getPhotographersIndex/${offset}/${pageSize}`);
+                let response;
+                if (this.selectedCategory) {
+                    response = await AuthService.searchByCategory(this.selectedCategory, offset, pageSize);
+                } else {
+                    response = await Api().get(`/customer/getPhotographersIndex/${offset}/${pageSize}`);
+                }
 
                 this.setPhotographers(response.data.content); // Store fetched photographers in Vuex
-                this.totalPhotographers = response.data.totalElements;
+                this.setTotalPhotographers(response.data.totalElements);
                 this.setPhotographersPage(page); // Store current page in Vuex
                 this.setPhotographersPageSize(pageSize); // Store page size in Vuex
                 this.isLoading = false;
@@ -170,9 +170,7 @@ export default {
             }
         },
         onPageChange(event) {
-            this.page = event.page;
-            this.pageSize = event.rows;
-            this.fetchPhotographers(this.page, this.pageSize);
+            this.fetchPhotographers(event.page, event.rows);
         },
         handleAccordionChange(index) {
             // Toggle the accordion: open if closed, close if open

@@ -15,6 +15,8 @@ const store = createStore({
         photographers: [], // Stores the list of photographers
         photographersPage: 0, // Stores the current page number
         photographersPageSize: 10, // Stores the page size
+        totalPhotographers: 0, // Stores the total number of photographers
+        selectedCategory: '', // Stores the currently selected category for filtering
     },
     mutations: {
         setUser(state, user) {
@@ -58,6 +60,12 @@ const store = createStore({
         setPhotographersPageSize(state, pageSize) {
             state.photographersPageSize = pageSize;
         },
+        setTotalPhotographers(state, total) {
+            state.totalPhotographers = total;
+        },
+        setSelectedCategory(state, category) {
+            state.selectedCategory = category;
+        },
     },
     actions: {
         login({ commit }, { user, token }) {
@@ -79,6 +87,8 @@ const store = createStore({
         allPhotographers: state => state.photographers,
         photographersPage: state => state.photographersPage, // Getter for current page
         photographersPageSize: state => state.photographersPageSize, // Getter for page size
+        totalPhotographers: state => state.totalPhotographers,
+        selectedCategory: state => state.selectedCategory,
         getPhotographerByEmail: state => email => state.photographers.find(p => p.email === email),
     }
 });
