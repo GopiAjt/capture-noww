@@ -1,6 +1,6 @@
 <template>
     <div class="photographers-list">
-        <div v-if="photographers" class="card">
+        <div v-if="photographers && photographers.length > 0" class="card">
             <Card v-for="photographer in photographers" :key="photographer.id">
                 <template #header>
                     <div class="header-img">
@@ -43,6 +43,10 @@
                     </div>
                 </template>
             </Card>
+        </div>
+        <div v-else-if="!isLoading" class="no-results">
+            <i class="pi pi-search" style="font-size: 3rem; color: #ccc; margin-bottom: 1rem;"></i>
+            <p>No photographers found in this category.</p>
         </div>
         <div style="display: flex; justify-content: center;">
             <ProgressSpinner v-if="isLoading" />
@@ -248,6 +252,29 @@ img {
         padding-left: 15px;
         padding-right: 15px;
     }
+}
+
+.no-results {
+    text-align: center;
+    padding: 5rem 1rem;
+    color: #888;
+}
+
+:deep(.p-paginator) {
+    background: transparent;
+    border: none;
+    margin-top: 2rem;
+}
+
+:deep(.p-paginator-page) {
+    border-radius: 50%;
+    min-width: 40px;
+    height: 40px;
+}
+
+:deep(.p-paginator-page.p-highlight) {
+    background: #ff4757;
+    color: #fff;
 }
 </style>
 <style>

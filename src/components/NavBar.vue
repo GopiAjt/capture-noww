@@ -8,8 +8,6 @@
 
 
             <template #end>
-                <Button icon="pi pi-search" raised aria-label="Search" @click="visible = true" rounded fluid></Button>
-                <span style="color: black;">|</span>
                 <SignupSignin v-if="!$store.state.isLogedIn" />
                 <Avatar  v-else class="mr-2" size="1.5rem" style="background-color: #fff0; color: #2a1261" shape="circle">
                     <ProfileIcon />
@@ -17,9 +15,6 @@
             </template>
         </Toolbar>
     </div>
-    <Drawer v-model:visible="visible" header="Search" position="full">
-        <SearchBar></SearchBar>
-    </Drawer>
 </template>
 
 <script setup>

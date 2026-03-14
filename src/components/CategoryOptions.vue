@@ -3,26 +3,33 @@
     <div class="section-header">
       <h2 class="title">What are you looking for?</h2>
       <p class="subtitle">Select a category to find your perfect photographer</p>
+      
+      <div class="search-bar-wrapper">
+        <SearchBar />
+      </div>
     </div>
 
     <div class="categories-container scrollbar-hide">
-      <div 
+      <Card 
         v-for="category in categories" 
         :key="category.name" 
         class="category-card-wrapper"
         :class="{ 'active': isSelected(category.name) }"
         @click="handleCategoryClick(category.name)"
+        v-ripple
       >
-        <div class="category-card-inner">
-          <div class="image-container">
-            <img :src="category.image" :alt="category.name" class="category-img" loading="lazy" />
-            <div class="glass-overlay">
-              <span class="category-name">{{ category.name }}</span>
+        <template #header>
+          <div class="category-card-inner">
+            <div class="image-container">
+              <img :src="category.image" :alt="category.name" class="category-img" loading="lazy" />
+              <div class="glass-overlay">
+                <span class="category-name">{{ category.name }}</span>
+              </div>
             </div>
+            <div class="active-indicator"></div>
           </div>
-          <div class="active-indicator"></div>
-        </div>
-      </div>
+        </template>
+      </Card>
     </div>
   </section>
 </template>
@@ -32,6 +39,7 @@ import { computed } from 'vue';
 import AuthService from '@/services/AuthService';
 import Api from '@/services/Api';
 import { useStore } from 'vuex';
+import SearchBar from './SearchBar.vue';
 
 const store = useStore();
 
@@ -107,29 +115,65 @@ const handleCategoryClick = async (categoryName) => {
   color: #666;
 }
 
-.categories-container {
-  display: flex;
-  gap: 1.5rem;
-  overflow-x: auto;
-  padding: 1rem 0.5rem 2rem;
-  justify-content: center;
-  flex-wrap: wrap;
+.search-bar-wrapper {
+  max-width: 600px;
+  margin: 2.5rem auto 0;
+  padding: 0 1rem;
+  transition: all 0.3s ease;
 }
 
+.search-bar-wrapper:focus-within {
+  transform: translateY(-2px);
+}
+
+.categories-container {
+  display: flex;
+  gap: 1.25rem;
+  overflow-x: auto;
+  padding: 1rem 1.5rem 2.5rem;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Ensure cards don't wrap and have consistent size on mobile */
 .category-card-wrapper {
-  flex: 0 0 auto;
-  width: 180px;
+  flex: 0 0 160px;
+  scroll-snap-align: center;
   cursor: pointer;
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+}
+
+:deep(.p-card-body), :deep(.p-card-content) {
+  padding: 0 !important;
+}
+
+@media (min-width: 1024px) {
+  .categories-container {
+    justify-content: center;
+    flex-wrap: wrap;
+    overflow-x: hidden;
+  }
 }
 
 .category-card-inner {
   position: relative;
   border-radius: 20px;
   overflow: hidden;
-  aspect-ratio: 4/5;
+  aspect-ratio: 1/1; /* Square cards on mobile/strip */
   background: #fff;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+}
+
+@media (min-width: 768px) {
+  .category-card-inner {
+    aspect-ratio: 4/5;
+  }
+  .category-card-wrapper {
+    flex: 0 0 180px;
+  }
 }
 
 .image-container {
@@ -150,19 +194,27 @@ const handleCategoryClick = async (categoryName) => {
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 1.5rem 1rem;
-  background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%);
-  backdrop-filter: blur(2px);
+  height: 30%;
+  background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4)35%, rgba(0,0,0,0) 65%);
   display: flex;
   justify-content: center;
   align-items: flex-end;
+  padding-bottom: 1.25rem;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  /* Smooth out the blur edge */
+  mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 100%);
 }
 
 .category-name {
   color: #fff;
   font-weight: 700;
-  font-size: 1.1rem;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: all 0.3s ease;
 }
 
 .active-indicator {
@@ -174,28 +226,16 @@ const handleCategoryClick = async (categoryName) => {
   background: #ff4757;
   border-radius: 50%;
   border: 2px solid #fff;
+  box-shadow: 0 0 15px rgba(255, 71, 87, 0.6);
   opacity: 0;
   transform: scale(0);
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  z-index: 10;
 }
 
-/* Hover Effects */
-.category-card-wrapper:hover {
-  transform: translateY(-10px);
-}
-
+/* Hover & Active States */
 .category-card-wrapper:hover .category-img {
   transform: scale(1.1);
-}
-
-/* Active State */
-.category-card-wrapper.active {
-  transform: translateY(-5px);
-}
-
-.category-card-wrapper.active .category-card-inner {
-  box-shadow: 0 15px 35px rgba(255, 71, 87, 0.2);
-  outline: 3px solid #ff4757;
 }
 
 .category-card-wrapper.active .active-indicator {
@@ -203,20 +243,26 @@ const handleCategoryClick = async (categoryName) => {
   transform: scale(1);
 }
 
+.category-card-wrapper.active .category-card-inner {
+  outline: 3px solid #ff4757;
+  box-shadow: 0 20px 40px rgba(255, 71, 87, 0.15);
+}
+
 .category-card-wrapper.active .category-name {
-  color: #ff4757;
-  text-shadow: none;
-  background: white;
-  padding: 2px 10px;
-  border-radius: 8px;
+  color: #1a1a1a;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 6px 14px;
+  border-radius: 12px;
+  font-weight: 800;
 }
 
 .category-card-wrapper.active .glass-overlay {
-  background: rgba(255,255,255,0.9);
-  backdrop-filter: blur(5px);
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
 }
 
-/* Scrollbar Utility */
+/* Hide scrollbar */
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
@@ -226,18 +272,18 @@ const handleCategoryClick = async (categoryName) => {
 }
 
 @media (max-width: 768px) {
-  .categories-container {
-    justify-content: flex-start;
-    padding-left: 1rem;
-    padding-right: 1rem;
+  .category-section {
+    padding: 2.5rem 0;
   }
-  
-  .category-card-wrapper {
-    width: 140px;
+  .section-header {
+    padding: 0 1.5rem;
+    margin-bottom: 1.5rem;
   }
-  
   .title {
-    font-size: 2rem;
+    font-size: 1.75rem;
+  }
+  .subtitle {
+    font-size: 0.95rem;
   }
 }
 </style>
