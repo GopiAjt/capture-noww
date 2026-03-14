@@ -273,8 +273,8 @@ img {
 }
 
 :deep(.p-paginator-page.p-highlight) {
-    background: #ff4757;
-    color: #fff;
+    background: #ffec00;
+    color: #1a1a1a;
 }
 </style>
 <style>

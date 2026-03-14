@@ -94,7 +94,7 @@ const handleCategoryClick = async (categoryName) => {
 <style scoped>
 .category-section {
   padding: 4rem 2rem;
-  background: #fafafa;
+  /* background: #fafafa; */
 }
 
 .section-header {
@@ -105,7 +105,7 @@ const handleCategoryClick = async (categoryName) => {
 .title {
   font-size: 2.5rem;
   font-weight: 800;
-  color: #1a1a1a;
+  /* color: #1a1a1a; */
   margin-bottom: 0.5rem;
   letter-spacing: -0.02em;
 }
@@ -194,7 +194,7 @@ const handleCategoryClick = async (categoryName) => {
   bottom: 0;
   left: 0;
   right: 0;
-  height: 30%;
+  height: 50%;
   background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4)35%, rgba(0,0,0,0) 65%);
   display: flex;
   justify-content: center;
@@ -223,10 +223,10 @@ const handleCategoryClick = async (categoryName) => {
   right: 12px;
   width: 12px;
   height: 12px;
-  background: #ff4757;
+  background: #ffec00;
   border-radius: 50%;
-  border: 2px solid #fff;
-  box-shadow: 0 0 15px rgba(255, 71, 87, 0.6);
+  border: 2px solid #1a1a1a;
+  box-shadow: 0 0 15px rgba(255, 236, 0, 0.4);
   opacity: 0;
   transform: scale(0);
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -244,13 +244,13 @@ const handleCategoryClick = async (categoryName) => {
 }
 
 .category-card-wrapper.active .category-card-inner {
-  outline: 3px solid #ff4757;
-  box-shadow: 0 20px 40px rgba(255, 71, 87, 0.15);
+  outline: 3px solid #ffec00;
+  box-shadow: 0 20px 40px rgba(255, 236, 0, 0.15);
 }
 
 .category-card-wrapper.active .category-name {
   color: #1a1a1a;
-  background: rgba(255, 255, 255, 0.9);
+  background: #ffec00;
   padding: 6px 14px;
   border-radius: 12px;
   font-weight: 800;
