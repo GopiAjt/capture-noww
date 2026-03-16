@@ -134,12 +134,7 @@ export default {
         async fetchPhotographerDetails(id, token) {
             try {
                 this.isLoading = true;
-                const response = await Api().get(`/customer/getPhotographerById?id=${id}`, {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}`
-                    }
-                });
+                const response = await Api().get(`/customer/getPhotographerById?id=${id}`);
                 if (response.status == 200) {
                     this.photographer = response.data;
                     this.package = response.data.packages;
@@ -167,7 +162,7 @@ export default {
             if (this.isFavorite) {
                 try {
                     this.isLoading = true;
-                    const response = await AuthService.removeFav(this.store.state.token, this.store.state.user.email, this.$route.params.id);
+                    const response = await AuthService.removeFav(this.store.state.user.email, this.$route.params.id);
                     this.isFavorite = false;
                     if (response.status === 200) {
                         const index = this.store.state.user.favorites.indexOf(this.$route.params.id);
@@ -196,7 +191,7 @@ export default {
             } else {
                 try {
                     this.isLoading = true;
-                    const response = await AuthService.addFav(this.store.state.token, this.store.state.user.email, this.$route.params.id);
+                    const response = await AuthService.addFav(this.store.state.user.email, this.$route.params.id);
                     if (response.status === 200) {
                         this.isFavorite = true;
                         user.favorites.push(photographerId);

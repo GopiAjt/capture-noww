@@ -70,7 +70,7 @@ export default {
     methods: {
         async getBookingData() {
             try {
-                const response = await AuthService.getBookings(this.user, this.store.state.token);
+                const response = await AuthService.getBookings(this.user);
                 this.bookings = response.data;
                 console.log(response.data);
                 
@@ -105,7 +105,7 @@ export default {
         },
         async cancelBooking(bookingId) {
             try {
-                await AuthService.cancelBooking(bookingId, this.store.state.token);
+                await AuthService.cancelBooking(bookingId);
                 this.getBookingData(); // Refresh bookings after cancellation
                 this.$toast.add({ severity: 'success', summary: 'Cancelled', detail: 'Booking has been cancelled', life: 3000 });
             } catch (error) {

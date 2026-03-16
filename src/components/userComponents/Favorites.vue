@@ -36,9 +36,9 @@ export default {
         }
     },
     methods: {
-        async getFevorites(u_id, token) {
+        async getFevorites(u_id) {
             try {
-                const response = await AuthService.getFevorites(u_id, token);
+                const response = await AuthService.getFevorites(u_id);
                 console.log((await response).data);
                 this.favoritesData = (await response).data;
                 console.log(this.favoritesData);
@@ -54,7 +54,7 @@ export default {
     mounted() {
         console.log(this.$store.state.token);
         console.log(this.user);
-        this.getFevorites(this.user, this.$store.state.token);
+        this.getFevorites(this.user);
     }
 }
 

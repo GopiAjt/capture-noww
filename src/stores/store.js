@@ -3,6 +3,7 @@ import { createStore } from 'vuex';
 const store = createStore({
     state: {
         token: localStorage.getItem('token') || '',
+        refreshToken: localStorage.getItem('refreshToken') || '',
         user: (() => {
             try {
                 return JSON.parse(localStorage.getItem('user'));
@@ -37,6 +38,14 @@ const store = createStore({
             state.token = null;
             localStorage.removeItem('token');
         },
+        setRefreshToken(state, refreshToken) {
+            state.refreshToken = refreshToken;
+            localStorage.setItem('refreshToken', refreshToken);
+        },
+        clearRefreshToken(state) {
+            state.refreshToken = null;
+            localStorage.removeItem('refreshToken');
+        },
         setIsLogedIn(state, status) {
             state.isLogedIn = status;
         },
@@ -68,14 +77,16 @@ const store = createStore({
         },
     },
     actions: {
-        login({ commit }, { user, token }) {
+        login({ commit }, { user, token, refreshToken }) {
             commit('setUser', user);
             commit('setToken', token);
+            commit('setRefreshToken', refreshToken);
             commit('setIsLogedIn', true);
         },
         logout({ commit }) {
             commit('clearUser');
             commit('clearToken');
+            commit('clearRefreshToken');
             commit('setIsLogedIn', false);
         },
     },
@@ -83,6 +94,7 @@ const store = createStore({
         isAuthenticated: state => !!state.token && !!state.user,
         user: state => state.user,
         token: state => state.token,
+        refreshToken: state => state.refreshToken,
         isLogedIn: state => state.isLogedIn,
         allPhotographers: state => state.photographers,
         photographersPage: state => state.photographersPage, // Getter for current page

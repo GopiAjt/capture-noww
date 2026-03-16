@@ -100,7 +100,7 @@ export default {
             };
 
             try {
-                const response = await AuthService.resetPassword(resetData, this.$store.state.token);
+                const response = await AuthService.resetPassword(resetData);
                 console.log(response.data);
                 this.oldPass = null;
                 this.newPass = null;
@@ -116,7 +116,7 @@ export default {
             this.isLoading = true;
 
             try {
-                const response = await AuthService.sendOtp(this.$store.state.user.email, this.$store.state.token);
+                const response = await AuthService.sendOtp(this.$store.state.user.email);
                 console.log(response.data);
             } catch (error) {
                 console.log(error);

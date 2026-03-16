@@ -41,7 +41,7 @@ export default {
             }
         },
         async addReview() {
-            const response = await AuthService.addReview(this.$store.state.user.email, this.photographer_id, this.rating, this.comment, this.$store.state.token);
+            const response = await AuthService.addReview(this.$store.state.user.email, this.photographer_id, this.rating, this.comment);
             console.log(response);
             if (response.status == 201) {
                 this.$toast.add({ severity: 'success', summary: 'Review Added!', detail: '', life: 3000 });

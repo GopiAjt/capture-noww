@@ -162,7 +162,7 @@ export default {
                 this.visible = true;
                 try {
                     this.photographer_id = id;
-                    const response = await AuthService.getPackages(id, this.$store.state.token);
+                    const response = await AuthService.getPackages(id);
                     if (response.status === 200) {
                         this.packages = response.data;
                     }

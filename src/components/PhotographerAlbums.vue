@@ -69,7 +69,7 @@ export default {
             isLoading.value = true;
             try {
                 const offset = page.value * pageSize.value;
-                const response = await AuthService.loadAlbums(props.photographer_id, store.state.token, offset, pageSize.value);
+                const response = await AuthService.loadAlbums(props.photographer_id, offset, pageSize.value);
                 images.value = response.data.content; // Assuming response.data contains the image array
                 totalPhotographers.value = response.data.totalElements;
                 isLoading.value = false;

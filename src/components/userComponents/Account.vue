@@ -60,7 +60,7 @@ export default {
 
             try {
                 // Send the update request to the API
-                const response = await AuthService.updateDetails(customerUpdateDto, this.$store.state.token);
+                const response = await AuthService.updateDetails(customerUpdateDto);
                 console.log(response.data);
 
                 // Update the user details in the Vuex store

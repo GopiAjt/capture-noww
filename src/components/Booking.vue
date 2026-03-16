@@ -81,8 +81,7 @@ export default {
                     this.tillDate,
                     this.package,
                     this.$store.state.user.email,
-                    this.photographer_id,
-                    this.$store.state.token);
+                    this.photographer_id);
 
                 this.$toast.add({ severity: 'success', summary: 'Booked successfully!', life: 3000 });
                 console.log(response);
